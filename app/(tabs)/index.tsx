@@ -8,7 +8,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl'; // Corrected import
 import { useTheme } from '@/components/ThemeProvider';
 import { FlightCard } from '@/components/FlightCard';
 import { AdBanner } from '@/components/ads/AdBanner';
@@ -25,6 +25,7 @@ export default function TabHomeScreen(): JSX.Element {
     removeFlight,
     refreshDetails,
   } = useTrackedFlights();
+  const t = useTranslations('home'); // Use useTranslations hook
 
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -48,10 +49,10 @@ export default function TabHomeScreen(): JSX.Element {
         <View style={styles.emptyState}>
           <MaterialCommunityIcons name="airplane-clock" size={64} color={colors.secondaryText} />
           <Text style={[styles.emptyTitle, { color: colors.text }]}>
-            {t('home.noTrackedFlights')}
+            {t('noTrackedFlights')}
           </Text>
           <Text style={[styles.emptyHint, { color: colors.secondaryText }]}>
-            {t('home.addFlightHint')}
+            {t('addFlightHint')}
           </Text>
         </View>
       ) : (
@@ -68,7 +69,7 @@ export default function TabHomeScreen(): JSX.Element {
           }
           ListHeaderComponent={
             <Text style={[styles.sectionTitle, { color: colors.text }]}>
-              {t('home.trackedFlights')}
+              {t('trackedFlights')}
             </Text>
           }
           renderItem={({ item }) => {
@@ -178,4 +179,3 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
-

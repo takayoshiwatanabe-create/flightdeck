@@ -1,4 +1,5 @@
 import type { FlightInfo, FlightStatusType } from '@/types/flight';
+import { format } from 'date-fns'; // Ensure date-fns is imported
 
 /**
  * Mock flight data for development.
@@ -189,4 +190,3 @@ export async function getFlightByIata(
 export function getStatusKey(status: FlightStatusType): string {
   return `flight.status.${status}`;
 }
-

@@ -2,15 +2,14 @@ import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getFlightByIata } from '@/lib/flightService';
 import { type FlightInfo } from '@/types/flight';
-import { format } from 'date-fns'; // Import format from date-fns
+import { format } from 'date-fns'; // Correct import for date-fns
+
+const TRACKED_FLIGHTS_KEY = 'tracked_flights';
 
 interface TrackedFlight {
   flightIata: string;
   flightDate: string; // YYYY-MM-DD format
-  trackedAt: string; // ISO string
 }
-
-const TRACKED_FLIGHTS_KEY = 'tracked_flights';
 
 export function useTrackedFlights(): {
   trackedFlights: TrackedFlight[];
@@ -28,12 +27,11 @@ export function useTrackedFlights(): {
   const loadTrackedFlights = useCallback(async (): Promise<void> => {
     try {
       const storedFlights = await AsyncStorage.getItem(TRACKED_FLIGHTS_KEY);
-      if (storedFlights) {
-        const parsedFlights: TrackedFlight[] = JSON.parse(storedFlights);
-        setTrackedFlights(parsedFlights);
-      }
+      const parsedFlights: TrackedFlight[] = storedFlights ? JSON.parse(storedFlights) : [];
+      setTrackedFlights(parsedFlights);
     } catch (error: unknown) {
       console.error('Failed to load tracked flights:', error);
+      setTrackedFlights([]);
     }
   }, []);
 
@@ -47,19 +45,21 @@ export function useTrackedFlights(): {
 
   const fetchFlightDetails = useCallback(async (flightsToFetch: TrackedFlight[]): Promise<void> => {
     setIsLoading(true);
-    const newFlightDetails = new Map<string, FlightInfo>();
+    const newDetails = new Map<string, FlightInfo>();
     const fetchPromises = flightsToFetch.map(async (tf) => {
       try {
         const detail = await getFlightByIata(tf.flightIata, tf.flightDate);
         if (detail) {
-          newFlightDetails.set(tf.flightIata, detail);
+          newDetails.set(tf.flightIata, detail);
+        } else {
+          console.warn(`Could not fetch details for flight ${tf.flightIata}`);
         }
       } catch (error: unknown) {
-        console.error(`Failed to fetch details for ${tf.flightIata}:`, error);
+        console.error(`Error fetching details for ${tf.flightIata}:`, error);
       }
     });
     await Promise.all(fetchPromises);
-    setFlightDetails(newFlightDetails);
+    setFlightDetails(newDetails);
     setIsLoading(false);
   }, []);
 
@@ -78,14 +78,17 @@ export function useTrackedFlights(): {
 
   const addFlight = useCallback(
     async (flightIata: string, flightDate: string): Promise<void> => {
-      const newFlight: TrackedFlight = {
-        flightIata,
-        flightDate,
-        trackedAt: new Date().toISOString(),
-      };
-      const updatedFlights = [...trackedFlights, newFlight];
-      setTrackedFlights(updatedFlights);
-      await saveTrackedFlights(updatedFlights);
+      const newFlight: TrackedFlight = { flightIata, flightDate };
+      if (!trackedFlights.some((f) => f.flightIata === flightIata)) {
+        const updatedFlights = [...trackedFlights, newFlight];
+        setTrackedFlights(updatedFlights);
+        await saveTrackedFlights(updatedFlights);
+        // Immediately fetch details for the newly added flight
+        const detail = await getFlightByIata(flightIata, flightDate);
+        if (detail) {
+          setFlightDetails((prev) => new Map(prev).set(flightIata, detail));
+        }
+      }
     },
     [trackedFlights, saveTrackedFlights]
   );
@@ -95,6 +98,11 @@ export function useTrackedFlights(): {
       const updatedFlights = trackedFlights.filter((f) => f.flightIata !== flightIata);
       setTrackedFlights(updatedFlights);
       await saveTrackedFlights(updatedFlights);
+      setFlightDetails((prev) => {
+        const newMap = new Map(prev);
+        newMap.delete(flightIata);
+        return newMap;
+      });
     },
     [trackedFlights, saveTrackedFlights]
   );

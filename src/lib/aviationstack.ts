@@ -3,7 +3,7 @@
 // This file should ideally live in a `src/api` or `src/server` directory
 // and be called from Next.js API Routes (Route Handlers).
 
-import { type FlightInfo, type FlightStatusType } from '@/src/types/flight'; // Corrected import path and type
+import { type FlightInfo, type FlightStatusType } from '@/types/flight'; // Corrected import path
 import { format } from 'date-fns'; // Import format from date-fns
 
 // In a real application, this API key would be stored securely as an environment variable
@@ -96,4 +96,3 @@ export async function fetchFlightDetails(
   const flights = await fetchFlightData(flightIata, flightDate);
   return flights.length > 0 ? flights[0] : null;
 }
-

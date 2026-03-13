@@ -1,14 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl'; // Corrected import
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
-import { signup } from '@/lib/actions/auth'; // Corrected import path to src/lib/actions/auth
+import { signup } from '@/lib/actions/auth';
 
 export default function SignUpScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
+  const t = useTranslations('auth.signup'); // Use useTranslations hook
 
   const handleSignUp = async (email: string, password: string): Promise<void> => {
     // console.log('Sign up attempt:', { email, password }); // Removed for production readiness
@@ -25,14 +26,14 @@ export default function SignUpScreen(): JSX.Element {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t('auth.signup.title')}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t('title')}</Text>
       <AuthForm type="signup" onSubmit={handleSignUp} />
       <View style={styles.linkContainer}>
         <Text style={[styles.linkText, { color: colors.secondaryText }]}>
-          {t('auth.signup.hasAccount')}
+          {t('hasAccount')}
         </Text>
         <Link href="/login" style={[styles.link, { color: colors.link }]}>
-          {t('auth.signup.login')}
+          {t('login')}
         </Link>
       </View>
     </View>
@@ -81,4 +82,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
-

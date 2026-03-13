@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { t } from '@/i18n';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
-import { format } from 'date-fns'; // Import format from date-fns
+import { format } from 'date-fns'; // Correct import for date-fns
 
 interface FlightSearchFormProps {
   onSearch: (flightNumber: string, flightDate: string) => Promise<void>;

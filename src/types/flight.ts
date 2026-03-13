@@ -39,4 +39,3 @@ export const STATUS_COLORS: Record<FlightStatusType, string> = {
   diverted: '#F59E0B', // Amber
   unknown: '#6B7280', // Gray
 };
-

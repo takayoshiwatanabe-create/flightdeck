@@ -1,4 +1,4 @@
-import type { FlightInfo, FlightStatusType } from '@/src/types/flight'; // Corrected import path for FlightInfo
+import type { FlightInfo, FlightStatusType } from '@/types/flight'; // Corrected import path for FlightInfo
 
 /**
  * Mock flight data for development.
@@ -189,4 +189,3 @@ export async function getFlightByIata(
 export function getStatusKey(status: FlightStatusType): string {
   return `flight.status.${status}`;
 }
-

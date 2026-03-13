@@ -43,7 +43,9 @@
     "src/lib/**/*.ts",
     "src/types/**/*.ts",
     "lib/**/*.ts",
-    "hooks/**/*.ts"
+    "hooks/**/*.ts",
+    "components/**/*.ts",
+    "components/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl'; // Corrected import
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { FlightSearchForm } from '@/components/flight-search-form';
 import { FlightList } from '@/components/flight-list';
 import { searchFlights } from '@/lib/flightService';
-import { type FlightInfo } from '@/types/flight'; // Corrected import path for FlightInfo
+import { type FlightInfo } from '@/types/flight';
 import { useRouter } from 'expo-router';
 
 export default function TabSearchScreen(): JSX.Element {
@@ -16,6 +16,8 @@ export default function TabSearchScreen(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const t = useTranslations('search'); // Use useTranslations hook
+  const tCommon = useTranslations('common'); // Use useTranslations hook for common translations
 
   const handleSearch = async (flightNumber: string, flightDate: string): Promise<void> => {
     setIsLoading(true);
@@ -24,11 +26,11 @@ export default function TabSearchScreen(): JSX.Element {
       const flights: FlightInfo[] = await searchFlights(flightNumber, flightDate);
       setSearchResults(flights);
       if (flights.length === 0) {
-        setError(t('flight.list.noResults'));
+        setError(t('flight.list.noResults')); // Corrected translation key
       }
     } catch (e: unknown) {
       console.error('Flight search error:', e);
-      setError(t('flight.list.error.generic'));
+      setError(t('flight.list.error.generic')); // Corrected translation key
     } finally {
       setIsLoading(false);
     }
@@ -37,9 +39,9 @@ export default function TabSearchScreen(): JSX.Element {
   const handleSelectFlight = (flight: FlightInfo): void => {
     // TODO: Implement navigation to a detailed flight view or tracking logic
     Alert.alert(
-      t('search.flightSelected.title'),
-      t('search.flightSelected.message', { flightNumber: flight.flightIata, airline: flight.airlineName }),
-      [{ text: t('common.ok') }]
+      t('flightSelected.title'), // Corrected translation key
+      t('flightSelected.message', { flightNumber: flight.flightIata, airline: flight.airlineName }), // Corrected translation key
+      [{ text: tCommon('ok') }] // Corrected translation key
     );
     // Example: router.push(`/flight-details/${flight.flightIata}?date=${flight.flightDate}`);
   };
@@ -50,8 +52,8 @@ export default function TabSearchScreen(): JSX.Element {
       <View style={styles.resultsContainer}>
         {searchResults.length === 0 && !isLoading && !error ? (
           <View style={styles.initialMessageContainer}>
-            <Text style={[styles.title, { color: colors.text }]}>{t('search.title')}</Text>
-            <Text style={[styles.subtitle, { color: colors.secondaryText }]}>{t('search.description')}</Text>
+            <Text style={[styles.title, { color: colors.text }]}>{t('title')}</Text>
+            <Text style={[styles.subtitle, { color: colors.secondaryText }]}>{t('description')}</Text>
           </View>
         ) : (
           <FlightList flights={searchResults} isLoading={isLoading} error={error} onSelectFlight={handleSelectFlight} />
@@ -102,5 +104,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     secondaryText: '#6B7280',
   };
 }
-
-

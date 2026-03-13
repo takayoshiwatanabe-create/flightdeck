@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl'; // Corrected import
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
@@ -16,6 +16,7 @@ function TabIcon({ name, color }: TabIconProps): JSX.Element {
 export default function TabLayout(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
+  const t = useTranslations('tabs'); // Use useTranslations hook
 
   return (
     <Tabs
@@ -35,21 +36,21 @@ export default function TabLayout(): JSX.Element {
       <Tabs.Screen
         name="index"
         options={{
-          title: t('tabs.home'),
+          title: t('home'),
           tabBarIcon: ({ color }: { color: string }) => <TabIcon name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: t('tabs.search'),
+          title: t('search'),
           tabBarIcon: ({ color }: { color: string }) => <TabIcon name="magnify" color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: t('tabs.settings'),
+          title: t('settings'),
           tabBarIcon: ({ color }: { color: string }) => <TabIcon name="cog" color={color} />,
         }}
       />
@@ -84,4 +85,3 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB', // Light Gray
   };
 }
-

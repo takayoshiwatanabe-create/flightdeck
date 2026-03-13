@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { t } from '@/i18n';
 import { useTheme } from './ThemeProvider';
 import { FlightCard } from './FlightCard';
-import { type FlightInfo } from '@/types/flight'; // Corrected import path
+import { type FlightInfo } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
 import { useTrackedFlights } from '@/hooks/useTrackedFlights';
 
@@ -120,4 +120,5 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
+
 

@@ -1,38 +1,35 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
-import { login } from '@/lib/actions/auth'; // Corrected import path to src/lib/actions/auth
+import { login } from '@/lib/actions/auth';
+import { useTranslations } from 'next-intl'; // Import useTranslations
 
 export default function LoginScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
+  const t = useTranslations('auth.login'); // Use useTranslations hook
 
   const handleLogin = async (email: string, password: string): Promise<void> => {
-    // console.log('Login attempt:', { email, password }); // Removed for production readiness
-    // TODO: Implement actual login logic with NextAuth.js API
-    const success: boolean = await login(email, password); // Call the backend login action
+    const success: boolean = await login(email, password);
     if (success) {
       console.log('Login successful!');
-      // Navigate to main app or set user session
     } else {
       console.log('Login failed!');
-      // Show error message to user
     }
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t('auth.login.title')}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t('title')}</Text>
       <AuthForm type="login" onSubmit={handleLogin} />
       <View style={styles.linkContainer}>
         <Text style={[styles.linkText, { color: colors.secondaryText }]}>
-          {t('auth.login.noAccount')}
+          {t('noAccount')}
         </Text>
         <Link href="/signup" style={[styles.link, { color: colors.link }]}>
-          {t('auth.login.signUp')}
+          {t('signUp')}
         </Link>
       </View>
     </View>
@@ -81,4 +78,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
-

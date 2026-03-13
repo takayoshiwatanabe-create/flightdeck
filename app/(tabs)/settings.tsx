@@ -10,31 +10,54 @@ import {
   Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t, getSupportedLanguages, setLanguage, getLang, type Language } from '@/i18n';
+import { useTranslations, useLocale } from 'next-intl'; // Corrected imports
+import { useRouter } from 'expo-router'; // Import useRouter for navigation
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
+
+// Define supported languages as per CLAUDE.md
+const supportedLanguages = [
+  { code: 'ja', label: '日本語' },
+  { code: 'en', label: 'English' },
+  { code: 'zh', label: '中文 (简体)' },
+  { code: 'ko', label: '한국어' },
+  { code: 'es', label: 'Español' },
+  { code: 'fr', label: 'Français' },
+  { code: 'de', label: 'Deutsch' },
+  { code: 'pt', label: 'Português' },
+  { code: 'ar', label: 'العربية' },
+  { code: 'hi', label: 'हिन्दी' },
+];
 
 export default function TabSettingsScreen(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
   const colors = getColors(theme);
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
-  const [selectedLang, setSelectedLang] = useState<Language>(getLang());
-  const languages = getSupportedLanguages();
+  const t = useTranslations('settings'); // Use useTranslations hook
+  const tCommon = useTranslations('common'); // Use useTranslations hook for common translations
+  const locale = useLocale(); // Get current locale from next-intl
+  const router = useRouter();
 
-  const handleLanguageSelect = async (lang: Language): Promise<void> => {
-    setSelectedLang(lang);
+  const handleLanguageSelect = (newLocale: string): void => {
     setShowLanguagePicker(false);
-    await setLanguage(lang);
-    Alert.alert(t('settings.languageRestart'));
+    // Use router.replace to change the locale in the URL
+    router.replace(`/${newLocale}/(tabs)/settings`);
+    Alert.alert(t('languageRestart'));
+  };
+
+  // Function to get the display name for the current language
+  const getCurrentLanguageLabel = (currentLocale: string): string => {
+    const lang = supportedLanguages.find(l => l.code === currentLocale);
+    return lang ? lang.label : 'Unknown'; // Fallback for unknown locale
   };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t('settings.title')}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t('title')}</Text>
 
       {/* Dark mode toggle */}
       <View style={[styles.settingItem, { borderBottomColor: colors.border }]}>
-        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.darkMode')}</Text>
+        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('darkMode')}</Text>
         <Switch
           value={theme === 'dark'}
           onValueChange={toggleTheme}
@@ -47,12 +70,12 @@ export default function TabSettingsScreen(): JSX.Element {
       <Pressable
         style={[styles.settingItem, { borderBottomColor: colors.border }]}
         onPress={() => setShowLanguagePicker(true)}
-        accessibilityLabel={t('settings.language')}
+        accessibilityLabel={t('language')}
       >
-        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.language')}</Text>
+        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('language')}</Text>
         <View style={styles.settingRight}>
           <Text style={[styles.settingValue, { color: colors.secondaryText }]}>
-            {t('settings.currentLanguage')}
+            {getCurrentLanguageLabel(locale)}
           </Text>
           <MaterialCommunityIcons name="chevron-right" size={20} color={colors.secondaryText} />
         </View>
@@ -65,10 +88,10 @@ export default function TabSettingsScreen(): JSX.Element {
           /* TODO: Implement subscription management */
         }}
       >
-        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.subscription')}</Text>
+        <Text style={[styles.settingLabel, { color: colors.text }]}>{t('subscription')}</Text>
         <View style={styles.settingRight}>
           <Text style={[styles.settingValue, { color: colors.secondaryText }]}>
-            {t('settings.manageSubscription')}
+            {t('manageSubscription')}
           </Text>
           <MaterialCommunityIcons name="chevron-right" size={20} color={colors.secondaryText} />
         </View>
@@ -85,25 +108,25 @@ export default function TabSettingsScreen(): JSX.Element {
           <View style={[styles.modalContent, { backgroundColor: colors.modalBg }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: colors.text }]}>
-                {t('settings.selectLanguage')}
+                {t('selectLanguage')}
               </Text>
               <Pressable
                 onPress={() => setShowLanguagePicker(false)}
-                accessibilityLabel={t('common.cancel')}
+                accessibilityLabel={tCommon('cancel')}
               >
                 <MaterialCommunityIcons name="close" size={24} color={colors.secondaryText} />
               </Pressable>
             </View>
             <FlatList
-              data={languages}
+              data={supportedLanguages}
               keyExtractor={(item) => item.code}
               renderItem={({ item }) => (
                 <Pressable
                   style={[styles.languageItem, { borderBottomColor: colors.border }]}
-                  onPress={() => void handleLanguageSelect(item.code)}
+                  onPress={() => handleLanguageSelect(item.code)}
                 >
                   <Text style={[styles.languageLabel, { color: colors.text }]}>{item.label}</Text>
-                  {item.code === selectedLang ? (
+                  {item.code === locale ? (
                     <MaterialCommunityIcons name="check" size={20} color="#22D3EE" />
                   ) : null}
                 </Pressable>
@@ -213,4 +236,3 @@ function getColors(theme: ColorScheme): {
     modalBg: '#FFFFFF',
   };
 }
-

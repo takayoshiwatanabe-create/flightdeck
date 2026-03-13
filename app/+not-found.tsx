@@ -1,20 +1,21 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl'; // Corrected import
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
 export default function NotFoundScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
+  const t = useTranslations('notFound'); // Use useTranslations hook
 
   return (
     <>
-      <Stack.Screen options={{ title: t('notFound.title') }} />
+      <Stack.Screen options={{ title: t('title') }} />
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Text style={[styles.title, { color: colors.text }]}>{t('notFound.heading')}</Text>
+        <Text style={[styles.title, { color: colors.text }]}>{t('heading')}</Text>
         <Link href="/" style={[styles.link, { color: colors.link }]}>
-          <Text style={[styles.linkText, { color: colors.link }]}>{t('notFound.goHome')}</Text>
+          <Text style={[styles.linkText, { color: colors.link }]}>{t('goHome')}</Text>
         </Link>
       </View>
     </>
@@ -55,4 +56,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; link
     link: '#007AFF',
   };
 }
-

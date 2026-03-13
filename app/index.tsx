@@ -1,25 +1,26 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import { t } from "@/i18n";
+import { useTranslations } from "next-intl"; // Corrected import
 import { useTheme } from "@/components/ThemeProvider";
 import { type ColorScheme } from "@/types/theme";
 
 export default function HomeScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
+  const t = useTranslations('app'); // Use useTranslations hook
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t("app.title")}</Text>
-      <Text style={[styles.subtitle, { color: colors.secondaryText }]}>{t("app.tagline")}</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t("title")}</Text>
+      <Text style={[styles.subtitle, { color: colors.secondaryText }]}>{t("tagline")}</Text>
       <Link href="/(auth)/login" style={[styles.link, { color: colors.link }]}>
-        <Text style={styles.linkText}>{t("app.loginPrompt")}</Text>
+        <Text style={styles.linkText}>{t("loginPrompt")}</Text>
       </Link>
       <Link href="/(auth)/signup" style={[styles.link, { color: colors.link }]}>
-        <Text style={styles.linkText}>{t("app.signupPrompt")}</Text>
+        <Text style={styles.linkText}>{t("signupPrompt")}</Text>
       </Link>
       <Link href="/(tabs)" style={[styles.link, { color: colors.link }]}>
-        <Text style={styles.linkText}>{t("app.guestPrompt")}</Text>
+        <Text style={styles.linkText}>{t("guestPrompt")}</Text>
       </Link>
     </View>
   );
@@ -67,4 +68,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
-

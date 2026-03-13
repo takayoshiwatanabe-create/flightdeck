@@ -6,7 +6,7 @@ import { useTheme } from './ThemeProvider';
 import type { FlightInfo } from '@/types/flight';
 import { STATUS_COLORS, type FlightStatusType } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
-import { getStatusKey } from '@/lib/flightService'; // Corrected import path
+import { getStatusKey } from '@/lib/flightService';
 
 interface FlightCardProps {
   flight: FlightInfo;

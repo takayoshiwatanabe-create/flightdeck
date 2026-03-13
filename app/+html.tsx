@@ -2,13 +2,14 @@ import { type PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { InitialTheme, ThemeProvider } from '@/components/ThemeProvider';
-import { getLang, isRTL } from '@/i18n';
+import { useLocale } from 'next-intl'; // Corrected import
 
 export default function Root({ children }: PropsWithChildren): JSX.Element {
-  const currentLang = getLang();
+  const currentLocale = useLocale(); // Get current locale from next-intl
+  const isRTL = currentLocale === 'ar';
 
   return (
-    <html lang={currentLang} dir={isRTL() ? 'rtl' : 'ltr'}>
+    <html lang={currentLocale} dir={isRTL ? 'rtl' : 'ltr'}>
       <head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -32,5 +33,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-
