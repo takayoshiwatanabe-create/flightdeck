@@ -119,6 +119,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
     marginBottom: 10,
+    // Spec: "過剰な赤色警告の使用（遅延はアンバー/オレンジで表現）"
+    // This is an error message, so red is acceptable here.
+    // The spec refers to flight status colors.
   },
   input: {
     height: 50,
@@ -205,12 +208,12 @@ function getColors(theme: ColorScheme): {
       googleButtonBackground: '#DB4437', // Google Red
       googleButtonText: '#FFFFFF',
       icon: '#D1D5DB',
-      error: '#EF4444', // Red
+      error: '#EF4444', // Red for error messages is acceptable
       secondaryText: '#D1D5DB',
     };
   }
   return {
-    inputBackground: '#F9FAFB',
+    inputBackground: '#F3F4F6',
     inputText: '#1F2937',
     inputPlaceholder: '#6B7280',
     inputBorder: '#E5E7EB',
@@ -219,7 +222,8 @@ function getColors(theme: ColorScheme): {
     googleButtonBackground: '#DB4437', // Google Red
     googleButtonText: '#FFFFFF',
     icon: '#6B7280',
-    error: '#EF4444', // Red
+    error: '#EF4444', // Red for error messages is acceptable
     secondaryText: '#6B7280',
   };
 }
+

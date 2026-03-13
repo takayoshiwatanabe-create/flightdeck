@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, StyleSheet, View, Image } from "react-native";
 
 interface Props {
   onFinish: () => void;
@@ -27,7 +27,7 @@ export function RuokSplash({ onFinish }: Props): JSX.Element {
   return (
     <View style={styles.overlay}>
       <Animated.Image
-        source={require("../assets/ruok-splash.png")}
+        source={require("@/assets/ruok-splash.png")}
         style={[styles.image, { opacity }]}
         resizeMode="contain"
       />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     zIndex: 9999,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFFFFF", // Default background, theme provider will override for web
     alignItems: "center",
     justifyContent: "center",
   },
@@ -48,3 +48,4 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+

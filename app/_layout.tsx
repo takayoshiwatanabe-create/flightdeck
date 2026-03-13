@@ -4,11 +4,11 @@ import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useReviewPrompt } from "@/hooks/useReviewPrompt";
 import { RuokSplash } from "@/components/RuokSplash";
-import { t, lang } from "@/i18n"; // Import lang
+import { t, getLang } from "@/i18n"; // Import getLang
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { NextIntlClientProvider } from "next-intl"; // Import NextIntlClientProvider
+import { NextIntlClientProvider } from "next-intl"; // next-intl is a dependency, so it should be importable
 import { getMessages } from "@/i18n/server"; // Import server-side message fetching
 import { Platform } from "react-native";
 import { type AbstractIntlMessages } from "next-intl";
@@ -16,12 +16,13 @@ import { type AbstractIntlMessages } from "next-intl";
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout(): JSX.Element {
-  useReviewPrompt();
   const [splashDone, setSplashDone] = useState<boolean>(false);
+  useReviewPrompt(); // Call the hook here
 
   // Fetch messages for the current language
   // In a real Next.js app, this would be an async server component.
   // For this Expo-only context, we fetch synchronously.
+  const lang = getLang(); // Get the current language
   const messages: AbstractIntlMessages = getMessages(lang);
 
   // For native, wrap with NextIntlClientProvider here.
@@ -80,3 +81,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+

@@ -3,24 +3,41 @@ import { type PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { InitialTheme, ThemeProvider } from '@/components/ThemeProvider';
-import { isRTL, lang } from '@/i18n';
+import { getLang, isRTL, loadPersistedLanguage } from '@/src/i18n'; // Corrected import path and added loadPersistedLanguage
 import { Platform } from 'react-native';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from '@/i18n/server';
+import { getMessages } from '@/i18n/server'; // Corrected import path
 import { type AbstractIntlMessages } from 'next-intl';
+import { useEffect, useState } from 'react'; // Import useState and useEffect
 
 // This is the main layout of the app
 // It wraps your pages with an HTML template.
 export default function Root({ children }: PropsWithChildren): JSX.Element {
+  const [isLanguageLoaded, setIsLanguageLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load persisted language on mount for native apps
+    // For web, the language is determined by the server for initial render
+    // and then client-side `setLanguage` will update it.
+    if (Platform.OS !== 'web') {
+      loadPersistedLanguage().finally(() => {
+        setIsLanguageLoaded(true);
+      });
+    } else {
+      setIsLanguageLoaded(true); // For web, assume language is ready or will be handled by next-intl
+    }
+  }, []);
+
   // Only render HTML-specific elements on web
   if (Platform.OS === 'web') {
     // Fetch messages for the current language on the server
     // In a real Next.js app, this would be done in layout.tsx or a page.
     // For this Expo-only context, we simulate it here.
-    const messages: AbstractIntlMessages = getMessages(lang);
+    const currentLang = getLang(); // Get the current language
+    const messages: AbstractIntlMessages = getMessages(currentLang);
 
     return (
-      <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
+      <html lang={currentLang} dir={isRTL() ? 'rtl' : 'ltr'}>
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -37,7 +54,7 @@ export default function Root({ children }: PropsWithChildren): JSX.Element {
         <body>
           <GestureHandlerRootView style={styles.container}>
             <ThemeProvider>
-              <NextIntlClientProvider locale={lang} messages={messages}>
+              <NextIntlClientProvider locale={currentLang} messages={messages}>
                 {children}
               </NextIntlClientProvider>
             </ThemeProvider>
@@ -48,6 +65,11 @@ export default function Root({ children }: PropsWithChildren): JSX.Element {
   }
 
   // For native platforms, just return the children wrapped in ThemeProvider and GestureHandlerRootView
+  // Ensure language is loaded before rendering children to prevent FOUC for translations
+  if (!isLanguageLoaded) {
+    return null; // Or a native splash screen component
+  }
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <ThemeProvider>

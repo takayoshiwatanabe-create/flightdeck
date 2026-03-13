@@ -4,7 +4,7 @@ import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
-import { login } from '@/src/lib/actions/auth';
+import { login } from '@/src/lib/actions/auth'; // Corrected import path to src/lib/actions/auth
 
 export default function LoginScreen(): JSX.Element {
   const { theme } = useTheme();

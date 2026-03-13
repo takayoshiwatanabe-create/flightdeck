@@ -1,23 +1,12 @@
-import { createIntl } from 'next-intl';
-import { translations, type Language } from './translations';
+import { createGetMessages } from 'next-intl/server';
+import { translations, type Language } from '@/src/i18n/translations'; // Adjust path as necessary
 
-// This file is a placeholder for server-side i18n message fetching in a Next.js app.
-// In a real Next.js App Router setup, you would typically have a `messages` object
-// that is loaded dynamically based on the locale.
+// This file is specifically for Next.js server-side message fetching.
+// It uses `next-intl/server` to provide messages to `NextIntlClientProvider`.
 
-// For the current Expo-only context, we'll just return the client-side translations.
-// When integrating with Next.js, this function would be used in server components
-// to load messages for `NextIntlClientProvider`.
-
-export function getMessages(locale: Language): Record<string, string> {
-  // In a Next.js server component, you might load messages from a file system
-  // or a database based on the locale.
-  // For now, we return the pre-defined translations.
-  return translations[locale] ?? translations.ja; // Fallback to Japanese
-}
-
-// You can also create a server-side translator if needed, e.g., for API routes
-export async function getTranslator(locale: Language) {
-  const messages = getMessages(locale);
-  return createIntl({ locale, messages, defaultLocale: 'en' }).formatMessage;
-}
+export const getMessages = createGetMessages<typeof translations, Language>(async (locale: Language) => {
+  // In a real application, you might load messages from a file system or database.
+  // For this project, we directly use the `translations` object.
+  // Ensure the locale exists in your translations.
+  return translations[locale] ?? translations.en; // Fallback to English if locale not found
+});
