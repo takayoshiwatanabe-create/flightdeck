@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "Obtenez les informations de vol avant l'annonce officielle",
+    "loginPrompt": "Vous avez déjà un compte ? Connectez-vous",
+    "signupPrompt": "Pas encore de compte ? Inscrivez-vous maintenant",
+    "guestPrompt": "Naviguer en tant qu'invité"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "button": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "signUp": "S'inscrire maintenant"
+    },
+    "signup": {
+      "title": "Créer un compte",
+      "button": "Créer un compte",
+      "hasAccount": "Vous avez déjà un compte ?",
+      "login": "Se connecter"
+    },
+    "form": {
+      "emailPlaceholder": "E-mail",
+      "passwordPlaceholder": "Mot de passe",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "googleLogin": "Se connecter avec Google",
+      "or": "Ou",
+      "loading": "Chargement...",
+      "error": {
+        "emptyFields": "Veuillez remplir tous les champs.",
+        "invalidEmail": "Veuillez entrer une adresse e-mail valide.",
+        "passwordTooShort": "Le mot de passe doit contenir au moins 6 caractères.",
+        "generic": "Une erreur est survenue. Veuillez réessayer."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Accueil",
+    "search": "Rechercher",
+    "settings": "Paramètres"
+  },
+  "home": {
+    "noTrackedFlights": "Aucun vol suivi pour le moment.",
+    "addFlightHint": "Utilisez l'onglet 'Rechercher' pour ajouter des vols.",
+    "trackedFlights": "Vols suivis",
+    "loading": "Chargement des vols..."
+  },
+  "search": {
+    "title": "Trouvez votre vol",
+    "description": "Recherchez des vols par numéro de vol et date.",
+    "form": {
+      "flightNumberPlaceholder": "Numéro de vol (ex: AF123)",
+      "datePlaceholder": "Date du vol (AAAA-MM-JJ)",
+      "searchButton": "Rechercher un vol",
+      "error": {
+        "emptyFlightNumber": "Veuillez entrer un numéro de vol.",
+        "invalidDate": "Veuillez entrer une date valide (AAAA-MM-JJ)."
+      }
+    },
+    "flightSelected": {
+      "title": "Vol sélectionné",
+      "message": "Vous avez sélectionné le vol {airline} {flightNumber}."
+    },
+    "flight": {
+      "list": {
+        "loading": "Recherche de vols...",
+        "noResults": "Aucun vol trouvé pour ces critères.",
+        "error": {
+          "generic": "Une erreur est survenue lors de la recherche de vols. Veuillez réessayer."
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "Prévu",
+      "active": "Actif",
+      "landed": "Atterri",
+      "cancelled": "Annulé",
+      "delayed": "Retardé"
+    },
+    "terminal": "Terminal",
+    "gate": "Porte",
+    "delay": "{minutes} min de retard",
+    "track": "Suivre",
+    "untrack": "Ne plus suivre"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "darkMode": "Mode sombre",
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue",
+    "languageRestart": "Vous devrez peut-être redémarrer l'application pour que les changements de langue s'appliquent entièrement.",
+    "subscription": "Abonnement",
+    "manageSubscription": "Gérer l'abonnement",
+    "subscription": {
+      "title": "Statut de l'abonnement",
+      "status": {
+        "premium": "Vous êtes un abonné Premium !",
+        "free": "Vous utilisez le plan Gratuit."
+      },
+      "currentPeriodEnd": "Votre période d'abonnement actuelle se termine le : {date}",
+      "manageSubscription": "Gérer mon abonnement",
+      "subscribe": "S'abonner à FlightDeck Premium",
+      "monthlyPlan": "Plan mensuel",
+      "yearlyPlan": "Plan annuel",
+      "price": {
+        "monthly": "¥480/mois",
+        "yearly": "¥3.800/an"
+      },
+      "redirectingToStripe": "Redirection vers Stripe pour gérer votre abonnement.",
+      "error": {
+        "fetchFailed": "Échec de la récupération du statut d'abonnement.",
+        "generic": "Une erreur est survenue.",
+        "noPortalUrl": "Impossible de récupérer l'URL du portail client.",
+        "portalFailed": "Échec de la création de la session du portail client.",
+        "noCheckoutUrl": "Impossible de récupérer l'URL de paiement.",
+        "checkoutFailed": "Échec de la création de la session de paiement."
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck Premium",
+    "description": "Tirez le meilleur parti de FlightDeck avec les fonctionnalités premium.",
+    "monthlyPlan": {
+      "title": "Plan Mensuel",
+      "price": "¥480",
+      "unit": "/mois",
+      "feature1": "Suivi de vol illimité",
+      "feature2": "Mises à jour en temps réel"
+    },
+    "yearlyPlan": {
+      "title": "Plan Annuel",
+      "price": "¥3.800",
+      "unit": "/an",
+      "feature1": "Suivi de vol illimité",
+      "feature2": "Mises à jour en temps réel",
+      "feature3": "20% de réduction (Économisez ¥1.960)"
+    },
+    "checkout": {
+      "error": "Échec de l'initialisation du paiement. Veuillez réessayer."
+    }
+  },
+  "notFound": {
+    "title": "Non trouvé",
+    "heading": "Cet écran n'existe pas.",
+    "goHome": "Aller à l'écran d'accueil !"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "error": "Erreur"
+  }
+}

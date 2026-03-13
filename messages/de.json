@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "Erhalten Sie Fluginformationen vor der offiziellen Ankündigung",
+    "loginPrompt": "Haben Sie bereits ein Konto? Anmelden",
+    "signupPrompt": "Noch kein Konto? Jetzt registrieren",
+    "guestPrompt": "Als Gast stöbern"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "button": "Anmelden",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Jetzt registrieren"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "button": "Konto erstellen",
+      "hasAccount": "Haben Sie bereits ein Konto?",
+      "login": "Anmelden"
+    },
+    "form": {
+      "emailPlaceholder": "E-Mail",
+      "passwordPlaceholder": "Passwort",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen",
+      "googleLogin": "Mit Google anmelden",
+      "or": "Oder",
+      "loading": "Wird geladen...",
+      "error": {
+        "emptyFields": "Bitte alle Felder ausfüllen.",
+        "invalidEmail": "Bitte eine gültige E-Mail-Adresse eingeben.",
+        "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Startseite",
+    "search": "Suchen",
+    "settings": "Einstellungen"
+  },
+  "home": {
+    "noTrackedFlights": "Noch keine Flüge verfolgt.",
+    "addFlightHint": "Verwenden Sie den Tab 'Suchen', um Flüge hinzuzufügen.",
+    "trackedFlights": "Verfolgte Flüge",
+    "loading": "Flüge werden geladen..."
+  },
+  "search": {
+    "title": "Finden Sie Ihren Flug",
+    "description": "Suchen Sie Flüge nach Flugnummer und Datum.",
+    "form": {
+      "flightNumberPlaceholder": "Flugnummer (z.B. LH456)",
+      "datePlaceholder": "Flugdatum (JJJJ-MM-TT)",
+      "searchButton": "Flug suchen",
+      "error": {
+        "emptyFlightNumber": "Bitte geben Sie eine Flugnummer ein.",
+        "invalidDate": "Bitte geben Sie ein gültiges Datum ein (JJJJ-MM-TT)."
+      }
+    },
+    "flightSelected": {
+      "title": "Flug ausgewählt",
+      "message": "Sie haben Flug {airline} {flightNumber} ausgewählt."
+    },
+    "flight": {
+      "list": {
+        "loading": "Flüge werden gesucht...",
+        "noResults": "Keine Flüge für diese Kriterien gefunden.",
+        "error": {
+          "generic": "Beim Suchen nach Flügen ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "Geplant",
+      "active": "Aktiv",
+      "landed": "Gelandet",
+      "cancelled": "Annulliert",
+      "delayed": "Verspätet"
+    },
+    "terminal": "Terminal",
+    "gate": "Gate",
+    "delay": "{minutes} Minuten Verspätung",
+    "track": "Verfolgen",
+    "untrack": "Verfolgung aufheben"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "darkMode": "Dunkelmodus",
+    "language": "Sprache",
+    "selectLanguage": "Sprache auswählen",
+    "languageRestart": "Möglicherweise müssen Sie die App neu starten, um die Sprachänderungen vollständig zu übernehmen.",
+    "subscription": "Abonnement",
+    "manageSubscription": "Abonnement verwalten",
+    "subscription": {
+      "title": "Abonnementstatus",
+      "status": {
+        "premium": "Sie sind ein Premium-Abonnent!",
+        "free": "Sie nutzen den kostenlosen Plan."
+      },
+      "currentPeriodEnd": "Ihr aktueller Abonnementzeitraum endet am: {date}",
+      "manageSubscription": "Mein Abonnement verwalten",
+      "subscribe": "FlightDeck Premium abonnieren",
+      "monthlyPlan": "Monatsplan",
+      "yearlyPlan": "Jahresplan",
+      "price": {
+        "monthly": "¥480/Monat",
+        "yearly": "¥3.800/Jahr"
+      },
+      "redirectingToStripe": "Sie werden zu Stripe weitergeleitet, um Ihr Abonnement zu verwalten.",
+      "error": {
+        "fetchFailed": "Fehler beim Abrufen des Abonnementstatus.",
+        "generic": "Ein Fehler ist aufgetreten.",
+        "noPortalUrl": "Kundenportal-URL konnte nicht abgerufen werden.",
+        "portalFailed": "Fehler beim Erstellen der Kundenportal-Sitzung.",
+        "noCheckoutUrl": "Checkout-URL konnte nicht abgerufen werden.",
+        "checkoutFailed": "Fehler beim Erstellen der Checkout-Sitzung."
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck Premium",
+    "description": "Holen Sie mit Premium-Funktionen das Beste aus FlightDeck heraus.",
+    "monthlyPlan": {
+      "title": "Monatsplan",
+      "price": "¥480",
+      "unit": "/Monat",
+      "feature1": "Unbegrenzte Flugverfolgung",
+      "feature2": "Echtzeit-Updates"
+    },
+    "yearlyPlan": {
+      "title": "Jahresplan",
+      "price": "¥3.800",
+      "unit": "/Jahr",
+      "feature1": "Unbegrenzte Flugverfolgung",
+      "feature2": "Echtzeit-Updates",
+      "feature3": "20% Rabatt (Sparen Sie ¥1.960)"
+    },
+    "checkout": {
+      "error": "Fehler beim Starten des Checkout-Vorgangs. Bitte versuchen Sie es erneut."
+    }
+  },
+  "notFound": {
+    "title": "Nicht gefunden",
+    "heading": "Diese Seite existiert nicht.",
+    "goHome": "Zur Startseite gehen!"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "error": "Fehler"
+  }
+}

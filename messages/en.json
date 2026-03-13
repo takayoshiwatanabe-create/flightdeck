@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "Get flight information before official announcement",
+    "loginPrompt": "Already have an account? Log in",
+    "signupPrompt": "Don't have an account? Sign up now",
+    "guestPrompt": "Browse as Guest"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "button": "Log In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up Now"
+    },
+    "signup": {
+      "title": "Create Account",
+      "button": "Create Account",
+      "hasAccount": "Already have an account?",
+      "login": "Log In"
+    },
+    "form": {
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "googleLogin": "Sign in with Google",
+      "or": "Or",
+      "loading": "Loading...",
+      "error": {
+        "emptyFields": "Please fill in all fields.",
+        "invalidEmail": "Please enter a valid email address.",
+        "passwordTooShort": "Password must be at least 6 characters long.",
+        "generic": "An error occurred. Please try again."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Home",
+    "search": "Search",
+    "settings": "Settings"
+  },
+  "home": {
+    "noTrackedFlights": "No tracked flights yet.",
+    "addFlightHint": "Use the 'Search' tab to add flights.",
+    "trackedFlights": "Tracked Flights",
+    "loading": "Loading flights..."
+  },
+  "search": {
+    "title": "Find Your Flight",
+    "description": "Search for flights by flight number and date.",
+    "form": {
+      "flightNumberPlaceholder": "Flight Number (e.g., UA123)",
+      "datePlaceholder": "Flight Date (YYYY-MM-DD)",
+      "searchButton": "Search Flight",
+      "error": {
+        "emptyFlightNumber": "Please enter a flight number.",
+        "invalidDate": "Please enter a valid date (YYYY-MM-DD)."
+      }
+    },
+    "flightSelected": {
+      "title": "Flight Selected",
+      "message": "You selected flight {airline} {flightNumber}."
+    },
+    "flight": {
+      "list": {
+        "loading": "Searching for flights...",
+        "noResults": "No flights found for these criteria.",
+        "error": {
+          "generic": "An error occurred while searching for flights. Please try again."
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "Scheduled",
+      "active": "Active",
+      "landed": "Landed",
+      "cancelled": "Cancelled",
+      "delayed": "Delayed"
+    },
+    "terminal": "Terminal",
+    "gate": "Gate",
+    "delay": "{minutes} min delay",
+    "track": "Track",
+    "untrack": "Untrack"
+  },
+  "settings": {
+    "title": "Settings",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "languageRestart": "You may need to restart the app for language changes to fully apply.",
+    "subscription": "Subscription",
+    "manageSubscription": "Manage Subscription",
+    "subscription": {
+      "title": "Subscription Status",
+      "status": {
+        "premium": "You are a Premium subscriber!",
+        "free": "You are on the Free plan."
+      },
+      "currentPeriodEnd": "Your current subscription period ends on: {date}",
+      "manageSubscription": "Manage My Subscription",
+      "subscribe": "Subscribe to FlightDeck Premium",
+      "monthlyPlan": "Monthly Plan",
+      "yearlyPlan": "Yearly Plan",
+      "price": {
+        "monthly": "¥480/month",
+        "yearly": "¥3,800/year"
+      },
+      "redirectingToStripe": "Redirecting you to Stripe to manage your subscription.",
+      "error": {
+        "fetchFailed": "Failed to fetch subscription status.",
+        "generic": "An error occurred.",
+        "noPortalUrl": "Could not retrieve customer portal URL.",
+        "portalFailed": "Failed to create customer portal session.",
+        "noCheckoutUrl": "Could not retrieve checkout URL.",
+        "checkoutFailed": "Failed to create checkout session."
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck Premium",
+    "description": "Get the most out of FlightDeck with premium features.",
+    "monthlyPlan": {
+      "title": "Monthly Plan",
+      "price": "¥480",
+      "unit": "/month",
+      "feature1": "Unlimited flight tracking",
+      "feature2": "Real-time updates"
+    },
+    "yearlyPlan": {
+      "title": "Yearly Plan",
+      "price": "¥3,800",
+      "unit": "/year",
+      "feature1": "Unlimited flight tracking",
+      "feature2": "Real-time updates",
+      "feature3": "20% discount (Save ¥1,960)"
+    },
+    "checkout": {
+      "error": "Failed to initiate checkout. Please try again."
+    }
+  },
+  "notFound": {
+    "title": "Not Found",
+    "heading": "This screen doesn't exist.",
+    "goHome": "Go to home screen!"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "back": "Back",
+    "error": "Error"
+  }
+}

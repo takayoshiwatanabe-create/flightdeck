@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "公式発表より早くフライト情報をお届け",
+    "loginPrompt": "アカウントをお持ちですか？ログイン",
+    "signupPrompt": "アカウントをお持ちでないですか？今すぐ登録",
+    "guestPrompt": "ゲストとして閲覧"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "button": "ログイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "今すぐ登録"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "button": "アカウント作成",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "login": "ログイン"
+    },
+    "form": {
+      "emailPlaceholder": "メールアドレス",
+      "passwordPlaceholder": "パスワード",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを隠す",
+      "googleLogin": "Googleでサインイン",
+      "or": "または",
+      "loading": "読み込み中...",
+      "error": {
+        "emptyFields": "すべてのフィールドを入力してください。",
+        "invalidEmail": "有効なメールアドレスを入力してください。",
+        "passwordTooShort": "パスワードは6文字以上である必要があります。",
+        "generic": "エラーが発生しました。もう一度お試しください。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "ホーム",
+    "search": "検索",
+    "settings": "設定"
+  },
+  "home": {
+    "noTrackedFlights": "まだ追跡中のフライトはありません。",
+    "addFlightHint": "「検索」タブを使ってフライトを追加してください。",
+    "trackedFlights": "追跡中のフライト",
+    "loading": "フライトを読み込み中..."
+  },
+  "search": {
+    "title": "フライトを検索",
+    "description": "フライト番号と日付でフライトを検索します。",
+    "form": {
+      "flightNumberPlaceholder": "フライト番号 (例: JL789)",
+      "datePlaceholder": "フライト日付 (YYYY-MM-DD)",
+      "searchButton": "フライトを検索",
+      "error": {
+        "emptyFlightNumber": "フライト番号を入力してください。",
+        "invalidDate": "有効な日付 (YYYY-MM-DD) を入力してください。"
+      }
+    },
+    "flightSelected": {
+      "title": "フライトが選択されました",
+      "message": "フライト {airline} {flightNumber} を選択しました。"
+    },
+    "flight": {
+      "list": {
+        "loading": "フライトを検索中...",
+        "noResults": "この条件に一致するフライトは見つかりませんでした。",
+        "error": {
+          "generic": "フライトの検索中にエラーが発生しました。もう一度お試しください。"
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "定刻",
+      "active": "運航中",
+      "landed": "着陸済み",
+      "cancelled": "欠航",
+      "delayed": "遅延"
+    },
+    "terminal": "ターミナル",
+    "gate": "ゲート",
+    "delay": "{minutes}分遅延",
+    "track": "追跡",
+    "untrack": "追跡解除"
+  },
+  "settings": {
+    "title": "設定",
+    "darkMode": "ダークモード",
+    "language": "言語",
+    "selectLanguage": "言語を選択",
+    "languageRestart": "言語の変更を完全に適用するには、アプリを再起動する必要がある場合があります。",
+    "subscription": "サブスクリプション",
+    "manageSubscription": "サブスクリプションを管理",
+    "subscription": {
+      "title": "サブスクリプション状況",
+      "status": {
+        "premium": "あなたはプレミアム会員です！",
+        "free": "あなたは無料プランをご利用中です。"
+      },
+      "currentPeriodEnd": "現在のサブスクリプション期間は {date} に終了します",
+      "manageSubscription": "サブスクリプションを管理",
+      "subscribe": "FlightDeckプレミアムに登録",
+      "monthlyPlan": "月額プラン",
+      "yearlyPlan": "年額プラン",
+      "price": {
+        "monthly": "¥480/月",
+        "yearly": "¥3,800/年"
+      },
+      "redirectingToStripe": "サブスクリプション管理のためStripeにリダイレクトしています。",
+      "error": {
+        "fetchFailed": "サブスクリプション状況の取得に失敗しました。",
+        "generic": "エラーが発生しました。",
+        "noPortalUrl": "顧客ポータルURLを取得できませんでした。",
+        "portalFailed": "顧客ポータルセッションの作成に失敗しました。",
+        "noCheckoutUrl": "チェックアウトURLを取得できませんでした。",
+        "checkoutFailed": "チェックアウトセッションの作成に失敗しました。"
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeckプレミアム",
+    "description": "プレミアム機能でFlightDeckを最大限に活用しましょう。",
+    "monthlyPlan": {
+      "title": "月額プラン",
+      "price": "¥480",
+      "unit": "/月",
+      "feature1": "無制限のフライト追跡",
+      "feature2": "リアルタイム更新"
+    },
+    "yearlyPlan": {
+      "title": "年額プラン",
+      "price": "¥3,800",
+      "unit": "/年",
+      "feature1": "無制限のフライト追跡",
+      "feature2": "リアルタイム更新",
+      "feature3": "20%割引 (¥1,960お得)"
+    },
+    "checkout": {
+      "error": "チェックアウトの開始に失敗しました。もう一度お試しください。"
+    }
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "heading": "この画面は存在しません。",
+    "goHome": "ホーム画面へ！"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "キャンセル",
+    "back": "戻る",
+    "error": "エラー"
+  }
+}

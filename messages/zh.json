@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "在官方公布前获取航班信息",
+    "loginPrompt": "已有账户？登录",
+    "signupPrompt": "没有账户？立即注册",
+    "guestPrompt": "以访客身份浏览"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "button": "登录",
+      "noAccount": "没有账户？",
+      "signUp": "立即注册"
+    },
+    "signup": {
+      "title": "创建账户",
+      "button": "创建账户",
+      "hasAccount": "已有账户？",
+      "login": "登录"
+    },
+    "form": {
+      "emailPlaceholder": "电子邮件",
+      "passwordPlaceholder": "密码",
+      "showPassword": "显示密码",
+      "hidePassword": "隐藏密码",
+      "googleLogin": "使用 Google 登录",
+      "or": "或",
+      "loading": "加载中...",
+      "error": {
+        "emptyFields": "请填写所有字段。",
+        "invalidEmail": "请输入有效的电子邮件地址。",
+        "passwordTooShort": "密码长度至少为6个字符。",
+        "generic": "发生错误。请重试。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "主页",
+    "search": "搜索",
+    "settings": "设置"
+  },
+  "home": {
+    "noTrackedFlights": "尚未追踪任何航班。",
+    "addFlightHint": "使用“搜索”选项卡添加航班。",
+    "trackedFlights": "已追踪航班",
+    "loading": "正在加载航班..."
+  },
+  "search": {
+    "title": "查找您的航班",
+    "description": "按航班号和日期搜索航班。",
+    "form": {
+      "flightNumberPlaceholder": "航班号 (例如: CA123)",
+      "datePlaceholder": "航班日期 (YYYY-MM-DD)",
+      "searchButton": "搜索航班",
+      "error": {
+        "emptyFlightNumber": "请输入航班号。",
+        "invalidDate": "请输入有效的日期 (YYYY-MM-DD)。"
+      }
+    },
+    "flightSelected": {
+      "title": "航班已选择",
+      "message": "您选择了航班 {airline} {flightNumber}。"
+    },
+    "flight": {
+      "list": {
+        "loading": "正在搜索航班...",
+        "noResults": "未找到符合条件的航班。",
+        "error": {
+          "generic": "搜索航班时发生错误。请重试。"
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "计划",
+      "active": "正在飞行",
+      "landed": "已降落",
+      "cancelled": "已取消",
+      "delayed": "延误"
+    },
+    "terminal": "航站楼",
+    "gate": "登机口",
+    "delay": "延误 {minutes} 分钟",
+    "track": "追踪",
+    "untrack": "取消追踪"
+  },
+  "settings": {
+    "title": "设置",
+    "darkMode": "深色模式",
+    "language": "语言",
+    "selectLanguage": "选择语言",
+    "languageRestart": "您可能需要重新启动应用程序才能完全应用语言更改。",
+    "subscription": "订阅",
+    "manageSubscription": "管理订阅",
+    "subscription": {
+      "title": "订阅状态",
+      "status": {
+        "premium": "您是高级订阅者！",
+        "free": "您使用的是免费计划。"
+      },
+      "currentPeriodEnd": "您当前的订阅期将于 {date} 结束",
+      "manageSubscription": "管理我的订阅",
+      "subscribe": "订阅 FlightDeck 高级版",
+      "monthlyPlan": "月度计划",
+      "yearlyPlan": "年度计划",
+      "price": {
+        "monthly": "¥480/月",
+        "yearly": "¥3,800/年"
+      },
+      "redirectingToStripe": "正在将您重定向到 Stripe 以管理您的订阅。",
+      "error": {
+        "fetchFailed": "获取订阅状态失败。",
+        "generic": "发生错误。",
+        "noPortalUrl": "无法检索客户门户网址。",
+        "portalFailed": "创建客户门户会话失败。",
+        "noCheckoutUrl": "无法检索结账网址。",
+        "checkoutFailed": "创建结账会话失败。"
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck 高级版",
+    "description": "通过高级功能充分利用 FlightDeck。",
+    "monthlyPlan": {
+      "title": "月度计划",
+      "price": "¥480",
+      "unit": "/月",
+      "feature1": "无限航班追踪",
+      "feature2": "实时更新"
+    },
+    "yearlyPlan": {
+      "title": "年度计划",
+      "price": "¥3,800",
+      "unit": "/年",
+      "feature1": "无限航班追踪",
+      "feature2": "实时更新",
+      "feature3": "20% 折扣 (节省 ¥1,960)"
+    },
+    "checkout": {
+      "error": "启动结账失败。请重试。"
+    }
+  },
+  "notFound": {
+    "title": "未找到",
+    "heading": "此屏幕不存在。",
+    "goHome": "前往主屏幕！"
+  },
+  "common": {
+    "ok": "确定",
+    "cancel": "取消",
+    "back": "返回",
+    "error": "错误"
+  }
+}

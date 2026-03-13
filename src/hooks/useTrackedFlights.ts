@@ -1,7 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getFlightByIata } from '@/lib/flightService';
+import { fetchFlightDetails } from '@/lib/flightService';
 import { type FlightInfo } from '@/types/flight';
 
 interface TrackedFlight {
@@ -9,9 +8,7 @@ interface TrackedFlight {
   flightDate: string; // YYYY-MM-DD
 }
 
-const TRACKED_FLIGHTS_KEY = 'tracked_flights';
-
-export function useTrackedFlights(): {
+interface UseTrackedFlightsResult {
   trackedFlights: TrackedFlight[];
   flightDetails: Map<string, FlightInfo>;
   isLoading: boolean;
@@ -19,97 +16,105 @@ export function useTrackedFlights(): {
   removeFlight: (flightIata: string) => Promise<void>;
   isTracked: (flightIata: string) => boolean;
   refreshDetails: () => Promise<void>;
-} {
-  const [trackedFlights, setTrackedFlights] = useState<TrackedFlight[]>([]);
-  const queryClient = useQueryClient();
+}
 
-  // Load tracked flights from AsyncStorage on mount
-  useEffect(() => {
-    async function loadTrackedFlights(): Promise<void> {
-      try {
-        const storedFlights = await AsyncStorage.getItem(TRACKED_FLIGHTS_KEY);
-        if (storedFlights) {
-          setTrackedFlights(JSON.parse(storedFlights) as TrackedFlight[]);
+const TRACKED_FLIGHTS_KEY = 'tracked_flights';
+
+export function useTrackedFlights(): UseTrackedFlightsResult {
+  const [trackedFlights, setTrackedFlights] = useState<TrackedFlight[]>([]);
+  const [flightDetails, setFlightDetails] = useState<Map<string, FlightInfo>>(new Map());
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const loadTrackedFlights = useCallback(async (): Promise<void> => {
+    try {
+      setIsLoading(true);
+      const storedFlights = await AsyncStorage.getItem(TRACKED_FLIGHTS_KEY);
+      const parsedFlights: TrackedFlight[] = storedFlights ? JSON.parse(storedFlights) : [];
+      setTrackedFlights(parsedFlights);
+
+      // Fetch details for all tracked flights
+      const detailsMap = new Map<string, FlightInfo>();
+      const fetchPromises = parsedFlights.map(async (flight) => {
+        try {
+          const detail = await fetchFlightDetails(flight.flightIata, flight.flightDate);
+          if (detail) {
+            detailsMap.set(flight.flightIata, detail);
+          }
+        } catch (e: unknown) {
+          console.error(`Failed to fetch details for ${flight.flightIata}:`, e);
+          // Optionally, handle individual flight fetch errors (e.g., show a stale data indicator)
         }
-      } catch (error: unknown) {
-        console.error('Failed to load tracked flights from storage:', error);
-      }
+      });
+      await Promise.all(fetchPromises);
+      setFlightDetails(detailsMap);
+    } catch (e: unknown) {
+      console.error('Failed to load tracked flights or their details:', e);
+    } finally {
+      setIsLoading(false);
     }
-    void loadTrackedFlights();
   }, []);
 
-  // Use React Query to fetch details for all tracked flights
-  const flightDetailsQuery = useQuery<Map<string, FlightInfo>, Error, Map<string, FlightInfo>, (string | TrackedFlight[])[]>(
-    {
-      queryKey: ['flightDetails', trackedFlights],
-      queryFn: async ({ queryKey }) => {
-        const [, flightsToFetch] = queryKey as [string, TrackedFlight[]];
-        const detailsMap = new Map<string, FlightInfo>();
-        const fetchPromises = flightsToFetch.map(async (flight) => {
-          try {
-            const detail = await getFlightByIata(flight.flightIata, flight.flightDate);
-            if (detail) {
-              detailsMap.set(flight.flightIata, detail);
-            }
-          } catch (error: unknown) {
-            console.error(`Failed to fetch details for ${flight.flightIata}:`, error);
-          }
-        });
-        await Promise.all(fetchPromises);
-        return detailsMap;
-      },
-      enabled: trackedFlights.length > 0, // Only run query if there are flights to track
-      staleTime: 60 * 1000, // 60 seconds stale time for flight data
-      gcTime: 5 * 60 * 1000, // 5 minutes garbage collection time
-    }
-  );
+  useEffect(() => {
+    void loadTrackedFlights();
+  }, [loadTrackedFlights]);
 
-  const addFlight = useCallback(
-    async (flightIata: string, flightDate: string): Promise<void> => {
-      const newFlight: TrackedFlight = { flightIata, flightDate };
-      setTrackedFlights((prevFlights) => {
-        if (prevFlights.some((f) => f.flightIata === flightIata)) {
-          return prevFlights; // Already tracked
+  const saveTrackedFlights = async (flights: TrackedFlight[]): Promise<void> => {
+    await AsyncStorage.setItem(TRACKED_FLIGHTS_KEY, JSON.stringify(flights));
+    setTrackedFlights(flights);
+  };
+
+  const addFlight = async (flightIata: string, flightDate: string): Promise<void> => {
+    if (!trackedFlights.some(f => f.flightIata === flightIata)) {
+      const newFlights = [...trackedFlights, { flightIata, flightDate }];
+      await saveTrackedFlights(newFlights);
+      // Immediately fetch and add new flight's details
+      try {
+        const detail = await fetchFlightDetails(flightIata, flightDate);
+        if (detail) {
+          setFlightDetails(prev => new Map(prev).set(flightIata, detail));
         }
-        const updatedFlights = [...prevFlights, newFlight];
-        void AsyncStorage.setItem(TRACKED_FLIGHTS_KEY, JSON.stringify(updatedFlights));
-        // Invalidate and refetch flight details for the new flight
-        void queryClient.invalidateQueries({ queryKey: ['flightDetails'] });
-        return updatedFlights;
-      });
-    },
-    [queryClient]
-  );
+      } catch (e: unknown) {
+        console.error(`Failed to fetch details for new tracked flight ${flightIata}:`, e);
+      }
+    }
+  };
 
-  const removeFlight = useCallback(
-    async (flightIata: string): Promise<void> => {
-      setTrackedFlights((prevFlights) => {
-        const updatedFlights = prevFlights.filter((f) => f.flightIata !== flightIata);
-        void AsyncStorage.setItem(TRACKED_FLIGHTS_KEY, JSON.stringify(updatedFlights));
-        // Invalidate and refetch flight details (or just remove from cache)
-        void queryClient.invalidateQueries({ queryKey: ['flightDetails'] });
-        return updatedFlights;
-      });
-    },
-    [queryClient]
-  );
+  const removeFlight = async (flightIata: string): Promise<void> => {
+    const newFlights = trackedFlights.filter(f => f.flightIata !== flightIata);
+    await saveTrackedFlights(newFlights);
+    setFlightDetails(prev => {
+      const newMap = new Map(prev);
+      newMap.delete(flightIata);
+      return newMap;
+    });
+  };
 
-  const isTracked = useCallback(
-    (flightIata: string): boolean => {
-      return trackedFlights.some((f) => f.flightIata === flightIata);
-    },
-    [trackedFlights]
-  );
+  const isTracked = (flightIata: string): boolean => {
+    return trackedFlights.some(f => f.flightIata === flightIata);
+  };
 
   const refreshDetails = useCallback(async (): Promise<void> => {
-    await queryClient.invalidateQueries({ queryKey: ['flightDetails'] });
-    await queryClient.refetchQueries({ queryKey: ['flightDetails'] });
-  }, [queryClient]);
+    setIsLoading(true);
+    const detailsMap = new Map<string, FlightInfo>();
+    const fetchPromises = trackedFlights.map(async (flight) => {
+      try {
+        const detail = await fetchFlightDetails(flight.flightIata, flight.flightDate);
+        if (detail) {
+          detailsMap.set(flight.flightIata, detail);
+        }
+      } catch (e: unknown) {
+        console.error(`Failed to refresh details for ${flight.flightIata}:`, e);
+      }
+    });
+    await Promise.all(fetchPromises);
+    setFlightDetails(detailsMap);
+    setIsLoading(false);
+  }, [trackedFlights]);
 
   return {
     trackedFlights,
-    flightDetails: flightDetailsQuery.data ?? new Map(),
-    isLoading: flightDetailsQuery.isLoading,
+    flightDetails,
+    isLoading,
     addFlight,
     removeFlight,
     isTracked,

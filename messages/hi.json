@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "आधिकारिक घोषणा से पहले उड़ान की जानकारी प्राप्त करें",
+    "loginPrompt": "पहले से ही एक खाता है? लॉग इन करें",
+    "signupPrompt": "खाता नहीं है? अभी साइन अप करें",
+    "guestPrompt": "अतिथि के रूप में ब्राउज़ करें"
+  },
+  "auth": {
+    "login": {
+      "title": "लॉग इन करें",
+      "button": "लॉग इन करें",
+      "noAccount": "खाता नहीं है?",
+      "signUp": "अभी साइन अप करें"
+    },
+    "signup": {
+      "title": "खाता बनाएं",
+      "button": "खाता बनाएं",
+      "hasAccount": "पहले से ही एक खाता है?",
+      "login": "लॉग इन करें"
+    },
+    "form": {
+      "emailPlaceholder": "ईमेल",
+      "passwordPlaceholder": "पासवर्ड",
+      "showPassword": "पासवर्ड दिखाएं",
+      "hidePassword": "पासवर्ड छिपाएं",
+      "googleLogin": "Google के साथ साइन इन करें",
+      "or": "या",
+      "loading": "लोड हो रहा है...",
+      "error": {
+        "emptyFields": "कृपया सभी फ़ील्ड भरें।",
+        "invalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।",
+        "passwordTooShort": "पासवर्ड कम से कम 6 वर्ण लंबा होना चाहिए।",
+        "generic": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+      }
+    }
+  },
+  "tabs": {
+    "home": "होम",
+    "search": "खोज",
+    "settings": "सेटिंग्स"
+  },
+  "home": {
+    "noTrackedFlights": "अभी तक कोई ट्रैक की गई उड़ानें नहीं हैं।",
+    "addFlightHint": "उड़ानें जोड़ने के लिए 'खोज' टैब का उपयोग करें।",
+    "trackedFlights": "ट्रैक की गई उड़ानें",
+    "loading": "उड़ानें लोड हो रही हैं..."
+  },
+  "search": {
+    "title": "अपनी उड़ान खोजें",
+    "description": "उड़ान संख्या और तिथि के अनुसार उड़ानें खोजें।",
+    "form": {
+      "flightNumberPlaceholder": "उड़ान संख्या (उदा. AI101)",
+      "datePlaceholder": "उड़ान की तारीख (YYYY-MM-DD)",
+      "searchButton": "उड़ान खोजें",
+      "error": {
+        "emptyFlightNumber": "कृपया एक उड़ान संख्या दर्ज करें।",
+        "invalidDate": "कृपया एक वैध तिथि दर्ज करें (YYYY-MM-DD)।"
+      }
+    },
+    "flightSelected": {
+      "title": "उड़ान चयनित",
+      "message": "आपने उड़ान {airline} {flightNumber} का चयन किया।"
+    },
+    "flight": {
+      "list": {
+        "loading": "उड़ानों की खोज हो रही है...",
+        "noResults": "इन मानदंडों के लिए कोई उड़ान नहीं मिली।",
+        "error": {
+          "generic": "उड़ानों की खोज करते समय एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "निर्धारित",
+      "active": "सक्रिय",
+      "landed": "उतरी",
+      "cancelled": "रद्द",
+      "delayed": "विलंबित"
+    },
+    "terminal": "टर्मिनल",
+    "gate": "गेट",
+    "delay": "{minutes} मिनट की देरी",
+    "track": "ट्रैक करें",
+    "untrack": "अनट्रैक करें"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "darkMode": "डार्क मोड",
+    "language": "भाषा",
+    "selectLanguage": "भाषा चुनें",
+    "languageRestart": "भाषा परिवर्तनों को पूरी तरह से लागू करने के लिए आपको ऐप को पुनरारंभ करने की आवश्यकता हो सकती है।",
+    "subscription": "सदस्यता",
+    "manageSubscription": "सदस्यता प्रबंधित करें",
+    "subscription": {
+      "title": "सदस्यता स्थिति",
+      "status": {
+        "premium": "आप एक प्रीमियम ग्राहक हैं!",
+        "free": "आप मुफ्त योजना पर हैं।"
+      },
+      "currentPeriodEnd": "आपकी वर्तमान सदस्यता अवधि समाप्त होती है: {date}",
+      "manageSubscription": "मेरी सदस्यता प्रबंधित करें",
+      "subscribe": "FlightDeck प्रीमियम की सदस्यता लें",
+      "monthlyPlan": "मासिक योजना",
+      "yearlyPlan": "वार्षिक योजना",
+      "price": {
+        "monthly": "₹480/माह",
+        "yearly": "₹3,800/वर्ष"
+      },
+      "redirectingToStripe": "आपकी सदस्यता प्रबंधित करने के लिए आपको स्ट्राइप पर रीडायरेक्ट किया जा रहा है।",
+      "error": {
+        "fetchFailed": "सदस्यता स्थिति प्राप्त करने में विफल।",
+        "generic": "एक त्रुटि हुई।",
+        "noPortalUrl": "ग्राहक पोर्टल URL प्राप्त नहीं किया जा सका।",
+        "portalFailed": "ग्राहक पोर्टल सत्र बनाने में विफल।",
+        "noCheckoutUrl": "चेकआउट URL प्राप्त नहीं किया जा सका।",
+        "checkoutFailed": "चेकआउट सत्र बनाने में विफल।"
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck प्रीमियम",
+    "description": "प्रीमियम सुविधाओं के साथ FlightDeck का अधिकतम लाभ उठाएं।",
+    "monthlyPlan": {
+      "title": "मासिक योजना",
+      "price": "₹480",
+      "unit": "/माह",
+      "feature1": "असीमित उड़ान ट्रैकिंग",
+      "feature2": "रीयल-टाइम अपडेट"
+    },
+    "yearlyPlan": {
+      "title": "वार्षिक योजना",
+      "price": "₹3,800",
+      "unit": "/वर्ष",
+      "feature1": "असीमित उड़ान ट्रैकिंग",
+      "feature2": "रीयल-टाइम अपडेट",
+      "feature3": "20% छूट (₹1,960 बचाएं)"
+    },
+    "checkout": {
+      "error": "चेकआउट शुरू करने में विफल। कृपया पुनः प्रयास करें।"
+    }
+  },
+  "notFound": {
+    "title": "नहीं मिला",
+    "heading": "यह स्क्रीन मौजूद नहीं है।",
+    "goHome": "होम स्क्रीन पर जाएं!"
+  },
+  "common": {
+    "ok": "ठीक है",
+    "cancel": "रद्द करें",
+    "back": "वापस",
+    "error": "त्रुटि"
+  }
+}

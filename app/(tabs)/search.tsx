@@ -104,6 +104,3 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     secondaryText: '#6B7280',
   };
 }
-
-
-

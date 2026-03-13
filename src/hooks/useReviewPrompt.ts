@@ -2,46 +2,56 @@ import { useEffect } from 'react';
 import * as StoreReview from 'expo-store-review';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LAST_REVIEW_PROMPT_KEY = 'last_review_prompt_timestamp';
-const REVIEW_PROMPT_INTERVAL_DAYS = 30; // Prompt every 30 days
+const LAUNCH_COUNT_KEY = 'app_launch_count';
+const LAST_PROMPT_DATE_KEY = 'last_review_prompt_date';
+const PROMPT_THRESHOLD = 5; // Prompt after 5 launches
+const PROMPT_INTERVAL_DAYS = 30; // Prompt again after 30 days
 
 export function useReviewPrompt(): void {
   useEffect(() => {
-    async function checkAndPromptForReview(): Promise<void> {
-      const isAvailable = await StoreReview.isAvailableAsync();
-      if (!isAvailable) {
-        console.log('Store review not available on this device.');
-        return;
-      }
+    async function handleReviewPrompt(): Promise<void> {
+      try {
+        // Increment launch count
+        const currentCountStr = await AsyncStorage.getItem(LAUNCH_COUNT_KEY);
+        let launchCount = currentCountStr ? parseInt(currentCountStr, 10) : 0;
+        launchCount++;
+        await AsyncStorage.setItem(LAUNCH_COUNT_KEY, launchCount.toString());
 
-      const lastPromptTimestamp = await AsyncStorage.getItem(LAST_REVIEW_PROMPT_KEY);
-      const now = Date.now();
-
-      if (lastPromptTimestamp) {
-        const lastPromptDate = new Date(parseInt(lastPromptTimestamp, 10));
-        const daysSinceLastPrompt = (now - lastPromptDate.getTime()) / (1000 * 60 * 60 * 24);
-
-        if (daysSinceLastPrompt < REVIEW_PROMPT_INTERVAL_DAYS) {
-          console.log(`Review prompt skipped. Last prompted ${Math.floor(daysSinceLastPrompt)} days ago.`);
+        // Check if review is available
+        const isAvailable = await StoreReview.isAvailableAsync();
+        if (!isAvailable) {
+          console.log('Store review is not available on this device.');
           return;
         }
-      }
 
-      console.log('Prompting for store review...');
-      const hasAction = await StoreReview.requestReview();
-      if (hasAction) {
-        await AsyncStorage.setItem(LAST_REVIEW_PROMPT_KEY, now.toString());
-        console.log('Review prompt shown and timestamp updated.');
-      } else {
-        console.log('Review prompt was not shown (e.g., user already reviewed recently).');
+        // Check if already rated or opted out
+        const hasAction = await StoreReview.has
+        if (hasAction) {
+          console.log('User has already taken action on a review prompt.');
+          return;
+        }
+
+        // Get last prompt date
+        const lastPromptDateStr = await AsyncStorage.getItem(LAST_PROMPT_DATE_KEY);
+        const lastPromptDate = lastPromptDateStr ? new Date(lastPromptDateStr) : null;
+        const now = new Date();
+
+        const shouldPromptByCount = launchCount >= PROMPT_THRESHOLD;
+        const shouldPromptByTime = !lastPromptDate ||
+          (now.getTime() - lastPromptDate.getTime()) / (1000 * 60 * 60 * 24) >= PROMPT_INTERVAL_DAYS;
+
+        if (shouldPromptByCount && shouldPromptByTime) {
+          console.log('Attempting to prompt for review...');
+          const result = await StoreReview.requestReview();
+          console.log('Review prompt result:', result);
+          await AsyncStorage.setItem(LAST_PROMPT_DATE_KEY, now.toISOString());
+          await AsyncStorage.setItem(LAUNCH_COUNT_KEY, '0'); // Reset count after prompt
+        }
+      } catch (error: unknown) {
+        console.error('Error handling review prompt:', error);
       }
     }
 
-    // Delay the prompt slightly to not interfere with initial app load
-    const timer = setTimeout(() => {
-      void checkAndPromptForReview();
-    }, 5000); // 5 seconds delay
-
-    return () => clearTimeout(timer);
+    void handleReviewPrompt();
   }, []);
 }

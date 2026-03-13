@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "احصل على معلومات الرحلة قبل الإعلان الرسمي",
+    "loginPrompt": "هل لديك حساب؟ تسجيل الدخول",
+    "signupPrompt": "ليس لديك حساب؟ سجل الآن",
+    "guestPrompt": "تصفح كضيف"
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "button": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "signUp": "سجل الآن"
+    },
+    "signup": {
+      "title": "إنشاء حساب",
+      "button": "إنشاء حساب",
+      "hasAccount": "هل لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول"
+    },
+    "form": {
+      "emailPlaceholder": "البريد الإلكتروني",
+      "passwordPlaceholder": "كلمة المرور",
+      "showPassword": "إظهار كلمة المرور",
+      "hidePassword": "إخفاء كلمة المرور",
+      "googleLogin": "تسجيل الدخول باستخدام جوجل",
+      "or": "أو",
+      "loading": "جار التحميل...",
+      "error": {
+        "emptyFields": "الرجاء إدخال جميع الحقول.",
+        "invalidEmail": "الرجاء إدخال بريد إلكتروني صالح.",
+        "passwordTooShort": "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
+        "generic": "حدث خطأ. الرجاء المحاولة مرة أخرى."
+      }
+    }
+  },
+  "tabs": {
+    "home": "الرئيسية",
+    "search": "بحث",
+    "settings": "الإعدادات"
+  },
+  "home": {
+    "noTrackedFlights": "لا توجد رحلات متعقبة حتى الآن.",
+    "addFlightHint": "استخدم علامة التبويب 'بحث' لإضافة رحلات.",
+    "trackedFlights": "الرحلات المتعقبة",
+    "loading": "جار تحميل الرحلات..."
+  },
+  "search": {
+    "title": "ابحث عن رحلتك",
+    "description": "ابحث عن الرحلات حسب رقم الرحلة والتاريخ.",
+    "form": {
+      "flightNumberPlaceholder": "رقم الرحلة (مثال: NH123)",
+      "datePlaceholder": "تاريخ الرحلة (YYYY-MM-DD)",
+      "searchButton": "بحث عن رحلة",
+      "error": {
+        "emptyFlightNumber": "الرجاء إدخال رقم الرحلة.",
+        "invalidDate": "الرجاء إدخال تاريخ صالح (YYYY-MM-DD)."
+      }
+    },
+    "flightSelected": {
+      "title": "تم اختيار الرحلة",
+      "message": "لقد اخترت الرحلة {airline} {flightNumber}."
+    },
+    "flight": {
+      "list": {
+        "loading": "جار البحث عن الرحلات...",
+        "noResults": "لم يتم العثور على رحلات لهذا المعيار.",
+        "error": {
+          "generic": "حدث خطأ أثناء البحث عن الرحلات. الرجاء المحاولة مرة أخرى."
+        }
+      }
+    }
+  },
+  "flight": {
+    "status": {
+      "scheduled": "مجدولة",
+      "active": "نشطة",
+      "landed": "هبطت",
+      "cancelled": "ملغاة",
+      "delayed": "متأخرة"
+    },
+    "terminal": "المحطة",
+    "gate": "البوابة",
+    "delay": "تأخير {minutes} دقيقة",
+    "track": "تتبع",
+    "untrack": "إلغاء التتبع"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "darkMode": "الوضع الداكن",
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة",
+    "languageRestart": "قد تحتاج إلى إعادة تشغيل التطبيق لتطبيق تغييرات اللغة بالكامل.",
+    "subscription": "الاشتراك",
+    "manageSubscription": "إدارة الاشتراك",
+    "subscription": {
+      "title": "حالة الاشتراك",
+      "status": {
+        "premium": "أنت مشترك مميز!",
+        "free": "أنت تستخدم الخطة المجانية."
+      },
+      "currentPeriodEnd": "تنتهي فترة اشتراكك الحالية في: {date}",
+      "manageSubscription": "إدارة اشتراكي",
+      "subscribe": "اشترك في FlightDeck Premium",
+      "monthlyPlan": "الخطة الشهرية",
+      "yearlyPlan": "الخطة السنوية",
+      "price": {
+        "monthly": "¥480/شهر",
+        "yearly": "¥3,800/سنة"
+      },
+      "redirectingToStripe": "جار إعادة توجيهك إلى Stripe لإدارة اشتراكك.",
+      "error": {
+        "fetchFailed": "فشل جلب حالة الاشتراك.",
+        "generic": "حدث خطأ.",
+        "noPortalUrl": "لم يتم الحصول على عنوان URL لبوابة العملاء.",
+        "portalFailed": "فشل إنشاء جلسة بوابة العملاء.",
+        "noCheckoutUrl": "لم يتم الحصول على عنوان URL لصفحة الدفع.",
+        "checkoutFailed": "فشل إنشاء جلسة الدفع."
+      }
+    }
+  },
+  "subscription": {
+    "title": "FlightDeck Premium",
+    "description": "احصل على أقصى استفادة من FlightDeck مع الميزات المتميزة.",
+    "monthlyPlan": {
+      "title": "الخطة الشهرية",
+      "price": "¥480",
+      "unit": "/شهر",
+      "feature1": "تتبع غير محدود للرحلات",
+      "feature2": "تحديثات في الوقت الفعلي"
+    },
+    "yearlyPlan": {
+      "title": "الخطة السنوية",
+      "price": "¥3,800",
+      "unit": "/سنة",
+      "feature1": "تتبع غير محدود للرحلات",
+      "feature2": "تحديثات في الوقت الفعلي",
+      "feature3": "خصم 20% (وفر ¥1,960)"
+    },
+    "checkout": {
+      "error": "فشل بدء عملية الدفع. الرجاء المحاولة مرة أخرى."
+    }
+  },
+  "notFound": {
+    "title": "غير موجود",
+    "heading": "هذه الشاشة غير موجودة.",
+    "goHome": "اذهب إلى الشاشة الرئيسية!"
+  },
+  "common": {
+    "ok": "موافق",
+    "cancel": "إلغاء",
+    "back": "رجوع",
+    "error": "خطأ"
+  }
+}

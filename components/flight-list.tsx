@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTranslations } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import { FlightCard } from './FlightCard';
 import { type FlightInfo } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
 import { useTrackedFlights } from '@/src/hooks/useTrackedFlights';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import MaterialCommunityIcons
 
 interface FlightListProps {
   flights: FlightInfo[];
@@ -121,6 +121,3 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
-
-
-
