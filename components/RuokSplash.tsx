@@ -5,7 +5,7 @@ interface Props {
   onFinish: () => void;
 }
 
-export function RuokSplash({ onFinish }: Props) {
+export function RuokSplash({ onFinish }: Props): JSX.Element {
   const opacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function RuokSplash({ onFinish }: Props) {
         useNativeDriver: true,
       }),
     ]).start(() => onFinish());
-  }, []);
+  }, [opacity, onFinish]); // Added dependencies for useEffect
 
   return (
     <View style={styles.overlay}>
@@ -48,3 +48,4 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+

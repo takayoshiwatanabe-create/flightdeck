@@ -3,7 +3,7 @@ import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
-export default function TabSearchScreen() {
+export default function TabSearchScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function getColors(theme: ColorScheme) {
+function getColors(theme: ColorScheme): { background: string; text: string; secondaryText: string } {
   if (theme === 'dark') {
     return {
       background: '#121212',

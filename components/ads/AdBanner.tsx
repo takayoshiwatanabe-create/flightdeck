@@ -6,14 +6,14 @@ import {
   TestIds,
 } from 'react-native-google-mobile-ads';
 
-const BANNER_ID = __DEV__
+const BANNER_ID: string = __DEV__
   ? TestIds.ADAPTIVE_BANNER
   : Platform.select({
       ios: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',
       android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',
     }) ?? TestIds.ADAPTIVE_BANNER;
 
-export function AdBanner() {
+export function AdBanner(): JSX.Element {
   return (
     <BannerAd
       unitId={BANNER_ID}
@@ -22,3 +22,4 @@ export function AdBanner() {
     />
   );
 }
+

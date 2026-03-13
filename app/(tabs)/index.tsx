@@ -4,7 +4,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { AdBanner } from '@/components/ads/AdBanner';
 import { type ColorScheme } from '@/types/theme';
 
-export default function TabHomeScreen() {
+export default function TabHomeScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function getColors(theme: ColorScheme) {
+function getColors(theme: ColorScheme): { background: string; text: string; secondaryText: string } {
   if (theme === 'dark') {
     return {
       background: '#121212',

@@ -3,7 +3,7 @@ import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
-export default function TabSettingsScreen() {
+export default function TabSettingsScreen(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
   const colors = getColors(theme);
 
@@ -60,7 +60,15 @@ const styles = StyleSheet.create({
   },
 });
 
-function getColors(theme: ColorScheme) {
+function getColors(theme: ColorScheme): {
+  background: string;
+  text: string;
+  secondaryText: string;
+  border: string;
+  switchTrackFalse: string;
+  switchTrackTrue: string;
+  switchThumb: string;
+} {
   if (theme === 'dark') {
     return {
       background: '#121212',

@@ -7,7 +7,7 @@ import { isRTL, lang } from '@/i18n';
 
 // This is the main layout of the app
 // It wraps your pages with an HTML template.
-export default function Root({ children }: PropsWithChildren) {
+export default function Root({ children }: PropsWithChildren): JSX.Element {
   return (
     <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
       <head>

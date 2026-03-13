@@ -9,11 +9,11 @@ interface TabIconProps {
   color: string;
 }
 
-function TabIcon({ name, color }: TabIconProps) {
+function TabIcon({ name, color }: TabIconProps): JSX.Element {
   return <MaterialCommunityIcons size={28} name={name} color={color} />;
 }
 
-export default function TabLayout() {
+export default function TabLayout(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
@@ -36,28 +36,35 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t('tabs.home'),
-          tabBarIcon: ({ color }) => <TabIcon name="home" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
           title: t('tabs.search'),
-          tabBarIcon: ({ color }) => <TabIcon name="magnify" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="magnify" color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: t('tabs.settings'),
-          tabBarIcon: ({ color }) => <TabIcon name="cog" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <TabIcon name="cog" color={color} />,
         }}
       />
     </Tabs>
   );
 }
 
-function getColors(theme: ColorScheme) {
+function getColors(theme: ColorScheme): {
+  tabActive: string;
+  tabInactive: string;
+  tabBackground: string;
+  headerBackground: string;
+  headerText: string;
+  border: string;
+} {
   if (theme === 'dark') {
     return {
       tabActive: '#22D3EE', // Cyan

@@ -9,17 +9,17 @@ const THEME_KEY = 'app_theme';
 interface ThemeContextType {
   theme: ColorScheme;
   toggleTheme: () => void;
-  setTheme: (newTheme: ColorScheme) => void;
+  setTheme: (newTheme: ColorScheme) => Promise<void>; // Changed to Promise<void> as AsyncStorage is async
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export function ThemeProvider({ children }: PropsWithChildren) {
+export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
   const systemColorScheme = useColorScheme();
   const [theme, setThemeState] = useState<ColorScheme>(systemColorScheme ?? 'light');
 
   useEffect(() => {
-    async function loadTheme() {
+    async function loadTheme(): Promise<void> {
       try {
         const storedTheme = await AsyncStorage.getItem(THEME_KEY);
         if (storedTheme === 'light' || storedTheme === 'dark') {
@@ -27,21 +27,21 @@ export function ThemeProvider({ children }: PropsWithChildren) {
         } else {
           setThemeState(systemColorScheme ?? 'light');
         }
-      } catch (error) {
+      } catch (error: unknown) { // Use unknown for caught errors
         console.error('Failed to load theme from storage:', error);
         setThemeState(systemColorScheme ?? 'light');
       }
     }
-    loadTheme();
+    void loadTheme(); // Use void to explicitly ignore the Promise
   }, [systemColorScheme]);
 
-  const setTheme = async (newTheme: ColorScheme) => {
+  const setTheme = async (newTheme: ColorScheme): Promise<void> => {
     setThemeState(newTheme);
     await AsyncStorage.setItem(THEME_KEY, newTheme);
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleTheme = (): void => {
+    void setTheme(theme === 'light' ? 'dark' : 'light'); // Use void to explicitly ignore the Promise
   };
 
   // Apply theme to HTML for web
@@ -58,7 +58,7 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   );
 }
 
-export function useTheme() {
+export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');
@@ -67,9 +67,9 @@ export function useTheme() {
 }
 
 // Component to inject initial theme into HTML for web SSR
-export function InitialTheme() {
+export function InitialTheme(): JSX.Element | null {
   const systemColorScheme = useColorScheme();
-  const initialTheme = systemColorScheme ?? 'light'; // Fallback for SSR
+  const initialTheme: ColorScheme = systemColorScheme ?? 'light'; // Fallback for SSR
 
   if (Platform.OS === 'web') {
     return (
