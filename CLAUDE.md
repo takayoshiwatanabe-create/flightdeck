@@ -330,3 +330,86 @@ N/A
 
 ## Important Deadlines
 - 2026年4月28日までにXcode 26対応が必要。ExpoがSDK対応を出し次第、eas build コマンドを再実行するだけで対応完了。期限1週間前に確認すること。
+
+### Offline First Implementation Details
+
+To achieve the "Offline First" principle (1.2 設計哲学), the following strategy will be implemented:
+
+1.  **Client-side Caching for Tracked Flights**:
+    *   **Mechanism**: `AsyncStorage` (for React Native) will be used to persist a list of `trackedFlights` (flightIata, flightDate).
+    *   **Data Structure**: `trackedFlights` will be an array of objects `{ flightIata: string, flightDate: string }`.
+    *   **Initial Load**: On app launch, `useTrackedFlights` hook will attempt to load `trackedFlights` from `AsyncStorage`.
+    *   **Data Fetching**: For each `trackedFlight`, the app will attempt to fetch its latest `FlightInfo` from the API.
+    *   **Offline Behavior**: If the API call fails (e.g., no network), the app will display the *last successfully fetched* `FlightInfo` for that `flightIata` from a separate `AsyncStorage` cache (`flight_details_cache`). If no cached data exists, a "No network / No data" message will be shown.
+    *   **Cache Invalidation**: Flight details in `flight_details_cache` will have a TTL (Time-To-Live) of 60 seconds as per 5.1 データフロー. When fetching, if cached data is expired, a network request is made. If network fails, expired data can still be shown with a warning.
+    *   **Update Strategy**: When new `FlightInfo` is successfully fetched, it will update both the UI and the `flight_details_cache` in `AsyncStorage`.
+
+2.  **`useTrackedFlights` Hook Enhancement**:
+    *   The existing `useTrackedFlights` hook will be extended to manage `flight_details_cache` in `AsyncStorage`.
+    *   It will store `FlightInfo` objects keyed by `flightIata` in `AsyncStorage`.
+    *   When `refreshDetails` is called or `trackedFlights` change, it will first check `flight_details_cache`. If data is present and not expired, it will be used. Otherwise, a network request will be made. If the network request fails, it will fall back to expired cached data if available.
+
+3.  **UI Indications**:
+    *   When displaying cached data due to offline mode or network errors, a subtle UI indicator (e.g., a small icon or text "Offline data") will be shown. This is to align with "Calm Technology" (1.2 設計哲学) and avoid excessive red warnings.
+
+## Development Instructions
+N/A
+
+## Technical Stack
+- Next.js 15 + React 19 + TypeScript (strict mode)
+- TailwindCSS 4
+- Vitest for unit tests
+- Playwright for E2E tests
+
+## Code Standards
+- TypeScript strict mode, no `any`
+- Minimal comments — code should be self-documenting
+- Use path alias `@/` for imports from `src/`
+- All components use functional style with proper typing
+
+## Internationalization (i18n)
+- Supported languages: ja (日本語), en (English), zh (中文), ko (한국어), es (Español), fr (Français), de (Deutsch), pt (Português), ar (العربية), hi (हिन्दी)
+- Use the i18n module at `@/i18n` for all user-facing strings
+- Use `t("key")` function for translations — never hardcode UI strings
+- Auto-detect device language via expo-localization
+- Default language: ja (Japanese)
+- RTL support required for Arabic (ar)
+- Use isRTL flag from i18n module for layout adjustments
+
+## Important Deadlines
+- 2026年4月28日までにXcode 26対応が必要。ExpoがSDK対応を出し次第、eas build コマンドを再実行するだけで対応完了。期限1週間前に確認すること。
+
+### Offline First Implementation Details
+
+To achieve the "Offline First" principle (1.2 設計哲学), the following strategy will be implemented:
+
+1.  **Client-side Caching for Tracked Flights**:
+    *   **Mechanism**: `AsyncStorage` (for React Native) will be used to persist a list of `trackedFlights` (flightIata, flightDate).
+    *   **Data Structure**: `trackedFlights` will be an array of objects `{ flightIata: string, flightDate: string }`.
+    *   **Initial Load**: On app launch, `useTrackedFlights` hook will attempt to load `trackedFlights` from `AsyncStorage`.
+    *   **Data Fetching**: For each `trackedFlight`, the app will attempt to fetch its latest `FlightInfo` from the API.
+    *   **Offline Behavior**: If the API call fails (e.g., no network), the app will display the *last successfully fetched* `FlightInfo` for that `flightIata` from a separate `AsyncStorage` cache (`flight_details_cache`). If no cached data exists, a "No network / No data" message will be shown.
+    *   **Cache Invalidation**: Flight details in `flight_details_cache` will have a TTL (Time-To-Live) of 60 seconds as per 5.1 データフロー. When fetching, if cached data is expired, a network request is made. If network fails, expired data can still be shown with a warning.
+    *   **Update Strategy**: When new `FlightInfo` is successfully fetched, it will update both the UI and the `flight_details_cache` in `AsyncStorage`.
+
+2.  **`useTrackedFlights` Hook Enhancement**:
+    *   The existing `useTrackedFlights` hook will be extended to manage `flight_details_cache` in `AsyncStorage`.
+    *   It will store `FlightInfo` objects keyed by `flightIata` in `AsyncStorage`.
+    *   When `refreshDetails` is called or `trackedFlights` change, it will first check `flight_details_cache`. If data is present and not expired, it will be used. Otherwise, a network request will be made. If the network request fails, it will fall back to expired cached data if available.
+
+3.  **UI Indications**:
+    *   When displaying cached data due to offline mode or network errors, a subtle UI indicator (e.g., a small icon or text "Offline data") will be shown. This is to align with "Calm Technology" (1.2 設計哲学) and avoid excessive red warnings.
+
+### Additional i18n Keys for Offline First
+
+To support the UI indications for offline data, the following i18n keys need to be added:
+
+-   `common.offlineDataWarning`: "Offline data (may be outdated)"
+-   `common.noNetworkNoData`: "No network connection and no cached data available."
+
+---
+**Review Notes:**
+
+The `CLAUDE.md` file has been updated to include the "Offline First Implementation Details" section, which outlines the strategy for client-side caching using `AsyncStorage` and enhancements to the `useTrackedFlights` hook. It also specifies UI indications for offline data, aligning with the "Calm Technology" principle.
+
+Additionally, new i18n keys are proposed to support these UI indications. This ensures that all user-facing strings related to the offline-first feature are properly localized.

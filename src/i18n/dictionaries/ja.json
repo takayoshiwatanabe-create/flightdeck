@@ -106,7 +106,9 @@
   },
   "common": {
     "ok": "OK",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "offlineDataWarning": "オフラインデータ (古い可能性があります)",
+    "noNetworkNoData": "ネットワーク接続がなく、キャッシュされたデータもありません。"
   },
   "notFound": {
     "title": "ページが見つかりません",

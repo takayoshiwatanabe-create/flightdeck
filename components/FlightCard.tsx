@@ -271,4 +271,3 @@ function getColors(theme: ColorScheme): {
     trackActiveBg: '#F3F4F6',
   };
 }
-

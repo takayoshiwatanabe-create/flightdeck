@@ -244,4 +244,3 @@ function getColors(theme: ColorScheme): {
     accent: '#34D399', // Emerald
     };
 }
-

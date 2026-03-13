@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Pressable, View, ActivityIndicator, Alert } from 'react-native';
 import { useTranslations, useLocale } from 'next-intl';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
 interface UserProfile {
@@ -16,7 +16,6 @@ interface UserProfileFormProps {
   isSaving: boolean;
 }
 
-// Define supported languages as per CLAUDE.md
 const supportedLanguages = [
   { code: 'ja', label: '日本語' },
   { code: 'en', label: 'English' },
@@ -33,7 +32,8 @@ const supportedLanguages = [
 export function UserProfileForm({ profile, onSave, isSaving }: UserProfileFormProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('settings.profile');
+  const t = useTranslations('settings.profile.form');
+  const tCommon = useTranslations('common');
   const locale = useLocale();
 
   const [name, setName] = useState<string>(profile.name);
@@ -42,18 +42,43 @@ export function UserProfileForm({ profile, onSave, isSaving }: UserProfileFormPr
 
   const handleSave = async (): Promise<void> => {
     setError(null);
-    if (name.trim() === '') {
+    if (!name.trim()) {
       setError(t('error.emptyName'));
       return;
     }
 
-    const updatedData: Partial<UserProfile> = { name: name.trim(), preferredLanguage };
+    const updatedData: Partial<UserProfile> = {};
+    if (name !== profile.name) {
+      updatedData.name = name;
+    }
+    if (preferredLanguage !== profile.preferredLanguage) {
+      updatedData.preferredLanguage = preferredLanguage;
+    }
+
+    if (Object.keys(updatedData).length === 0) {
+      Alert.alert(tCommon('info'), t('noChanges'));
+      return;
+    }
+
     await onSave(updatedData);
+  };
+
+  const getCurrentLanguageLabel = (langCode: string): string => {
+    const lang = supportedLanguages.find(l => l.code === langCode);
+    return lang ? lang.label : 'Unknown';
   };
 
   return (
     <View style={styles.formContainer}>
       {error && <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>}
+
+      <Text style={[styles.label, { color: colors.text }]}>{t('emailLabel')}</Text>
+      <TextInput
+        style={[styles.input, styles.disabledInput, { backgroundColor: colors.inputBackground, color: colors.disabledText, borderColor: colors.inputBorder }]}
+        value={profile.email}
+        editable={false}
+        accessibilityLabel={t('emailLabel')}
+      />
 
       <Text style={[styles.label, { color: colors.text }]}>{t('nameLabel')}</Text>
       <TextInput
@@ -62,44 +87,36 @@ export function UserProfileForm({ profile, onSave, isSaving }: UserProfileFormPr
         placeholderTextColor={colors.inputPlaceholder}
         value={name}
         onChangeText={setName}
-        autoCapitalize="words"
         editable={!isSaving}
         accessibilityLabel={t('nameLabel')}
       />
 
-      <Text style={[styles.label, { color: colors.text }]}>{t('emailLabel')}</Text>
-      <TextInput
-        style={[styles.input, { backgroundColor: colors.inputBackground, color: colors.inputText, borderColor: colors.inputBorder }]}
-        value={profile.email}
-        editable={false} // Email is read-only
-        placeholderTextColor={colors.inputPlaceholder}
-        accessibilityLabel={t('emailLabel')}
-      />
-
-      <Text style={[styles.label, { color: colors.text }]}>{t('languageLabel')}</Text>
-      <View style={[styles.languagePickerContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
-        <Text style={[styles.languagePickerText, { color: colors.inputText }]}>
-          {supportedLanguages.find(lang => lang.code === preferredLanguage)?.label || 'Select Language'}
+      <Text style={[styles.label, { color: colors.text }]}>{t('preferredLanguageLabel')}</Text>
+      <View style={[styles.pickerContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
+        {/* This is a simplified representation. In a real app, you'd use a proper Picker component. */}
+        <Text style={[styles.pickerText, { color: colors.inputText }]}>
+          {getCurrentLanguageLabel(preferredLanguage)}
         </Text>
-        {/* In a real app, this would open a modal or a dropdown for language selection */}
+        {/* Example: Add a button to open a modal for language selection */}
         <Pressable
-          onPress={() => Alert.alert(t('languagePickerTitle'), t('languagePickerMessage'), [
-            { text: t('common.cancel'), style: 'cancel' },
-            ...supportedLanguages.map(lang => ({
+          onPress={() => Alert.alert(
+            t('selectLanguage'),
+            t('languageSelectionHint'),
+            supportedLanguages.map(lang => ({
               text: lang.label,
-              onPress: () => setPreferredLanguage(lang.code),
-            })),
-          ])}
-          style={styles.languagePickerButton}
-          accessibilityLabel={t('languageLabel')}
+              onPress: () => setPreferredLanguage(lang.code)
+            }))
+          )}
+          style={styles.pickerButton}
           disabled={isSaving}
+          accessibilityLabel={t('changeLanguage')}
         >
-          <Text style={[styles.languagePickerButtonText, { color: colors.primary }]}>{t('change')}</Text>
+          <Text style={[styles.pickerButtonText, { color: colors.primary }]}>{t('change')}</Text>
         </Pressable>
       </View>
 
       <Pressable
-        style={[styles.button, { backgroundColor: colors.buttonBackground }]}
+        style={[styles.saveButton, { backgroundColor: colors.primary }]}
         onPress={() => void handleSave()}
         disabled={isSaving}
         accessibilityLabel={t('saveButton')}
@@ -107,7 +124,7 @@ export function UserProfileForm({ profile, onSave, isSaving }: UserProfileFormPr
         {isSaving ? (
           <ActivityIndicator color={colors.buttonText} />
         ) : (
-          <Text style={[styles.buttonText, { color: colors.buttonText }]}>
+          <Text style={[styles.saveButtonText, { color: colors.buttonText }]}>
             {t('saveButton')}
           </Text>
         )}
@@ -135,7 +152,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 16,
   },
-  languagePickerContainer: {
+  disabledInput: {
+    opacity: 0.6,
+  },
+  pickerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -144,70 +164,77 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 15,
   },
-  languagePickerText: {
+  pickerText: {
     fontSize: 16,
+    flex: 1,
   },
-  languagePickerButton: {
+  pickerButton: {
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 5,
   },
-  languagePickerButtonText: {
+  pickerButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
   },
-  errorText: {
-    fontSize: 14,
-    textAlign: 'center',
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  button: {
+  saveButton: {
     height: 50,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 30,
   },
-  buttonText: {
+  saveButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  errorText: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 10,
+    color: '#EF4444',
   },
 });
 
 function getColors(theme: ColorScheme): {
+  background: string;
+  text: string;
+  secondaryText: string;
   inputBackground: string;
   inputText: string;
   inputPlaceholder: string;
   inputBorder: string;
-  buttonBackground: string;
+  disabledText: string;
+  primary: string;
   buttonText: string;
   error: string;
-  text: string;
-  primary: string;
 } {
   if (theme === 'dark') {
     return {
+      background: '#121212',
+      text: '#F9FAFB',
+      secondaryText: '#9CA3AF',
       inputBackground: '#374151',
       inputText: '#F9FAFB',
       inputPlaceholder: '#9CA3AF',
       inputBorder: '#4B5563',
-      buttonBackground: '#22D3EE', // Cyan
-      buttonText: '#1F2937',
-      error: '#EF4444', // Red
-      text: '#F9FAFB',
+      disabledText: '#6B7280',
       primary: '#22D3EE',
+      buttonText: '#1F2937',
+      error: '#EF4444',
     };
   }
   return {
+    background: '#FFFFFF',
+    text: '#1F2937',
+    secondaryText: '#6B7280',
     inputBackground: '#F9FAFB',
     inputText: '#1F2937',
     inputPlaceholder: '#6B7280',
     inputBorder: '#E5E7EB',
-    buttonBackground: '#22D3EE', // Cyan
+    disabledText: '#9CA3AF',
+    primary: '#22D3EE',
     buttonText: '#FFFFFF',
-    error: '#EF4444', // Red
-    text: '#1F2937',
-    primary: '#007AFF', // Blue
+    error: '#EF4444',
     };
 }

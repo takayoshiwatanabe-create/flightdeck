@@ -4,7 +4,7 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./src/*"
+        "./*"
       ],
       "next-intl": [
         "./node_modules/next-intl/dist/src/index.d.ts"
@@ -47,10 +47,13 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "i18n/**/*.ts",
-    "i18n/**/*.tsx"
+    "i18n/**/*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "hooks/**/*.ts",
+    "hooks/**/*.tsx"
   ],
   "exclude": [
     "node_modules"
   ]
 }
-

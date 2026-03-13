@@ -102,11 +102,30 @@
     "subscription.yearlyPlan": "Yearly Plan",
     "subscription.price.monthly": "¥480/month",
     "subscription.price.yearly": "¥3,800/year",
-    "subscription.subscribe": "Subscribe"
+    "subscription.subscribe": "Subscribe",
+    "profile": {
+      "form": {
+        "emailLabel": "Email",
+        "nameLabel": "Name",
+        "namePlaceholder": "Enter your name",
+        "preferredLanguageLabel": "Preferred Language",
+        "change": "Change",
+        "selectLanguage": "Select Language",
+        "languageSelectionHint": "Please select your preferred language from the options.",
+        "saveButton": "Save Profile",
+        "error": {
+          "emptyName": "Name cannot be empty."
+        },
+        "noChanges": "No changes to save."
+      }
+    }
   },
   "common": {
     "ok": "OK",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "info": "Info",
+    "offlineDataWarning": "Offline data (may be outdated)",
+    "noNetworkNoData": "No network connection and no cached data available."
   },
   "notFound": {
     "title": "Page Not Found",
@@ -114,3 +133,4 @@
     "goHome": "Go to home screen"
   }
 }
+

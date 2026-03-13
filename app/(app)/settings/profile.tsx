@@ -170,6 +170,5 @@ function getColors(theme: ColorScheme): {
     text: '#1F2937',
     secondaryText: '#6B7280',
     errorText: '#EF4444',
-  };
+    };
 }
-

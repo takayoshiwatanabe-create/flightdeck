@@ -1,191 +1,187 @@
-import type { FlightInfo, FlightStatusType } from '@/types/flight';
+// This file will contain functions for fetching flight data.
+// For now, these are mock implementations.
 
-/**
- * Mock flight data for development.
- * In production, this would proxy through a backend API to Aviationstack.
- * Direct client-to-Aviationstack calls are prohibited per spec (API key exposure).
- */
+import { type FlightInfo, type FlightStatusType } from '@/types/flight';
+import { format } from 'date-fns';
 
-const MOCK_FLIGHTS: FlightInfo[] = [
+// Mock data for demonstration
+const mockFlights: FlightInfo[] = [
   {
-    flightIata: 'NH123',
-    flightNumber: '123',
-    airlineName: 'All Nippon Airways',
-    airlineIata: 'NH',
-    flightDate: '2026-03-13',
-    status: 'scheduled',
-    departure: {
-      airport: 'Tokyo Haneda',
-      iata: 'HND',
-      terminal: '2',
-      gate: '68',
-      delay: null,
-      scheduled: '2026-03-13T09:00:00Z',
-      estimated: '2026-03-13T09:00:00Z',
-      actual: null,
-    },
-    arrival: {
-      airport: 'Osaka Itami',
-      iata: 'ITM',
-      terminal: '1',
-      gate: null,
-      delay: null,
-      scheduled: '2026-03-13T10:15:00Z',
-      estimated: '2026-03-13T10:15:00Z',
-      actual: null,
-    },
-  },
-  {
-    flightIata: 'JL456',
-    flightNumber: '456',
+    flightIata: 'JL123',
+    flightDate: '2024-07-20',
     airlineName: 'Japan Airlines',
-    airlineIata: 'JL',
-    flightDate: '2026-03-13',
-    status: 'delayed',
     departure: {
-      airport: 'Narita International',
-      iata: 'NRT',
-      terminal: '2',
-      gate: '34A',
-      delay: 25,
-      scheduled: '2026-03-13T11:30:00Z',
-      estimated: '2026-03-13T11:55:00Z',
-      actual: null,
-    },
-    arrival: {
-      airport: 'Los Angeles International',
-      iata: 'LAX',
-      terminal: 'B',
-      gate: null,
-      delay: null,
-      scheduled: '2026-03-13T05:30:00Z',
-      estimated: '2026-03-13T05:55:00Z',
-      actual: null,
-    },
-  },
-  {
-    flightIata: 'UA789',
-    flightNumber: '789',
-    airlineName: 'United Airlines',
-    airlineIata: 'UA',
-    flightDate: '2026-03-13',
-    status: 'active',
-    departure: {
-      airport: 'San Francisco International',
-      iata: 'SFO',
-      terminal: '3',
-      gate: '87',
-      delay: null,
-      scheduled: '2026-03-13T01:00:00Z',
-      estimated: '2026-03-13T01:00:00Z',
-      actual: '2026-03-13T01:03:00Z',
-    },
-    arrival: {
-      airport: 'Tokyo Narita',
-      iata: 'NRT',
-      terminal: '1',
-      gate: null,
-      delay: null,
-      scheduled: '2026-03-14T05:00:00Z',
-      estimated: '2026-03-14T04:50:00Z',
-      actual: null,
-    },
-  },
-  {
-    flightIata: 'SQ12',
-    flightNumber: '12',
-    airlineName: 'Singapore Airlines',
-    airlineIata: 'SQ',
-    flightDate: '2026-03-13',
-    status: 'landed',
-    departure: {
-      airport: 'Singapore Changi',
-      iata: 'SIN',
-      terminal: '3',
-      gate: 'B12',
-      delay: null,
-      scheduled: '2026-03-12T23:55:00Z',
-      estimated: '2026-03-12T23:55:00Z',
-      actual: '2026-03-12T23:58:00Z',
-    },
-    arrival: {
-      airport: 'Tokyo Narita',
-      iata: 'NRT',
-      terminal: '1',
-      gate: '42',
-      delay: null,
-      scheduled: '2026-03-13T08:00:00Z',
-      estimated: '2026-03-13T07:50:00Z',
-      actual: '2026-03-13T07:48:00Z',
-    },
-  },
-  {
-    flightIata: 'CX500',
-    flightNumber: '500',
-    airlineName: 'Cathay Pacific',
-    airlineIata: 'CX',
-    flightDate: '2026-03-13',
-    status: 'cancelled',
-    departure: {
-      airport: 'Hong Kong International',
-      iata: 'HKG',
-      terminal: '1',
-      gate: null,
-      delay: null,
-      scheduled: '2026-03-13T14:00:00Z',
-      estimated: null,
-      actual: null,
-    },
-    arrival: {
-      airport: 'Tokyo Haneda',
       iata: 'HND',
-      terminal: '3',
+      airport: 'Haneda Airport',
+      timezone: 'Asia/Tokyo',
+      scheduled: '2024-07-20T10:00:00Z',
+      estimated: '2024-07-20T10:00:00Z',
+      actual: null,
+      terminal: '1',
+      gate: 'A12',
+      delay: 0,
+    },
+    arrival: {
+      iata: 'ITM',
+      airport: 'Osaka International Airport',
+      timezone: 'Asia/Tokyo',
+      scheduled: '2024-07-20T11:15:00Z',
+      estimated: '2024-07-20T11:15:00Z',
+      actual: null,
+      terminal: 'B',
+      gate: '15',
+      delay: 0,
+    },
+    status: 'scheduled',
+  },
+  {
+    flightIata: 'NH456',
+    flightDate: '2024-07-20',
+    airlineName: 'ANA',
+    departure: {
+      iata: 'NRT',
+      airport: 'Narita International Airport',
+      timezone: 'Asia/Tokyo',
+      scheduled: '2024-07-20T14:30:00Z',
+      estimated: '2024-07-20T14:45:00Z',
+      actual: null,
+      terminal: '2',
+      gate: 'C30',
+      delay: 15,
+    },
+    arrival: {
+      iata: 'FUK',
+      airport: 'Fukuoka Airport',
+      timezone: 'Asia/Tokyo',
+      scheduled: '2024-07-20T16:30:00Z',
+      estimated: '2024-07-20T16:45:00Z',
+      actual: null,
+      terminal: null,
       gate: null,
-      delay: null,
-      scheduled: '2026-03-13T19:30:00Z',
+      delay: 15,
+    },
+    status: 'delayed',
+  },
+  {
+    flightIata: 'AA789',
+    flightDate: '2024-07-20',
+    airlineName: 'American Airlines',
+    departure: {
+      iata: 'LAX',
+      airport: 'Los Angeles International Airport',
+      timezone: 'America/Los_Angeles',
+      scheduled: '2024-07-20T08:00:00Z',
+      estimated: '2024-07-20T08:00:00Z',
+      actual: '2024-07-20T08:05:00Z',
+      terminal: 'T4',
+      gate: '45',
+      delay: 5,
+    },
+    arrival: {
+      iata: 'JFK',
+      airport: 'John F. Kennedy International Airport',
+      timezone: 'America/New_York',
+      scheduled: '2020-07-20T17:00:00Z',
+      estimated: '2020-07-20T17:05:00Z',
+      actual: '2020-07-20T17:02:00Z',
+      terminal: 'T8',
+      gate: '10',
+      delay: 2,
+    },
+    status: 'landed',
+  },
+  {
+    flightIata: 'UA001',
+    flightDate: '2024-07-20',
+    airlineName: 'United Airlines',
+    departure: {
+      iata: 'ORD',
+      airport: 'O\'Hare International Airport',
+      timezone: 'America/Chicago',
+      scheduled: '2024-07-20T09:00:00Z',
       estimated: null,
       actual: null,
+      terminal: '1',
+      gate: 'B10',
+      delay: null,
     },
+    arrival: {
+      iata: 'SFO',
+      airport: 'San Francisco International Airport',
+      timezone: 'America/Los_Angeles',
+      scheduled: '2024-07-20T11:30:00Z',
+      estimated: null,
+      actual: null,
+      terminal: '3',
+      gate: 'F15',
+      delay: null,
+    },
+    status: 'cancelled',
   },
 ];
 
-/** Simulate API latency */
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export async function searchFlights(flightNumber: string, flightDate: string): Promise<FlightInfo[]> {
+  console.log(`Searching for flight ${flightNumber} on ${flightDate}`);
+  // Simulate API call delay
+  await new Promise<void>(resolve => { setTimeout(resolve, 1500); });
 
-/** Search flights by number (mock implementation) */
-export async function searchFlights(
-  flightNumber: string,
-  _flightDate: string
-): Promise<FlightInfo[]> {
-  await delay(800);
+  const normalizedFlightNumber = flightNumber.toUpperCase();
+  const normalizedFlightDate = format(new Date(flightDate), 'yyyy-MM-dd');
 
-  const query = flightNumber.toUpperCase().trim();
-  if (query.length === 0) return [];
-
-  return MOCK_FLIGHTS.filter(
-    (f) =>
-      f.flightIata.toUpperCase().includes(query) ||
-      f.airlineIata.toUpperCase() === query
+  const results = mockFlights.filter(
+    (flight) =>
+      flight.flightIata.includes(normalizedFlightNumber) &&
+      flight.flightDate === normalizedFlightDate
   );
+
+  if (results.length === 0) {
+    console.log('No flights found for:', flightNumber, flightDate);
+  } else {
+    console.log('Found flights:', results);
+  }
+
+  return results;
 }
 
-/** Get flight details by IATA code (mock implementation) */
-export async function getFlightByIata(
-  flightIata: string,
-  _flightDate: string
-): Promise<FlightInfo | null> {
-  await delay(400);
+export async function fetchFlightDetails(flightIata: string, flightDate: string): Promise<FlightInfo | null> {
+  console.log(`Fetching details for flight ${flightIata} on ${flightDate}`);
+  // Simulate API call delay
+  await new Promise<void>(resolve => { setTimeout(resolve, 1000); });
 
-  return (
-    MOCK_FLIGHTS.find(
-      (f) => f.flightIata.toUpperCase() === flightIata.toUpperCase()
-    ) ?? null
+  const normalizedFlightDate = format(new Date(flightDate), 'yyyy-MM-dd');
+
+  const flight = mockFlights.find(
+    (f) => f.flightIata === flightIata && f.flightDate === normalizedFlightDate
   );
+
+  if (!flight) {
+    console.log('Flight details not found for:', flightIata, flightDate);
+  } else {
+    console.log('Fetched flight details:', flight);
+  }
+
+  return flight || null;
 }
 
-/** Get status label translation key */
+// Helper to map API status to i18n key
 export function getStatusKey(status: FlightStatusType): string {
-  return `flight.status.${status}`;
+  switch (status) {
+    case 'scheduled':
+      return 'status.scheduled';
+    case 'active':
+      return 'status.active';
+    case 'landed':
+      return 'status.landed';
+    case 'delayed':
+      return 'status.delayed';
+    case 'cancelled':
+      return 'status.cancelled';
+    case 'incident':
+      return 'status.incident';
+    case 'diverted':
+      return 'status.diverted';
+    default:
+      return 'status.unknown';
+  }
 }
+

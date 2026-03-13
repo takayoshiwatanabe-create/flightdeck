@@ -106,7 +106,9 @@
   },
   "common": {
     "ok": "确定",
-    "cancel": "取消"
+    "cancel": "取消",
+    "offlineDataWarning": "离线数据（可能已过时）",
+    "noNetworkNoData": "无网络连接且无可用缓存数据。"
   },
   "notFound": {
     "title": "页面未找到",

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Pressable } from 'react-native';
 import { FlightCard } from '@/components/FlightCard';
 import { useTheme } from '@/components/ThemeProvider';
-import { type ColorScheme } from '@/types/theme';
+import { type ColorScheme } => '@/types/theme';
 import { type FlightInfo } from '@/types/flight';
 import { useTrackedFlights } from '@/hooks/useTrackedFlights';
 import { useTranslations } from 'next-intl';
@@ -12,13 +12,15 @@ interface FlightListProps {
   isLoading: boolean;
   error: string | null;
   onSelectFlight: (flight: FlightInfo) => void;
+  isOfflineData?: boolean; // New prop for offline data indication
 }
 
-export function FlightList({ flights, isLoading, error, onSelectFlight }: FlightListProps): JSX.Element {
+export function FlightList({ flights, isLoading, error, onSelectFlight, isOfflineData }: FlightListProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
   const { addFlight, removeFlight, isFlightTracked } = useTrackedFlights();
   const t = useTranslations('flight.list');
+  const tCommon = useTranslations('common'); // For offline data warning
 
   const handleToggleTrack = (flightIata: string, flight: FlightInfo): void => {
     if (isFlightTracked(flightIata)) {
@@ -41,6 +43,11 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
     return (
       <View style={styles.centered}>
         <Text style={[styles.errorText, { color: colors.errorText }]}>{error}</Text>
+        {isOfflineData && ( // Show specific message if error is due to no network and no cached data
+          <Text style={[styles.noNetworkNoDataText, { color: colors.secondaryText }]}>
+            {tCommon('noNetworkNoData')}
+          </Text>
+        )}
       </View>
     );
   }
@@ -64,6 +71,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
             flight={item}
             isTracked={isFlightTracked(item.flightIata)}
             onToggleTrack={(flightIata) => handleToggleTrack(flightIata, item)}
+            isOfflineData={isOfflineData} // Pass offline data prop to FlightCard
           />
         </Pressable>
       )}
@@ -94,6 +102,12 @@ const styles = StyleSheet.create({
   listContent: {
     padding: 16,
   },
+  noNetworkNoDataText: {
+    marginTop: 10,
+    fontSize: 14,
+    textAlign: 'center',
+    fontStyle: 'italic',
+  },
 });
 
 function getColors(theme: ColorScheme): {
@@ -111,3 +125,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
   };
 }
+

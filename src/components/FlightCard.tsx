@@ -12,12 +12,14 @@ interface FlightCardProps {
   flight: FlightInfo;
   isTracked: boolean;
   onToggleTrack: (flightIata: string) => void;
+  isOfflineData?: boolean; // New prop for offline data indication
 }
 
-export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps): JSX.Element {
+export function FlightCard({ flight, isTracked, onToggleTrack, isOfflineData }: FlightCardProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
   const t = useTranslations('flight');
+  const tCommon = useTranslations('common'); // For offline data warning
   const locale = useLocale();
   const isRTL = locale === 'ar';
   const direction = isRTL ? 'rtl' : 'ltr';
@@ -80,6 +82,14 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
             {flight.arrival.gate ? ` ${t('gate')} ${flight.arrival.gate}` : ''}
           </Text>
         </View>
+        {isOfflineData && (
+          <View style={[styles.offlineIndicator, { flexDirection: direction === 'rtl' ? 'row-reverse' : 'row' }]}>
+            <MaterialCommunityIcons name="cloud-off-outline" size={14} color={colors.offlineWarning} />
+            <Text style={[styles.offlineText, { color: colors.offlineWarning, marginStart: isRTL ? 0 : 4, marginEnd: isRTL ? 4 : 0 }]}>
+              {tCommon('offlineDataWarning')}
+            </Text>
+          </View>
+        )}
       </View>
       <Pressable
         onPress={() => onToggleTrack(flight.flightIata)}
@@ -153,6 +163,14 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
   },
+  offlineIndicator: {
+    marginTop: 8,
+    alignItems: 'center',
+  },
+  offlineText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+  },
 });
 
 function getColors(theme: ColorScheme): {
@@ -163,6 +181,7 @@ function getColors(theme: ColorScheme): {
   trackButtonBg: string;
   untrackButtonBg: string;
   buttonText: string;
+  offlineWarning: string; // New color for offline warning
 } {
   if (theme === 'dark') {
     return {
@@ -173,6 +192,7 @@ function getColors(theme: ColorScheme): {
       trackButtonBg: '#22D3EE',
       untrackButtonBg: '#EF4444', // Red for untrack
       buttonText: '#1F2937',
+      offlineWarning: '#F59E0B', // Amber for warning
     };
   }
   return {
@@ -183,5 +203,7 @@ function getColors(theme: ColorScheme): {
     trackButtonBg: '#22D3EE',
     untrackButtonBg: '#EF4444', // Red for untrack
     buttonText: '#FFFFFF',
+    offlineWarning: '#F59E0B', // Amber for warning
   };
 }
+

@@ -234,4 +234,3 @@ function getColors(theme: ColorScheme): {
     modalBg: '#FFFFFF',
     };
 }
-

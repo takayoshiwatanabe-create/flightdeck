@@ -4,7 +4,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import * as Linking from 'expo-linking'; // Import Linking for opening URLs
 
 // Mock API calls for subscription status and Stripe portal/checkout
 interface SubscriptionStatus {
@@ -80,7 +80,7 @@ export default function SubscriptionScreen(): JSX.Element {
         } else {
           // For native, use Linking to open the URL
           Alert.alert(t('manageSubscription'), t('redirectingToStripe'), [
-            { text: t('common.ok'), onPress: () => { /* Linking.openURL(session.url); */ console.log('Redirecting to:', session.url); } },
+            { text: t('common.ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } },
           ]);
         }
       } else {
@@ -103,7 +103,7 @@ export default function SubscriptionScreen(): JSX.Element {
           window.location.href = session.url;
         } else {
           Alert.alert(t('subscribe'), t('redirectingToStripe'), [
-            { text: t('common.ok'), onPress: () => { /* Linking.openURL(session.url); */ console.log('Redirecting to:', session.url); } },
+            { text: t('common.ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } },
           ]);
         }
       } else {
@@ -354,6 +354,5 @@ function getColors(theme: ColorScheme): {
     primary: '#22D3EE',
     buttonText: '#FFFFFF',
     errorText: '#EF4444',
-  };
+    };
 }
-

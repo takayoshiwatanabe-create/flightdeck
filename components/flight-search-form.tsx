@@ -150,4 +150,3 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444', // Red
     };
 }
-
