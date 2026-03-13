@@ -5,29 +5,50 @@ interface Env {
   STRIPE_SECRET_KEY: string;
   DATABASE_URL: string;
   NEXTAUTH_SECRET: string;
-  // Vercel KV specific environment variables
   UPSTASH_REDIS_REST_URL: string;
   UPSTASH_REDIS_REST_TOKEN: string;
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string;
 }
 
 // Ensure all required environment variables are present
-function validateEnv(config: Record<string, unknown>): Env {
+function validateEnv(config: Record<string, unknown>, isServer: boolean): Env {
   const errors: string[] = [];
 
-  const requiredVars: Array<keyof Env> = [
+  const serverOnlyVars: Array<keyof Env> = [
     'AVIATIONSTACK_API_KEY',
     'STRIPE_SECRET_KEY',
     'DATABASE_URL',
     'NEXTAUTH_SECRET',
-    'UPSTASH_REDIS_REST_URL', // Added for Vercel KV
-    'UPSTASH_REDIS_REST_TOKEN', // Added for Vercel KV
+    'UPSTASH_REDIS_REST_URL',
+    'UPSTASH_REDIS_REST_TOKEN',
+  ];
+  const clientPublicVars: Array<keyof Env> = [
+    'NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY',
   ];
 
-  for (const key of requiredVars) {
-    // Check for both direct property and nested in extra
-    if (config[key] === undefined && (config.extra as Record<string, unknown>)?.[key] === undefined) {
-      errors.push(`Missing environment variable: ${key}`);
+  // Validate server-side variables
+  if (isServer) {
+    for (const key of serverOnlyVars) {
+      const value = config[key];
+      if (value === undefined || value === '') {
+        errors.push(`Missing server-side environment variable: ${key}`);
+      }
     }
+  }
+
+  // Validate client-side public variables
+  for (const key of clientPublicVars) {
+    // For Next.js client, it's process.env.NEXT_PUBLIC_...
+    // For Expo client, it's Constants.expoConfig?.extra[key]
+    const value = config[key] ?? (config.extra as Record<string, unknown>)?.[key];
+    if (value === undefined || value === '') {
+      errors.push(`Missing client-side public environment variable: ${key}`);
+    }
+  }
+
+  // Ensure AVIATIONSTACK_API_KEY is NOT exposed client-side
+  if (!isServer && (config.AVIATIONSTACK_API_KEY || (config.extra as Record<string, unknown>)?.AVIATIONSTACK_API_KEY)) {
+    errors.push('Security Error: AVIATIONSTACK_API_KEY must not be exposed client-side.');
   }
 
   if (errors.length > 0) {
@@ -52,16 +73,20 @@ function validateEnv(config: Record<string, unknown>): Env {
     NEXTAUTH_SECRET: getVar('NEXTAUTH_SECRET'),
     UPSTASH_REDIS_REST_URL: getVar('UPSTASH_REDIS_REST_URL'),
     UPSTASH_REDIS_REST_TOKEN: getVar('UPSTASH_REDIS_REST_TOKEN'),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: getVar('NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY'),
   };
 }
 
+// Determine if running on server or client
+const isServer = typeof window === 'undefined';
+
 // For Expo, environment variables are typically managed via app.json or .env files
 // and accessed via ExpoConstants.
-// This is a simplified example. In a real Next.js project, you'd use process.env directly.
-// For a universal app, we need to consider both.
+// For Next.js, process.env is used.
+// This combines both for a universal app approach.
 const rawEnv: Record<string, unknown> = {
-  ...process.env, // For Next.js server-side
+  ...process.env, // For Next.js server-side and client-side (NEXT_PUBLIC_ prefixed)
   ...Constants.expoConfig?.extra, // For Expo client-side
 };
 
-export const env: Env = validateEnv(rawEnv);
+export const env: Env = validateEnv(rawEnv, isServer);

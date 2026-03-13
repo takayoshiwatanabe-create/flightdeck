@@ -10,6 +10,8 @@ interface AuthFormProps {
   onSubmit: (email: string, password: string) => Promise<void>;
 }
 
+const MIN_PASSWORD_LENGTH = 6;
+
 export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
@@ -31,7 +33,7 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
       return;
     }
     // Password strength for signup
-    if (type === 'signup' && password.length < 6) {
+    if (type === 'signup' && password.length < MIN_PASSWORD_LENGTH) {
       setError(t('auth.form.error.passwordTooShort'));
       return;
     }
@@ -208,7 +210,7 @@ function getColors(theme: ColorScheme): {
     };
   }
   return {
-    inputBackground: '#F3F4F6',
+    background: '#F3F4F6',
     inputText: '#1F2937',
     inputPlaceholder: '#6B7280',
     inputBorder: '#E5E7EB',

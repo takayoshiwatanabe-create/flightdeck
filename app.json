@@ -44,18 +44,6 @@
         }
       ],
       "expo-localization"
-    ],
-    "locales": {
-      "ja": "./locales/ja.json",
-      "en": "./locales/en.json",
-      "zh": "./locales/zh.json",
-      "ko": "./locales/ko.json",
-      "es": "./locales/es.json",
-      "fr": "./locales/fr.json",
-      "de": "./locales/de.json",
-      "pt": "./locales/pt.json",
-      "ar": "./locales/ar.json",
-      "hi": "./locales/hi.json"
-    }
+    ]
   }
 }

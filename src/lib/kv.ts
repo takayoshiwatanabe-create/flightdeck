@@ -1,11 +1,6 @@
 import { Redis } from '@upstash/redis';
 import { env } from './env';
 
-// This is a placeholder for Vercel KV integration.
-// In a real Next.js project, you would initialize Redis with environment variables.
-// For Expo, direct server-side KV access is not typical. This file would be used
-// in Next.js API routes that interact with Vercel KV.
-
 // Initialize Redis using the correct environment variables for Upstash Redis
 export const kv = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,

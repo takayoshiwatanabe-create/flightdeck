@@ -11,7 +11,7 @@ export default function LoginScreen(): JSX.Element {
   const colors = getColors(theme);
 
   const handleLogin = async (email: string, password: string): Promise<void> => {
-    console.log('Login attempt:', { email, password });
+    // console.log('Login attempt:', { email, password }); // Removed for production readiness
     // TODO: Implement actual login logic with NextAuth.js API
     const success: boolean = await login(email, password); // Call the backend login action
     if (success) {

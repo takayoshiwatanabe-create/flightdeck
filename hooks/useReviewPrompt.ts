@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LAUNCH_COUNT_KEY = 'app_launch_count';
 const REVIEWED_KEY = 'app_reviewed';
+const PROMPT_THRESHOLD_1 = 5;
+const PROMPT_THRESHOLD_2 = 15;
 
 export function useReviewPrompt(): void {
   useEffect(() => {
@@ -19,7 +21,7 @@ export function useReviewPrompt(): void {
       const count: number = parseInt(countStr ?? '0') + 1;
       await AsyncStorage.setItem(LAUNCH_COUNT_KEY, count.toString());
 
-      if (count === 5 || count === 15) {
+      if (count === PROMPT_THRESHOLD_1 || count === PROMPT_THRESHOLD_2) {
         const isAvailable: boolean = await StoreReview.isAvailableAsync();
         if (isAvailable) {
           await StoreReview.requestReview();

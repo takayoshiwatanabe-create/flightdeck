@@ -11,7 +11,7 @@ export default function SignUpScreen(): JSX.Element {
   const colors = getColors(theme);
 
   const handleSignUp = async (email: string, password: string): Promise<void> => {
-    console.log('Sign up attempt:', { email, password });
+    // console.log('Sign up attempt:', { email, password }); // Removed for production readiness
     // TODO: Implement actual sign up logic with NextAuth.js API
     const success: boolean = await signup(email, password); // Call the backend signup action
     if (success) {
