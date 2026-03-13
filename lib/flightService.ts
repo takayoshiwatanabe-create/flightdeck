@@ -200,3 +200,4 @@ export async function getFlightByIata(
 export function getStatusKey(status: FlightStatusType): string {
   return `status.${status}`;
 }
+

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import { useReviewPrompt } from "@/hooks/useReviewPrompt";
+import { useReviewPrompt } from "@/src/hooks/useReviewPrompt";
 import { RuokSplash } from "@/components/RuokSplash";
 import { useTranslations } from "next-intl";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -11,13 +11,13 @@ import { StyleSheet } from "react-native";
 import { useLocale } from "next-intl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
-import { getRequestConfig } from 'next-intl/server'; // Import getRequestConfig from next-intl/server
+import { getMessages } from '@/i18n'; // Import getMessages from '@/i18n'
 
 SplashScreen.preventAutoHideAsync();
 
 const queryClient = new QueryClient();
 
-export default function RootLayout(): JSX.Element {
+export default function RootLayout(): JSX.Element | null {
   const [splashDone, setSplashDone] = useState<boolean>(false);
   useReviewPrompt();
   const t = useTranslations('app');
@@ -27,16 +27,16 @@ export default function RootLayout(): JSX.Element {
   const [messages, setMessages] = useState<Record<string, string | Record<string, string>> | undefined>(undefined);
 
   // Use an effect to load messages
-  useState(() => {
+  useEffect(() => {
     const loadMessages = async (): Promise<void> => {
       try {
-        const requestConfig = await getRequestConfig({ locale });
-        setMessages(requestConfig.messages);
+        const loadedMessages = await getMessages(locale);
+        setMessages(loadedMessages);
       } catch (error: unknown) {
         console.error('Failed to load messages for locale:', locale, error);
         // Fallback to default messages or handle error
-        const defaultRequestConfig = await getRequestConfig({ locale: 'ja' });
-        setMessages(defaultRequestConfig.messages);
+        const defaultMessages = await getMessages('ja');
+        setMessages(defaultMessages);
       }
     };
     void loadMessages();

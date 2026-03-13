@@ -28,7 +28,7 @@
       "or": "または",
       "googleLogin": "Googleでログイン",
       "error": {
-        "emptyFields": "すべてのフィールドを入力してください。",
+        "emptyFields": "全ての項目を入力してください。",
         "invalidEmail": "有効なメールアドレスを入力してください。",
         "passwordTooShort": "パスワードは6文字以上である必要があります。",
         "generic": "エラーが発生しました。もう一度お試しください。"
@@ -58,8 +58,8 @@
       }
     },
     "flightSelected": {
-      "title": "フライトが選択されました",
-      "message": "{airline} のフライト {flightNumber} が選択されました。"
+      "title": "フライト選択済み",
+      "message": "{airline}のフライト {flightNumber} が選択されました。"
     }
   },
   "flight": {
@@ -100,7 +100,7 @@
   "notFound": {
     "title": "ページが見つかりません",
     "heading": "この画面は存在しません。",
-    "goHome": "ホーム画面へ"
+    "goHome": "ホーム画面へ戻る"
   }
 }
 

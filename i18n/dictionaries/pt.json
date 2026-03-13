@@ -4,7 +4,7 @@
     "tagline": "As informações de voo mais rápidas",
     "loginPrompt": "Entrar",
     "signupPrompt": "Cadastrar",
-    "guestPrompt": "Continuar como convidado"
+    "guestPrompt": "Continuar como Convidado"
   },
   "auth": {
     "login": {
@@ -37,21 +37,21 @@
   },
   "tabs": {
     "home": "Início",
-    "search": "Pesquisar",
+    "search": "Buscar",
     "settings": "Configurações"
   },
   "home": {
     "noTrackedFlights": "Nenhum voo rastreado.",
-    "addFlightHint": "Adicione voos na aba de pesquisa de voos.",
-    "trackedFlights": "Voos rastreados"
+    "addFlightHint": "Adicione voos na aba de busca de voos.",
+    "trackedFlights": "Voos Rastreados"
   },
   "search": {
-    "title": "Pesquisa de Voo",
-    "description": "Encontre informações em tempo real por número de voo e data.",
+    "title": "Busca de Voos",
+    "description": "Encontre informações em tempo real por número do voo e data.",
     "form": {
       "flightNumberPlaceholder": "Número do Voo (ex: NH123)",
       "datePlaceholder": "Data (AAAA-MM-DD)",
-      "searchButton": "Pesquisar",
+      "searchButton": "Buscar",
       "error": {
         "emptyFlightNumber": "Por favor, insira um número de voo.",
         "invalidDate": "Por favor, insira um formato de data válido (AAAA-MM-DD)."
@@ -64,10 +64,10 @@
   },
   "flight": {
     "list": {
-      "loading": "Pesquisando voos...",
+      "loading": "Buscando voos...",
       "noResults": "Nenhum resultado encontrado.",
       "error": {
-        "generic": "Ocorreu um erro ao pesquisar voos."
+        "generic": "Ocorreu um erro ao buscar voos."
       }
     },
     "status": {
@@ -81,7 +81,7 @@
     "gate": "Portão",
     "delay": "{minutes} minutos de atraso",
     "track": "Rastrear",
-    "untrack": "Parar de rastrear"
+    "untrack": "Parar de Rastrear"
   },
   "settings": {
     "title": "Configurações",

@@ -6,7 +6,7 @@ import { useTheme } from './ThemeProvider';
 import { FlightCard } from './FlightCard';
 import { type FlightInfo } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
-import { useTrackedFlights } from '@/hooks/useTrackedFlights';
+import { useTrackedFlights } from '@/src/hooks/useTrackedFlights';
 
 interface FlightListProps {
   flights: FlightInfo[];
@@ -121,3 +121,4 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
+

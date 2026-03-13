@@ -5,6 +5,15 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "next-intl": [
+        "./node_modules/next-intl/dist/src/index.d.ts"
+      ],
+      "next-intl/server": [
+        "./node_modules/next-intl/dist/src/server/index.d.ts"
+      ],
+      "next-intl/client": [
+        "./node_modules/next-intl/dist/src/client/index.d.ts"
       ]
     },
     "jsx": "react-jsx",
@@ -23,7 +32,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "target": "es5"
+    "target": "es2022"
   },
   "include": [
     "**/*.ts",
@@ -36,7 +45,9 @@
     "app/**/*.ts",
     "app/**/*.tsx",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "i18n/**/*.ts",
+    "i18n/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

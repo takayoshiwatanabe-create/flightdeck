@@ -57,6 +57,7 @@
       "landed": "到着済み",
       "delayed": "遅延",
       "cancelled": "欠航",
+      "diverted": "目的地変更",
       "unknown": "不明"
     }
   },

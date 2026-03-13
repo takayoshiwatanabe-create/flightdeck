@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, Pressable } from 'react-native';
 import { FlightCard } from '@/components/FlightCard';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
@@ -24,7 +24,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
     if (isFlightTracked(flightIata)) {
       void removeFlight(flightIata);
     } else {
-      void addFlight(flight);
+      void addFlight(flight.flightIata, flight.flightDate); // Pass flightIata and flightDate
     }
   };
 
@@ -111,4 +111,3 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
   };
 }
-

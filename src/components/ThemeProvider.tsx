@@ -3,7 +3,7 @@ import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { type ColorScheme } from '@/types/theme';
-import { useLocale } from 'next-intl';
+// import { useLocale } from 'next-intl'; // Removed as it's not used for direct DOM manipulation here.
 
 const THEME_KEY = 'app_theme';
 
@@ -18,8 +18,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
   const systemColorScheme = useColorScheme();
   const [theme, setThemeState] = useState<ColorScheme>(systemColorScheme ?? 'light');
-  const locale = useLocale();
-  const isRTL = locale === 'ar';
+  // const locale = useLocale(); // Removed
+  // const isRTL = locale === 'ar'; // Removed
 
   useEffect(() => {
     async function loadTheme(): Promise<void> {
@@ -128,3 +128,4 @@ export function useTheme(): ThemeContextType {
   }
   return context;
 }
+

@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
+import { useLocale } from 'next-intl'; // Import useLocale
 
 interface TabIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap;
@@ -17,6 +18,8 @@ export default function TabLayout(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
   const t = useTranslations('tabs');
+  const locale = useLocale(); // Get current locale
+  const isRTL = locale === 'ar'; // Check if it's an RTL language
 
   return (
     <Tabs
@@ -31,6 +34,12 @@ export default function TabLayout(): JSX.Element {
           backgroundColor: colors.headerBackground,
         },
         headerTintColor: colors.headerText,
+        // Apply RTL to headerTitleStyle if needed, but usually handled by global dir
+        // For tab bar labels, React Native handles text direction automatically
+        // For icons, we might need to flip them if they convey direction
+        tabBarLabelStyle: {
+          writingDirection: isRTL ? 'rtl' : 'ltr',
+        },
       }}
     >
       <Tabs.Screen

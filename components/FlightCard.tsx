@@ -15,8 +15,8 @@ interface FlightCardProps {
   onToggleTrack: () => void;
 }
 
-function formatTime(dateStr: string | null, timezone: string, locale: string): string {
-  if (!dateStr) return '--:--';
+function formatTime(dateStr: string | null, timezone: string | undefined, locale: string): string {
+  if (!dateStr || !timezone) return '--:--';
   try {
     const date = new Date(dateStr);
     // Use formatInTimeZone to display time in the specified timezone
@@ -61,7 +61,7 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
           <Text style={[styles.time, { color: colors.text }]}>
             {formatTime(
               flight.departure.actual ?? flight.departure.estimated ?? flight.departure.scheduled,
-              flight.departure.timezone ?? 'UTC', // Fallback to UTC if timezone is missing
+              flight.departure.timezone, // Pass timezone directly
               locale
             )}
           </Text>
@@ -87,7 +87,7 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
           <Text style={[styles.time, { color: colors.text }]}>
             {formatTime(
               flight.arrival.actual ?? flight.arrival.estimated ?? flight.arrival.scheduled,
-              flight.arrival.timezone ?? 'UTC', // Fallback to UTC if timezone is missing
+              flight.arrival.timezone, // Pass timezone directly
               locale
             )}
           </Text>
@@ -271,3 +271,4 @@ function getColors(theme: ColorScheme): {
     trackActiveBg: '#F3F4F6',
   };
 }
+

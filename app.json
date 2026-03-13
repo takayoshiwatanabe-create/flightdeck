@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "フライト管理アプリ「FlightDeck」",
+    "name": "FlightDeck",
     "slug": "flightdeck",
     "version": "1.0.0",
     "orientation": "portrait",

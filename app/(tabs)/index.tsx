@@ -13,7 +13,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { FlightCard } from '@/components/FlightCard';
 import { AdBanner } from '@/components/ads/AdBanner';
 import { type ColorScheme } from '@/types/theme';
-import { useTrackedFlights } from '@/hooks/useTrackedFlights';
+import { useTrackedFlights } from '@/src/hooks/useTrackedFlights';
 
 export default function TabHomeScreen(): JSX.Element {
   const { theme } = useTheme();
@@ -179,3 +179,4 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
+

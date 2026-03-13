@@ -1,35 +1,24 @@
 import { useEffect } from 'react';
 import * as StoreReview from 'expo-store-review';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const LAUNCH_COUNT_KEY = 'app_launch_count';
-const REVIEWED_KEY = 'app_reviewed';
-const PROMPT_THRESHOLD_1 = 5;
-const PROMPT_THRESHOLD_2 = 15;
 
 export function useReviewPrompt(): void {
   useEffect(() => {
-    void checkAndPrompt();
-  }, []);
-
-  async function checkAndPrompt(): Promise<void> {
-    try {
-      const reviewed: string | null = await AsyncStorage.getItem(REVIEWED_KEY);
-      if (reviewed) return;
-
-      const countStr: string | null = await AsyncStorage.getItem(LAUNCH_COUNT_KEY);
-      const count: number = parseInt(countStr ?? '0') + 1;
-      await AsyncStorage.setItem(LAUNCH_COUNT_KEY, count.toString());
-
-      if (count === PROMPT_THRESHOLD_1 || count === PROMPT_THRESHOLD_2) {
-        const isAvailable: boolean = await StoreReview.isAvailableAsync();
-        if (isAvailable) {
-          await StoreReview.requestReview();
-          await AsyncStorage.setItem(REVIEWED_KEY, 'true');
-        }
+    const promptForReview = async (): Promise<void> => {
+      const isAvailable = await StoreReview.isAvailableAsync();
+      if (isAvailable) {
+        // You might want to add logic here to only prompt after certain conditions are met
+        // e.g., after a certain number of app launches or positive interactions.
+        // For now, it prompts on every app load for demonstration.
+        await StoreReview.requestReview();
       }
-    } catch (error: unknown) {
-      console.error('Error in review prompt logic:', error);
-    }
-  }
+    };
+
+    // Delay the prompt slightly to ensure the app is fully loaded
+    const timer = setTimeout(() => {
+      void promptForReview();
+    }, 5000); // Prompt after 5 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 }
+

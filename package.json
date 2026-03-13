@@ -1,5 +1,5 @@
 {
-  "name": "フライト管理アプリ「FlightDeck」",
+  "name": "flightdeck",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -64,6 +64,7 @@
     "@types/node": "^20.14.2",
     "prisma": "^5.15.0",
     "@types/date-fns": "^2.6.0",
-    "@types/date-fns-tz": "^0.1.8"
+    "@types/date-fns-tz": "^0.1.8",
+    "@types/next-intl": "^2.14.0"
   }
 }

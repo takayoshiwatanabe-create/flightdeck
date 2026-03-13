@@ -40,3 +40,4 @@ const styles = StyleSheet.create({
     // Add any other styling needed for the ad container
   },
 });
+

@@ -57,6 +57,7 @@
       "landed": "已降落",
       "delayed": "延误",
       "cancelled": "取消",
+      "diverted": "备降",
       "unknown": "未知"
     }
   },

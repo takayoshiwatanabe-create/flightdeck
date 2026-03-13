@@ -53,10 +53,11 @@
     "untrack": "Untrack",
     "status": {
       "scheduled": "Scheduled",
-      "active": "Boarding",
+      "active": "Active",
       "landed": "Landed",
       "delayed": "Delayed",
       "cancelled": "Cancelled",
+      "diverted": "Diverted",
       "unknown": "Unknown"
     }
   },

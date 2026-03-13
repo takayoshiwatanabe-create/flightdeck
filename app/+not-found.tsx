@@ -56,3 +56,4 @@ function getColors(theme: ColorScheme): { background: string; text: string; link
     link: '#007AFF',
   };
 }
+

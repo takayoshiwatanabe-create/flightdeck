@@ -46,4 +46,3 @@ export async function signup(email: string, password: string): Promise<boolean> 
   return false;
 }
 
-

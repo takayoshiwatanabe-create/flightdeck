@@ -70,7 +70,7 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
   if (theme === 'dark') {
     return {
       background: '#121212',
-    text: '#F9FAFB',
+      text: '#F9FAFB',
       secondaryText: '#D1D5DB',
       link: '#22D3EE',
     };

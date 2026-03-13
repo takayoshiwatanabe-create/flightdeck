@@ -2,18 +2,18 @@ export type FlightStatusType =
   | 'scheduled'
   | 'active'
   | 'landed'
-  | 'cancelled'
-  | 'delayed';
+  | 'delayed'
+  | 'cancelled';
 
 export const STATUS_COLORS: Record<FlightStatusType, string> = {
   scheduled: '#22D3EE', // Cyan
   active: '#34D399', // Emerald
   landed: '#6B7280', // Gray
   delayed: '#F59E0B', // Amber
-  cancelled: '#6B7280', // Gray (not red, as per spec)
+  cancelled: '#6B7280', // Gray (as per spec, not red)
 };
 
-export interface FlightLeg {
+export interface AirportInfo {
   airport: string;
   iata: string;
   terminal: string | null;
@@ -32,7 +32,7 @@ export interface FlightInfo {
   airlineIata: string;
   flightDate: string; // YYYY-MM-DD
   status: FlightStatusType;
-  departure: FlightLeg;
-  arrival: FlightLeg;
+  departure: AirportInfo;
+  arrival: AirportInfo;
 }
 

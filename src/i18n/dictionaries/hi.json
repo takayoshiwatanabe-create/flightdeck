@@ -1,0 +1,108 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "सबसे तेज़ उड़ान जानकारी",
+    "loginPrompt": "लॉग इन करें",
+    "signupPrompt": "साइन अप करें",
+    "guestPrompt": "अतिथि के रूप में जारी रखें"
+  },
+  "auth": {
+    "login": {
+      "title": "लॉग इन करें",
+      "button": "लॉग इन करें",
+      "noAccount": "खाता नहीं है?",
+      "signUp": "साइन अप करें"
+    },
+    "signup": {
+      "title": "साइन अप करें",
+      "button": "साइन अप करें",
+      "hasAccount": "पहले से ही एक खाता है?",
+      "login": "लॉग इन करें"
+    },
+    "form": {
+      "emailPlaceholder": "ईमेल",
+      "passwordPlaceholder": "पासवर्ड",
+      "showPassword": "पासवर्ड दिखाएँ",
+      "hidePassword": "पासवर्ड छुपाएँ",
+      "loading": "लोड हो रहा है...",
+      "or": "या",
+      "googleLogin": "Google से लॉग इन करें",
+      "error": {
+        "emptyFields": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें।",
+        "invalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।",
+        "passwordTooShort": "पासवर्ड कम से कम 6 वर्णों का होना चाहिए।",
+        "generic": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+      }
+    }
+  },
+  "tabs": {
+    "home": "होम",
+    "search": "खोज",
+    "settings": "सेटिंग्स"
+  },
+  "home": {
+    "noTrackedFlights": "कोई ट्रैक की गई उड़ानें नहीं हैं।",
+    "addFlightHint": "उड़ान खोज टैब से उड़ानें जोड़ें।",
+    "trackedFlights": "ट्रैक की गई उड़ानें"
+  },
+  "search": {
+    "title": "उड़ान खोज",
+    "description": "उड़ान संख्या और तिथि के अनुसार वास्तविक समय की जानकारी प्राप्त करें।",
+    "form": {
+      "flightNumberPlaceholder": "उड़ान संख्या (उदा. NH123)",
+      "datePlaceholder": "दिनांक (YYYY-MM-DD)",
+      "searchButton": "खोजें",
+      "error": {
+        "emptyFlightNumber": "कृपया एक उड़ान संख्या दर्ज करें।",
+        "invalidDate": "कृपया एक वैध दिनांक प्रारूप (YYYY-MM-DD) दर्ज करें।"
+      }
+    },
+    "flightSelected": {
+      "title": "उड़ान चयनित",
+      "message": "{airline} द्वारा उड़ान {flightNumber} का चयन किया गया है।"
+    }
+  },
+  "flight": {
+    "terminal": "टर्मिनल",
+    "gate": "गेट",
+    "delay": "{minutes} मिनट की देरी",
+    "track": "ट्रैक करें",
+    "untrack": "ट्रैक करना बंद करें",
+    "status": {
+      "scheduled": "निर्धारित",
+      "active": "सक्रिय",
+      "landed": "उतरा",
+      "delayed": "विलंबित",
+      "cancelled": "रद्द",
+      "diverted": "डायवर्ट किया गया",
+      "unknown": "अज्ञात"
+    }
+  },
+  "flight.list": {
+    "loading": "उड़ानों की खोज हो रही है...",
+    "error": {
+      "generic": "उड़ानों की खोज करते समय एक त्रुटि हुई।"
+    },
+    "noResults": "कोई परिणाम नहीं मिला।"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "darkMode": "डार्क मोड",
+    "language": "भाषा",
+    "currentLanguage": "हिंदी",
+    "selectLanguage": "भाषा चुनें",
+    "languageRestart": "भाषा बदलने के लिए ऐप को पुनः आरंभ करना होगा।",
+    "subscription": "सदस्यता",
+    "manageSubscription": "सदस्यता प्रबंधित करें"
+  },
+  "common": {
+    "ok": "ठीक है",
+    "cancel": "रद्द करें"
+  },
+  "notFound": {
+    "title": "पेज नहीं मिला",
+    "heading": "यह स्क्रीन मौजूद नहीं है।",
+    "goHome": "होम स्क्रीन पर जाएँ"
+  }
+}
+
