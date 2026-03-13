@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { t } from '@/i18n';
-import { useTheme } from '@/components/ThemeProvider';
+import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
 interface AuthFormProps {
@@ -95,7 +95,7 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
 
       <View style={styles.socialLoginContainer}>
         <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('auth.form.or')}</Text>
-        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => console.log('Google Login')} accessibilityLabel={t('auth.form.googleLogin')} disabled={isLoading}>
+        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => { console.log('Google Login'); }} accessibilityLabel={t('auth.form.googleLogin')} disabled={isLoading}>
           <MaterialCommunityIcons name="google" size={24} color={colors.googleButtonText} style={styles.socialIcon} />
           <Text style={[styles.socialButtonText, { color: colors.googleButtonText }]}>
             {t('auth.form.googleLogin')}

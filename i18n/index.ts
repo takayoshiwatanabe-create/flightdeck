@@ -19,8 +19,8 @@ export const lang: Language = getLanguage();
 export const isRTL: boolean = ["ar"].includes(lang);
 
 export function t(key: string, vars?: Record<string, string | number>): string {
-  const dict = translations[lang] ?? translations.ja;
-  let text = dict[key] ?? translations.en[key] ?? key;
+  const dict: Record<string, string> = translations[lang] ?? translations.ja;
+  let text: string = dict[key] ?? translations.en[key] ?? key;
   if (vars) {
     for (const [k, v] of Object.entries(vars)) {
       text = text.replace(new RegExp(`{{\\s*${k}\\s*}}`, "g"), String(v));

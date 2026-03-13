@@ -12,15 +12,15 @@ export function useReviewPrompt(): void {
 
   async function checkAndPrompt(): Promise<void> {
     try {
-      const reviewed = await AsyncStorage.getItem(REVIEWED_KEY);
+      const reviewed: string | null = await AsyncStorage.getItem(REVIEWED_KEY);
       if (reviewed) return;
 
-      const countStr = await AsyncStorage.getItem(LAUNCH_COUNT_KEY);
-      const count = parseInt(countStr ?? '0') + 1;
+      const countStr: string | null = await AsyncStorage.getItem(LAUNCH_COUNT_KEY);
+      const count: number = parseInt(countStr ?? '0') + 1;
       await AsyncStorage.setItem(LAUNCH_COUNT_KEY, count.toString());
 
       if (count === 5 || count === 15) {
-        const isAvailable = await StoreReview.isAvailableAsync();
+        const isAvailable: boolean = await StoreReview.isAvailableAsync();
         if (isAvailable) {
           await StoreReview.requestReview();
           await AsyncStorage.setItem(REVIEWED_KEY, 'true');
