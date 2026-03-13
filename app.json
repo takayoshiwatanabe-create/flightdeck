@@ -16,7 +16,8 @@
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "NSLocationWhenInUseUsageDescription": "フライト情報に関連する空港のタイムゾーンを正確に表示するために、現在地情報を使用します。この情報はデバイス上でのみ処理され、サーバーに送信されることはありません。"
+        "NSLocationWhenInUseUsageDescription": "フライト情報に関連する空港のタイムゾーンを正確に表示するために、現在地情報を使用します。この情報はデバイス上でのみ処理され、サーバーに送信されることはありません。",
+        "NSUserTrackingUsageDescription": "広告のパーソナライズと効果測定のために、お客様のデータを使用する許可を求めます。このデータは、お客様により関連性の高い広告を表示し、アプリの改善に役立てるために使用されます。"
       }
     },
     "android": {

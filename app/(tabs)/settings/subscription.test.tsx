@@ -150,7 +150,7 @@ describe('SubscriptionScreen', () => {
       expect(createStripeCheckoutSession).toHaveBeenCalledWith('price_123monthly');
       expect(Alert.alert).toHaveBeenCalledWith(
         'settings.subscription.subscribe',
-        'settings.subscription.redirectingToStripe',
+        'settings.subscription.initiatingPurchase', // Updated to match IAP flow
         expect.arrayContaining([
           expect.objectContaining({
             text: 'common.ok',
@@ -162,7 +162,8 @@ describe('SubscriptionScreen', () => {
 
     const okButton = (Alert.alert as jest.Mock).mock.calls[0][2][0];
     okButton.onPress();
-    expect(Linking.openURL).toHaveBeenCalledWith('https://mock-stripe-checkout.com/session');
+    // For native, we expect a console log about initiating IAP, not Linking.openURL
+    expect(Linking.openURL).not.toHaveBeenCalled();
   });
 
   it('shows loading indicator when redirecting', async () => {
@@ -193,7 +194,7 @@ describe('SubscriptionScreen', () => {
     fireEvent.press(subscribeButton);
 
     await waitFor(() => {
-      expect(Alert.alert).toHaveBeenCalledWith('common.error', 'settings.subscription.error.noCheckoutUrl');
+      expect(Alert.alert).toHaveBeenCalledWith('common.error', 'settings.subscription.error.purchaseFailed'); // Updated to match IAP flow
     });
   });
 
@@ -210,4 +211,3 @@ describe('SubscriptionScreen', () => {
     });
   });
 });
-
