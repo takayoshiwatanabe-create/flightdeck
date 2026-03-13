@@ -6,7 +6,7 @@ import { useTheme } from './ThemeProvider';
 import type { FlightInfo } from '@/types/flight';
 import { STATUS_COLORS, type FlightStatusType } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
-import { getStatusKey } from '@/lib/flightService';
+import { getStatusKey } from '@/src/lib/flightService';
 import { formatInTimeZone } from 'date-fns-tz'; // Import formatInTimeZone
 
 interface FlightCardProps {
@@ -271,3 +271,4 @@ function getColors(theme: ColorScheme): {
     trackActiveBg: '#F3F4F6',
   };
 }
+

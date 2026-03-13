@@ -8,7 +8,7 @@ const locales = ['ja', 'en', 'zh', 'ko', 'es', 'fr', 'de', 'pt', 'ar', 'hi'];
 
 export default getRequestConfig(async ({ locale }) => {
   // Validate that the incoming `locale` is among the supported ones
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale)) notFound();
 
   return {
     messages: (await import(`./dictionaries/${locale}.json`)).default,

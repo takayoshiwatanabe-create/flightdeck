@@ -11,7 +11,7 @@ import { StyleSheet } from "react-native";
 import { useLocale } from "next-intl";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from '@/i18n'; // Import getMessages from '@/i18n'
+import { getMessages } from '@/src/i18n';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -79,3 +79,4 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+

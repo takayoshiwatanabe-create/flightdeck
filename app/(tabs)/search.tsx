@@ -5,7 +5,7 @@ import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { FlightSearchForm } from '@/components/flight-search-form';
 import { FlightList } from '@/components/flight-list';
-import { searchFlights } from '@/lib/flightService';
+import { searchFlights } from '@/src/lib/flightService';
 import { type FlightInfo } from '@/types/flight';
 import { useRouter } from 'expo-router';
 
@@ -104,3 +104,4 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     secondaryText: '#6B7280',
   };
 }
+

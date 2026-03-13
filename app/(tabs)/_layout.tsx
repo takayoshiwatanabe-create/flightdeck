@@ -90,5 +90,6 @@ function getColors(theme: ColorScheme): {
     headerBackground: '#FFFFFF',
     headerText: '#1F2937', // Dark Gray
     border: '#E5E7EB', // Light Gray
-  };
+    };
 }
+

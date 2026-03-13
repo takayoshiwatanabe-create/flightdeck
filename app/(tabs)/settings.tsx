@@ -232,5 +232,6 @@ function getColors(theme: ColorScheme): {
     switchTrackTrue: '#22D3EE',
     switchThumb: '#FFFFFF',
     modalBg: '#FFFFFF',
-  };
+    };
 }
+

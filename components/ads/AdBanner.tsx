@@ -5,7 +5,7 @@ import {
   BannerAdSize,
   TestIds,
 } from 'react-native-google-mobile-ads';
-import { useLocale } from 'next-intl'; // Import useLocale from next-intl
+import { useLocale } from 'next-intl';
 
 const BANNER_ID: string = __DEV__
   ? TestIds.ADAPTIVE_BANNER
@@ -40,3 +40,4 @@ const styles = StyleSheet.create({
     // Add any other styling needed for the ad container
   },
 });
+

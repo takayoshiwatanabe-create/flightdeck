@@ -101,5 +101,3 @@ export function InitialTheme(): JSX.Element | null {
   return null;
 }
 
-
-

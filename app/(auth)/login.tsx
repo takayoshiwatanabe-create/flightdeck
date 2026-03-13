@@ -3,7 +3,7 @@ import { Link } from 'expo-router';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
-import { login } from '@/lib/actions/auth';
+import { login } from '@/src/lib/actions/auth';
 import { useTranslations } from 'next-intl';
 
 export default function LoginScreen(): JSX.Element {
@@ -78,3 +78,4 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
+

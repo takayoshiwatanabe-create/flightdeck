@@ -242,5 +242,6 @@ function getColors(theme: ColorScheme): {
     buttonBackground: '#22D3EE', // Cyan
     buttonText: '#FFFFFF',
     accent: '#34D399', // Emerald
-  };
+    };
 }
+

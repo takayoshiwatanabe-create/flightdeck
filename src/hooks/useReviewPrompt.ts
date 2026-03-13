@@ -25,11 +25,14 @@ export function useReviewPrompt(): void {
         }
 
         // Check if already rated or opted out
-        const hasAction = await StoreReview.has
-        if (hasAction) {
-          console.log('User has already taken action on a review prompt.');
-          return;
-        }
+        // StoreReview.hasAction is not a valid property.
+        // The prompt itself handles if the user has already reviewed or opted out.
+        // We only track if we've *attempted* to prompt recently.
+        // const hasAction = await StoreReview.has
+        // if (hasAction) {
+        //   console.log('User has already taken action on a review prompt.');
+        //   return;
+        // }
 
         // Get last prompt date
         const lastPromptDateStr = await AsyncStorage.getItem(LAST_PROMPT_DATE_KEY);

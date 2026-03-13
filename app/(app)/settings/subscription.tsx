@@ -356,3 +356,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
   };
 }
+

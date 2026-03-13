@@ -6,7 +6,7 @@ import { FlightCard } from './FlightCard';
 import { type FlightInfo } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
 import { useTrackedFlights } from '@/src/hooks/useTrackedFlights';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; // Import MaterialCommunityIcons
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface FlightListProps {
   flights: FlightInfo[];
@@ -121,3 +121,4 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
+
