@@ -9,7 +9,7 @@ const THEME_KEY = 'app_theme';
 interface ThemeContextType {
   theme: ColorScheme;
   toggleTheme: () => void;
-  setTheme: (newTheme: ColorScheme) => Promise<void>; // Changed to Promise<void> as AsyncStorage is async
+  setTheme: (newTheme: ColorScheme) => Promise<void>;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -27,12 +27,12 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
         } else {
           setThemeState(systemColorScheme ?? 'light');
         }
-      } catch (error: unknown) { // Use unknown for caught errors
+      } catch (error: unknown) {
         console.error('Failed to load theme from storage:', error);
         setThemeState(systemColorScheme ?? 'light');
       }
     }
-    void loadTheme(); // Use void to explicitly ignore the Promise
+    void loadTheme();
   }, [systemColorScheme]);
 
   const setTheme = async (newTheme: ColorScheme): Promise<void> => {
@@ -41,7 +41,7 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
   };
 
   const toggleTheme = (): void => {
-    void setTheme(theme === 'light' ? 'dark' : 'light'); // Use void to explicitly ignore the Promise
+    void setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
   // Apply theme to HTML for web

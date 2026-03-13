@@ -1,8 +1,8 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
 import { t } from '@/i18n';
-import { useTheme } from '@/components/ThemeProvider'; // Import useTheme
-import { type ColorScheme } from '@/types/theme'; // Import ColorScheme
+import { useTheme } from '@/components/ThemeProvider';
+import { type ColorScheme } from '@/types/theme';
 
 export default function NotFoundScreen(): JSX.Element {
   const { theme } = useTheme();

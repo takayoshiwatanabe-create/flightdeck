@@ -7,7 +7,7 @@ import { type ColorScheme } from '@/types/theme';
 
 interface AuthFormProps {
   type: 'login' | 'signup';
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (email: string, password: string) => Promise<void>;
 }
 
 export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
@@ -17,8 +17,9 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
     setError('');
     if (!email || !password) {
       setError(t('auth.form.error.emptyFields'));
@@ -34,7 +35,16 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
       setError(t('auth.form.error.passwordTooShort'));
       return;
     }
-    onSubmit(email, password);
+
+    setIsLoading(true);
+    try {
+      await onSubmit(email, password);
+    } catch (e: unknown) {
+      console.error('AuthForm submission error:', e);
+      setError(t('auth.form.error.generic'));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,7 +59,8 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
-        accessibilityLabel={t('auth.form.emailPlaceholder')} // Accessibility
+        accessibilityLabel={t('auth.form.emailPlaceholder')}
+        editable={!isLoading}
       />
       <View style={[styles.passwordContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
         <TextInput
@@ -59,12 +70,14 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
-          accessibilityLabel={t('auth.form.passwordPlaceholder')} // Accessibility
+          accessibilityLabel={t('auth.form.passwordPlaceholder')}
+          editable={!isLoading}
         />
         <Pressable
           onPress={() => setShowPassword(!showPassword)}
           style={styles.eyeIcon}
-          accessibilityLabel={showPassword ? t('auth.form.hidePassword') : t('auth.form.showPassword')} // Accessibility
+          accessibilityLabel={showPassword ? t('auth.form.hidePassword') : t('auth.form.showPassword')}
+          disabled={isLoading}
         >
           <MaterialCommunityIcons
             name={showPassword ? 'eye-off' : 'eye'}
@@ -74,15 +87,15 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
         </Pressable>
       </View>
 
-      <Pressable style={[styles.button, { backgroundColor: colors.buttonBackground }]} onPress={handleSubmit}>
+      <Pressable style={[styles.button, { backgroundColor: colors.buttonBackground }]} onPress={handleSubmit} disabled={isLoading}>
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>
-          {type === 'login' ? t('auth.login.button') : t('auth.signup.button')}
+          {isLoading ? t('auth.form.loading') : (type === 'login' ? t('auth.login.button') : t('auth.signup.button'))}
         </Text>
       </Pressable>
 
       <View style={styles.socialLoginContainer}>
         <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('auth.form.or')}</Text>
-        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => console.log('Google Login')} accessibilityLabel={t('auth.form.googleLogin')}>
+        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => console.log('Google Login')} accessibilityLabel={t('auth.form.googleLogin')} disabled={isLoading}>
           <MaterialCommunityIcons name="google" size={24} color={colors.googleButtonText} style={styles.socialIcon} />
           <Text style={[styles.socialButtonText, { color: colors.googleButtonText }]}>
             {t('auth.form.googleLogin')}

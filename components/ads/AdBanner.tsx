@@ -22,4 +22,3 @@ export function AdBanner(): JSX.Element {
     />
   );
 }
-

@@ -22,7 +22,7 @@ export function RuokSplash({ onFinish }: Props): JSX.Element {
         useNativeDriver: true,
       }),
     ]).start(() => onFinish());
-  }, [opacity, onFinish]); // Added dependencies for useEffect
+  }, [opacity, onFinish]);
 
   return (
     <View style={styles.overlay}>
@@ -48,4 +48,3 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-

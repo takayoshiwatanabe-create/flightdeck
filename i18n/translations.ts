@@ -40,6 +40,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Googleでログイン",
     "auth.form.showPassword": "パスワードを表示",
     "auth.form.hidePassword": "パスワードを隠す",
+    "auth.form.loading": "処理中...",
+    "auth.form.error.generic": "認証中にエラーが発生しました。もう一度お試しください。",
   },
   en: {
     "app.title": "FlightDeck",
@@ -80,6 +82,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Login with Google",
     "auth.form.showPassword": "Show password",
     "auth.form.hidePassword": "Hide password",
+    "auth.form.loading": "Processing...",
+    "auth.form.error.generic": "An error occurred during authentication. Please try again.",
   },
   zh: {
     "app.title": "FlightDeck",
@@ -120,6 +124,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "使用 Google 登录",
     "auth.form.showPassword": "显示密码",
     "auth.form.hidePassword": "隐藏密码",
+    "auth.form.loading": "处理中...",
+    "auth.form.error.generic": "身份验证时发生错误。请重试。",
   },
   ko: {
     "app.title": "FlightDeck",
@@ -160,6 +166,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Google로 로그인",
     "auth.form.showPassword": "비밀번호 표시",
     "auth.form.hidePassword": "비밀번호 숨기기",
+    "auth.form.loading": "처리 중...",
+    "auth.form.error.generic": "인증 중 오류가 발생했습니다. 다시 시도해주세요.",
   },
   es: {
     "app.title": "FlightDeck",
@@ -200,6 +208,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Iniciar sesión con Google",
     "auth.form.showPassword": "Mostrar contraseña",
     "auth.form.hidePassword": "Ocultar contraseña",
+    "auth.form.loading": "Procesando...",
+    "auth.form.error.generic": "Se produjo un error durante la autenticación. Por favor, inténtalo de nuevo.",
   },
   fr: {
     "app.title": "FlightDeck",
@@ -240,6 +250,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Se connecter avec Google",
     "auth.form.showPassword": "Afficher le mot de passe",
     "auth.form.hidePassword": "Masquer le mot de passe",
+    "auth.form.loading": "Traitement...",
+    "auth.form.error.generic": "Une erreur est survenue lors de l'authentification. Veuillez réessayer.",
   },
   de: {
     "app.title": "FlightDeck",
@@ -280,6 +292,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Mit Google anmelden",
     "auth.form.showPassword": "Passwort anzeigen",
     "auth.form.hidePassword": "Passwort ausblenden",
+    "auth.form.loading": "Verarbeitung...",
+    "auth.form.error.generic": "Bei der Authentifizierung ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
   },
   pt: {
     "app.title": "FlightDeck",
@@ -320,6 +334,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Entrar com Google",
     "auth.form.showPassword": "Mostrar senha",
     "auth.form.hidePassword": "Ocultar senha",
+    "auth.form.loading": "Processando...",
+    "auth.form.error.generic": "Ocorreu um erro durante a autenticação. Por favor, tente novamente.",
   },
   ar: {
     "app.title": "FlightDeck",
@@ -360,6 +376,8 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "تسجيل الدخول باستخدام جوجل",
     "auth.form.showPassword": "إظهار كلمة المرور",
     "auth.form.hidePassword": "إخفاء كلمة المرور",
+    "auth.form.loading": "جاري المعالجة...",
+    "auth.form.error.generic": "حدث خطأ أثناء المصادقة. الرجاء المحاولة مرة أخرى.",
   },
   hi: {
     "app.title": "फ्लाइटडेक",
@@ -400,5 +418,7 @@ export const translations: Record<Language, Record<string, string>> = {
     "auth.form.googleLogin": "Google से लॉगिन करें",
     "auth.form.showPassword": "पासवर्ड दिखाएं",
     "auth.form.hidePassword": "पासवर्ड छुपाएं",
+    "auth.form.loading": "प्रसंस्करण हो रहा है...",
+    "auth.form.error.generic": "प्रमाणीकरण के दौरान एक त्रुटि हुई। कृपया पुनः प्रयास करें।",
   },
 };

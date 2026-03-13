@@ -4,14 +4,23 @@ import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
+import { login } from '@/src/lib/actions/auth'; // Import the login action
 
 export default function LoginScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
 
-  const handleLogin = (email: string, password: string): void => {
+  const handleLogin = async (email: string, password: string): Promise<void> => {
     console.log('Login attempt:', { email, password });
     // TODO: Implement actual login logic with NextAuth.js API
+    const success = await login(email, password); // Call the backend login action
+    if (success) {
+      console.log('Login successful!');
+      // Navigate to main app or set user session
+    } else {
+      console.log('Login failed!');
+      // Show error message to user
+    }
   };
 
   return (

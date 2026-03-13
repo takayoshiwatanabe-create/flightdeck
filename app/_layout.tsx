@@ -4,7 +4,10 @@ import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { useReviewPrompt } from "@/hooks/useReviewPrompt";
 import { RuokSplash } from "@/components/RuokSplash";
-import { t } from "@/i18n"; // Import t for translation
+import { t } from "@/i18n";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,25 +16,31 @@ export default function RootLayout(): JSX.Element {
   const [splashDone, setSplashDone] = useState<boolean>(false);
 
   return (
-    <>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        {/* The root index.tsx should not be directly accessible if auth flow is primary.
-            It's better to redirect from index or make it a landing page without direct content.
-            For now, removing the title to avoid double title with the actual content of index.tsx. */}
-        <Stack.Screen name="index" options={{ title: t("app.title") }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-      {!splashDone && (
-        <RuokSplash
-          onFinish={() => {
-            setSplashDone(true);
-            void SplashScreen.hideAsync(); // Use void to explicitly ignore the Promise
-          }}
-        />
-      )}
-    </>
+    <GestureHandlerRootView style={styles.container}>
+      <ThemeProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          {/* The root index.tsx is now a landing page for auth/guest selection */}
+          <Stack.Screen name="index" options={{ title: t("app.title") }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+        {!splashDone && (
+          <RuokSplash
+            onFinish={() => {
+              setSplashDone(true);
+              void SplashScreen.hideAsync();
+            }}
+          />
+        )}
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});

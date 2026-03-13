@@ -7,7 +7,7 @@ const REVIEWED_KEY = 'app_reviewed';
 
 export function useReviewPrompt(): void {
   useEffect(() => {
-    void checkAndPrompt(); // Use void to explicitly ignore the Promise
+    void checkAndPrompt();
   }, []);
 
   async function checkAndPrompt(): Promise<void> {
@@ -26,9 +26,8 @@ export function useReviewPrompt(): void {
           await AsyncStorage.setItem(REVIEWED_KEY, 'true');
         }
       }
-    } catch (error: unknown) { // Use unknown for caught errors
+    } catch (error: unknown) {
       console.error('Error in review prompt logic:', error);
     }
   }
 }
-

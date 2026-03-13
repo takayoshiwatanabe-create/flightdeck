@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Link } from "expo-router"; // Import Link
-import { t } from "@/i18n"; // Import t for translation
-import { useTheme } from "@/components/ThemeProvider"; // Import useTheme
-import { type ColorScheme } from "@/types/theme"; // Import ColorScheme
+import { Link } from "expo-router";
+import { t } from "@/i18n";
+import { useTheme } from "@/components/ThemeProvider";
+import { type ColorScheme } from "@/types/theme";
 
 export default function HomeScreen(): JSX.Element {
   const { theme } = useTheme();
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 16,
     fontSize: 18,
-    marginBottom: 32, // Add margin bottom for spacing
+    marginBottom: 32,
   },
   link: {
     marginTop: 15,
