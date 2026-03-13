@@ -1,50 +1,49 @@
-/** Flight status values per spec color system */
-export type FlightStatusType =
-  | 'scheduled'   // 定刻: Cyan #22D3EE
-  | 'active'      // 搭乗中: Emerald #34D399
-  | 'landed'      // 到着済み: Gray #6B7280
-  | 'cancelled'   // 欠航: Gray #6B7280 (NOT red per spec)
+// src/types/flight.ts
+export type FlightStatus =
+  | 'scheduled'
+  | 'active'
+  | 'landed'
+  | 'cancelled'
   | 'incident'
   | 'diverted'
-  | 'delayed';    // 遅延: Amber #F59E0B
-
-/** Status color mapping per spec section 8.2 */
-export const STATUS_COLORS: Record<FlightStatusType, string> = {
-  scheduled: '#22D3EE',  // Cyan
-  active: '#34D399',     // Emerald
-  landed: '#6B7280',     // Gray
-  cancelled: '#6B7280',  // Gray (red prohibited)
-  incident: '#F59E0B',   // Amber
-  diverted: '#F59E0B',   // Amber
-  delayed: '#F59E0B',    // Amber
-};
-
-export interface AirportInfo {
-  airport: string;
-  iata: string;
-  terminal: string | null;
-  gate: string | null;
-  delay: number | null;
-  scheduled: string; // UTC ISO string
-  estimated: string | null; // UTC ISO string
-  actual: string | null; // UTC ISO string
-}
+  | 'delayed';
 
 export interface FlightInfo {
   flightIata: string;
   flightNumber: string;
-  airlineName: string;
-  airlineIata: string;
   flightDate: string; // YYYY-MM-DD
-  status: FlightStatusType;
-  departure: AirportInfo;
-  arrival: AirportInfo;
+  airlineName: string;
+  status: FlightStatus;
+  departure: {
+    airport: string;
+    iata: string;
+    scheduled: string; // UTC ISO string
+    estimated: string; // UTC ISO string
+    actual: string | null; // UTC ISO string
+    delay: number | null; // minutes
+    terminal: string | null;
+    gate: string | null;
+  };
+  arrival: {
+    airport: string;
+    iata: string;
+    scheduled: string; // UTC ISO string
+    estimated: string; // UTC ISO string
+    actual: string | null; // UTC ISO string
+    delay: number | null; // minutes
+    terminal: string | null;
+    gate: string | null;
+    baggage: string | null;
+  };
 }
 
-/** A flight saved by the user to track */
-export interface TrackedFlight {
-  flightIata: string;
-  flightDate: string;
-  addedAt: string; // UTC ISO string
-}
-
+// Constitution (Project Rules) 第8条2項 カラーシステムに準拠
+export const STATUS_COLORS: Record<FlightStatus, string> = {
+  scheduled: '#22D3EE', // シアン
+  active: '#34D399',    // エメラルド
+  landed: '#6B7280',    // グレー
+  cancelled: '#6B7280', // グレー
+  incident: '#EF4444',  // 赤 (緊急事態のため例外的に赤を許可)
+  diverted: '#F59E0B',  // アンバー
+  delayed: '#F59E0B',   // アンバー
+};

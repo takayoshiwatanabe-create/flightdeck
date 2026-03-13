@@ -51,8 +51,10 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
 
   const renderFlightItem = ({ item }: { item: FlightInfo }): JSX.Element => {
     const statusColor = STATUS_COLORS[item.status] || colors.secondaryText;
-    const departureTime = formatInTimeZone(parseISO(item.departure.scheduled), Intl.DateTimeFormat().resolvedOptions().timeZone, 'HH:mm');
-    const arrivalTime = formatInTimeZone(parseISO(item.arrival.scheduled), Intl.DateTimeFormat().resolvedOptions().timeZone, 'HH:mm');
+    // Use Intl.DateTimeFormat().resolvedOptions().timeZone for client's local timezone
+    const clientTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const departureTime = formatInTimeZone(parseISO(item.departure.scheduled), clientTimeZone, 'HH:mm');
+    const arrivalTime = formatInTimeZone(parseISO(item.arrival.scheduled), clientTimeZone, 'HH:mm');
 
     return (
       <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -94,7 +96,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
             </View>
 
             <MaterialCommunityIcons
-              name={direction === 'rtl' ? 'airplane-takeoff' : 'airplane-landing'}
+              name={direction === 'rtl' ? 'airplane-landing' : 'airplane-takeoff'} // Icon direction adjusted for RTL
               size={24}
               color={colors.icon}
               style={styles.arrowIcon}
@@ -274,3 +276,4 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
+

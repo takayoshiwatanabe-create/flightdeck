@@ -562,3 +562,4 @@ export const translations: Record<Language, Record<string, string>> = {
     "flight.list.error.generic": "उड़ान जानकारी प्राप्त करते समय एक त्रुटि हुई। कृपया बाद में पुनः प्रयास करें।",
   },
 };
+

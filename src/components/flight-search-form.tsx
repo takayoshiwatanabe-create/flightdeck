@@ -25,7 +25,7 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background, flexDirection: direction === 'rtl' ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.container, { backgroundColor: colors.background, borderBottomColor: colors.border }]}>
       <TextInput
         style={[
           styles.input,
@@ -162,3 +162,4 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
+

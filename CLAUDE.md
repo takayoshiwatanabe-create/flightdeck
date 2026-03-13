@@ -330,3 +330,278 @@ N/A
 
 ## Important Deadlines
 - 2026年4月28日までにXcode 26対応が必要。ExpoがSDK対応を出し次第、eas build コマンドを再実行するだけで対応完了。期限1週間前に確認すること。
+
+## Recently Implemented Feature: フライト検索・表示UIの実装 (2)
+
+### 概要
+フライト検索フォームとフライトリスト表示コンポーネントの実装。多言語対応、ダークモード対応、RTL対応を含む。
+
+### 構成要素
+1.  **`src/components/flight-search-form.tsx`**: フライト番号と日付を入力して検索するUI。
+2.  **`src/components/flight-list.tsx`**: 検索結果のフライト情報を表示するUI。
+
+### `src/components/flight-search-form.tsx` 詳細
+
+-   **機能**:
+    -   フライト番号と日付の入力フィールド。
+    -   検索ボタン。
+    -   検索中はボタンを無効化し、ローディングインジケーターを表示。
+-   **デザイン**:
+    -   `useTheme` を使用したダークモード対応。
+    -   `isRTL` を使用したRTLレイアウト対応（入力フィールドのテキスト配置、マージン、ボタン配置）。
+    -   プレースホルダー、ボタンテキストは `t()` 関数で多言語対応。
+    -   デフォルトの日付は今日。
+-   **アクセシビリティ**:
+    -   `accessibilityLabel` を各入力フィールドとボタンに設定。
+-   **カラーシステム**:
+    -   背景色、入力フィールドの背景色、テキスト色、ボーダー色、プライマリ色（検索ボタン）、ボタンテキスト色をテーマに基づいて動的に設定。
+
+### `src/components/flight-list.tsx` 詳細
+
+-   **機能**:
+    -   フライト情報のリスト表示。
+    -   ローディング状態、エラー状態、結果なしの状態を適切に表示。
+    -   各フライトアイテムはタップ可能で、`onSelectFlight` コールバックを呼び出す。
+-   **デザイン**:
+    -   `useTheme` を使用したダークモード対応。
+    -   `isRTL` を使用したRTLレイアウト対応（テキスト配置、アイコンの向き、要素の順序）。
+    -   フライトステータス（定刻、遅延、欠航など）は憲法第8条2項のカラーシステムに従う。
+        -   定刻: `#22D3EE` (シアン)
+        -   遅延: `#F59E0B` (アンバー)
+        -   欠航: `#6B7280` (グレー)
+        -   搭乗中: `#34D399` (エメラルド)
+        -   到着済み: `#6B7280` (グレー)
+    -   遅延情報はアンバー/オレンジで表示し、赤色は使用しない。
+    -   日付と時刻の表示は `date-fns-tz` を使用し、クライアントサイドのタイムゾーンでフォーマット。
+    -   `react-native-reanimated` を使用したリストアイテムのフェードイン/アウトアニメーション。
+-   **アクセシビリティ**:
+    -   各フライトアイテムに `accessibilityLabel` を設定。
+-   **カラーシステム**:
+    -   背景色、テキスト色、セカンダリテキスト色、プライマリ色、カード背景色、カードボーダー色、アイコン色、エラー色をテーマに基づいて動的に設定。
+    -   フライトステータス色は憲法第8条2項の定義を厳守。
+
+### `src/lib/aviationstack.ts` 詳細
+
+-   **機能**:
+    -   Aviationstack APIからフライトステータスと航空会社情報を取得するサーバーサイド関数。
+    -   Vercel KV を使用したキャッシュメカニズムを実装。
+        -   フライト情報: 60秒TTL
+        -   航空会社情報: 24時間TTL
+    -   APIキーはサーバーサイドでのみ使用し、クライアントに露出させない。
+    -   **時刻処理**: APIから受信した時刻データは、`normalizeToUTC` 関数を使用して直ちにUTCに正規化される。これにより、憲法第5条2項「API受信: 受信直後にUTCに正規化」を遵守する。
+-   **データ構造**:
+    -   `FlightData` および `AirlineInfo` インターフェースを定義し、APIレスポンスの型安全性を確保。
+-   **エラーハンドリング**:
+    -   API呼び出し失敗時のエラーロギングと `null` 返却。
+
+### `src/i18n/index.ts` 詳細
+
+-   **機能**:
+    -   多言語対応のコアロジック。
+    -   `expo-localization` を使用してデバイスの言語を自動検出（Webでは `navigator.language`）。
+    -   `AsyncStorage` を使用してユーザーが選択した言語を永続化。
+    -   `setLanguage` 関数で言語を切り替える際に、Webプラットフォームでは `document.documentElement` の `lang` および `dir` 属性を更新し、RTL対応を自動適用。
+    -   `isRTL()` 関数で現在の言語がRTLかどうかを判定。
+    -   `t()` 関数で翻訳キーから文字列を取得。
+-   **RTL対応**:
+    -   アラビア語 (`ar`) が選択された場合、`isRTL()` が `true` を返す。
+    -   Webでは `document.documentElement.setAttribute('dir', 'rtl')` が適用される。
+
+### `src/types/flight.ts` (新規ファイル)
+
+-   **機能**:
+    -   フライト情報に関するTypeScriptの型定義と定数を集約。
+    -   `FlightInfo` インターフェース: UIで表示するフライトデータの構造を定義。
+    -   `FlightStatus` 型: 可能なフライトステータスのリテラル型。
+    -   `STATUS_COLORS` 定数: 憲法第8条2項に準拠したフライトステータスごとの色定義。
+
+```typescript
+// src/types/flight.ts
+export type FlightStatus =
+  | 'scheduled'
+  | 'active'
+  | 'landed'
+  | 'cancelled'
+  | 'incident'
+  | 'diverted'
+  | 'delayed';
+
+export interface FlightInfo {
+  flightIata: string;
+  flightNumber: string;
+  flightDate: string; // YYYY-MM-DD
+  airlineName: string;
+  status: FlightStatus;
+  departure: {
+    airport: string;
+    iata: string;
+    scheduled: string; // UTC ISO string
+    estimated: string; // UTC ISO string
+    actual: string | null; // UTC ISO string
+    delay: number | null; // minutes
+    terminal: string | null;
+    gate: string | null;
+  };
+  arrival: {
+    airport: string;
+    iata: string;
+    scheduled: string; // UTC ISO string
+    estimated: string; // UTC ISO string
+    actual: string | null; // UTC ISO string
+    delay: number | null; // minutes
+    terminal: string | null;
+    gate: string | null;
+    baggage: string | null;
+  };
+}
+
+// Constitution (Project Rules) 第8条2項 カラーシステムに準拠
+export const STATUS_COLORS: Record<FlightStatus, string> = {
+  scheduled: '#22D3EE', // シアン
+  active: '#34D399',    // エメラルド
+  landed: '#6B7280',    // グレー
+  cancelled: '#6B7280', // グレー
+  incident: '#EF4444',  // 赤 (緊急事態のため例外的に赤を許可)
+  diverted: '#F59E0B',  // アンバー
+  delayed: '#F59E0B',   // アンバー
+};
+```
+
+### `src/lib/kv.ts` (新規ファイル)
+
+-   **機能**:
+    -   Vercel KV (Redis互換) とのインタラクションを抽象化するユーティリティ関数。
+    -   `getCache(key: string)`: キャッシュからデータを取得。
+    -   `setCache(key: string, value: string, ttl: number)`: キャッシュにデータを保存（TTL付き）。
+-   **技術スタック**:
+    -   `@upstash/redis` を使用。
+
+```typescript
+// src/lib/kv.ts
+import { Redis } from '@upstash/redis';
+import { env } from './env'; // 環境変数からRedis接続情報を取得
+
+const redis = new Redis({
+  url: env.UPSTASH_REDIS_REST_URL,
+  token: env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+/**
+ * キャッシュからデータを取得します。
+ * @param key キャッシュキー
+ * @returns キャッシュされたデータ（文字列）またはnull
+ */
+export async function getCache(key: string): Promise<string | null> {
+  try {
+    const data = await redis.get(key);
+    if (typeof data === 'string') {
+      return data;
+    }
+    return null;
+  } catch (error: unknown) {
+    console.error(`Error getting cache for key ${key}:`, error);
+    return null;
+  }
+}
+
+/**
+ * キャッシュにデータを保存します。
+ * @param key キャッシュキー
+ * @param value 保存するデータ（文字列）
+ * @param ttl 有効期限（秒）
+ */
+export async function setCache(key: string, value: string, ttl: number): Promise<void> {
+  try {
+    await redis.setex(key, ttl, value);
+  } catch (error: unknown) {
+    console.error(`Error setting cache for key ${key}:`, error);
+  }
+}
+```
+
+### `src/lib/env.ts` (新規ファイル)
+
+-   **機能**:
+    -   環境変数を安全に読み込むためのユーティリティ。
+    -   サーバーサイドでのみアクセスされるべき変数と、クライアントサイドでもアクセス可能な変数を区別。
+    -   `AVIATIONSTACK_API_KEY` はサーバーサイドのみ。
+-   **技術スタック**:
+    -   `process.env` を直接使用し、TypeScriptで型安全性を確保。
+
+```typescript
+// src/lib/env.ts
+// 環境変数の型定義
+interface Env {
+  AVIATIONSTACK_API_KEY: string;
+  UPSTASH_REDIS_REST_URL: string;
+  UPSTASH_REDIS_REST_TOKEN: string;
+  // 他の環境変数もここに追加
+}
+
+// 環境変数を検証し、型安全なオブジェクトとしてエクスポート
+// Next.jsの環境変数命名規則に従い、NEXT_PUBLIC_プレフィックスはクライアントサイド用
+// サーバーサイドのみの変数はプレフィックスなし
+const env: Env = {
+  AVIATIONSTACK_API_KEY: process.env.AVIATIONSTACK_API_KEY ?? '',
+  UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL ?? '',
+  UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN ?? '',
+};
+
+// 必須の環境変数が設定されているかチェック
+// 開発時のみ警告を出すか、本番ではエラーをスローするなどのロジックを追加可能
+if (process.env.NODE_ENV === 'development') {
+  if (!env.AVIATIONSTACK_API_KEY) {
+    console.warn('Warning: AVIATIONSTACK_API_KEY is not set.');
+  }
+  if (!env.UPSTASH_REDIS_REST_URL) {
+    console.warn('Warning: UPSTASH_REDIS_REST_URL is not set.');
+  }
+  if (!env.UPSTASH_REDIS_REST_TOKEN) {
+    console.warn('Warning: UPSTASH_REDIS_REST_TOKEN is not set.');
+  }
+}
+
+export { env };
+```
+
+### `package.json` の更新
+
+-   `@upstash/redis` の追加。
+-   `date-fns-tz` の追加。
+-   `react-native-reanimated` の追加。
+-   `@types/date-fns-tz` の追加。
+
+### `tsconfig.json` の更新
+
+-   `src/lib/**/*.ts` を `include` に追加。
+-   `src/types/**/*.ts` を `include` に追加。
+
+---
+## Development Instructions
+N/A
+
+## Technical Stack
+- Next.js 15 + React 19 + TypeScript (strict mode)
+- TailwindCSS 4
+- Vitest for unit tests
+- Playwright for E2E tests
+
+## Code Standards
+- TypeScript strict mode, no `any`
+- Minimal comments — code should be self-documenting
+- Use path alias `@/` for imports from `src/`
+- All components use functional style with proper typing
+
+## Internationalization (i18n)
+- Supported languages: ja (日本語), en (English), zh (中文), ko (한국어), es (Español), fr (Français), de (Deutsch), pt (Português), ar (العربية), hi (हिन्दी)
+- Use the i18n module at `@/i18n` for all user-facing strings
+- Use `t("key")` function for translations — never hardcode UI strings
+- Auto-detect device language via expo-localization
+- Default language: ja (Japanese)
+- RTL support required for Arabic (ar)
+- Use isRTL flag from i18n module for layout adjustments
+
+## Important Deadlines
+- 2026年4月28日までにXcode 26対応が必要。ExpoがSDK対応を出し次第、eas build コマンドを再実行するだけで対応完了。期限1週間前に確認すること。
+
+

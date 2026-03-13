@@ -8,11 +8,6 @@
       ]
     },
     "jsx": "react-jsx",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "baseUrl": ".",
     "allowJs": true,
     "esModuleInterop": true,
@@ -44,9 +39,12 @@
     "app/**/*.tsx",
     "api/**/*.ts",
     "i18n/**/*.ts",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    "src/lib/**/*.ts",
+    "src/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ]
 }
+

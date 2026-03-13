@@ -1,33 +1,40 @@
+// src/lib/kv.ts
 import { Redis } from '@upstash/redis';
-import { env } from './env';
+import { env } from './env'; // 環境変数からRedis接続情報を取得
 
-// Initialize Redis using the correct environment variables for Upstash Redis
-export const kv = new Redis({
+const redis = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,
   token: env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-// Example usage (this would typically be in a server-side API route)
-export async function setCache(key: string, value: string, ttlSeconds: number): Promise<void> {
-  try {
-    await kv.set(key, value, { ex: ttlSeconds });
-    console.log(`Cache set for key: ${key} with TTL: ${ttlSeconds}s`);
-  } catch (error: unknown) {
-    console.error(`Error setting cache for key ${key}:`, error);
-  }
-}
-
+/**
+ * キャッシュからデータを取得します。
+ * @param key キャッシュキー
+ * @returns キャッシュされたデータ（文字列）またはnull
+ */
 export async function getCache(key: string): Promise<string | null> {
   try {
-    const data: string | null = await kv.get<string>(key);
-    if (data) {
-      console.log(`Cache hit for key: ${key}`);
-    } else {
-      console.log(`Cache miss for key: ${key}`);
+    const data: unknown = await redis.get(key); // Use unknown for initial type
+    if (typeof data === 'string') {
+      return data;
     }
-    return data;
+    return null;
   } catch (error: unknown) {
     console.error(`Error getting cache for key ${key}:`, error);
     return null;
+  }
+}
+
+/**
+ * キャッシュにデータを保存します。
+ * @param key キャッシュキー
+ * @param value 保存するデータ（文字列）
+ * @param ttl 有効期限（秒）
+ */
+export async function setCache(key: string, value: string, ttl: number): Promise<void> {
+  try {
+    await redis.setex(key, ttl, value);
+  } catch (error: unknown) {
+    console.error(`Error setting cache for key ${key}:`, error);
   }
 }

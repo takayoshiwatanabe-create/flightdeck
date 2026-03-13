@@ -64,15 +64,6 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
   );
 }
 
-export function useTheme(): ThemeContextType {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
-}
-
-// Component to inject initial theme into HTML for web SSR
 export function InitialTheme(): JSX.Element | null {
   if (Platform.OS === 'web') {
     // The script below is designed to run before React hydrates,
@@ -119,5 +110,13 @@ export function InitialTheme(): JSX.Element | null {
     );
   }
   return null;
+}
+
+export function useTheme(): ThemeContextType {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
 }
 
