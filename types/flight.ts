@@ -2,18 +2,18 @@ export type FlightStatusType =
   | 'scheduled'
   | 'active'
   | 'landed'
-  | 'delayed'
-  | 'cancelled';
+  | 'cancelled'
+  | 'delayed';
 
 export const STATUS_COLORS: Record<FlightStatusType, string> = {
   scheduled: '#22D3EE', // Cyan
   active: '#34D399', // Emerald
   landed: '#6B7280', // Gray
   delayed: '#F59E0B', // Amber
-  cancelled: '#6B7280', // Gray (as per spec, not red)
+  cancelled: '#6B7280', // Gray (not red, as per spec)
 };
 
-export interface AirportInfo {
+export interface FlightLeg {
   airport: string;
   iata: string;
   terminal: string | null;
@@ -22,6 +22,7 @@ export interface AirportInfo {
   scheduled: string; // UTC ISO string
   estimated: string; // UTC ISO string
   actual: string | null; // UTC ISO string
+  timezone: string; // IANA timezone name, e.g., "America/New_York"
 }
 
 export interface FlightInfo {
@@ -31,6 +32,7 @@ export interface FlightInfo {
   airlineIata: string;
   flightDate: string; // YYYY-MM-DD
   status: FlightStatusType;
-  departure: AirportInfo;
-  arrival: AirportInfo;
+  departure: FlightLeg;
+  arrival: FlightLeg;
 }
+

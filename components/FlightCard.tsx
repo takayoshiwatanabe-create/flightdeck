@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import type { FlightInfo } from '@/types/flight';
 import { STATUS_COLORS, type FlightStatusType } from '@/types/flight';
 import { type ColorScheme } from '@/types/theme';
 import { getStatusKey } from '@/lib/flightService';
+import { formatInTimeZone } from 'date-fns-tz'; // Import formatInTimeZone
 
 interface FlightCardProps {
   flight: FlightInfo;
@@ -14,16 +15,24 @@ interface FlightCardProps {
   onToggleTrack: () => void;
 }
 
-function formatTime(dateStr: string | null): string {
+function formatTime(dateStr: string | null, timezone: string, locale: string): string {
   if (!dateStr) return '--:--';
-  const d = new Date(dateStr);
-  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  try {
+    const date = new Date(dateStr);
+    // Use formatInTimeZone to display time in the specified timezone
+    return formatInTimeZone(date, timezone, 'HH:mm', { locale: new Date(date).toLocaleDateString(locale) });
+  } catch (error: unknown) {
+    console.error('Error formatting time:', error);
+    return '--:--';
+  }
 }
 
 export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
   const statusColor = STATUS_COLORS[flight.status] ?? '#6B7280';
+  const t = useTranslations('flight'); // Use useTranslations hook
+  const locale = useLocale(); // Get current locale
 
   return (
     <View style={[styles.card, { backgroundColor: colors.cardBg, borderColor: colors.border }]}>
@@ -50,16 +59,20 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
         <View style={styles.airport}>
           <Text style={[styles.iata, { color: colors.text }]}>{flight.departure.iata}</Text>
           <Text style={[styles.time, { color: colors.text }]}>
-            {formatTime(flight.departure.actual ?? flight.departure.estimated ?? flight.departure.scheduled)}
+            {formatTime(
+              flight.departure.actual ?? flight.departure.estimated ?? flight.departure.scheduled,
+              flight.departure.timezone ?? 'UTC', // Fallback to UTC if timezone is missing
+              locale
+            )}
           </Text>
           {flight.departure.terminal ? (
             <Text style={[styles.detail, { color: colors.secondaryText }]}>
-              {t('flight.terminal')} {flight.departure.terminal}
+              {t('terminal')} {flight.departure.terminal}
             </Text>
           ) : null}
           {flight.departure.gate ? (
             <Text style={[styles.detail, { color: colors.secondaryText }]}>
-              {t('flight.gate')} {flight.departure.gate}
+              {t('gate')} {flight.departure.gate}
             </Text>
           ) : null}
         </View>
@@ -72,16 +85,20 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
         <View style={[styles.airport, styles.airportRight]}>
           <Text style={[styles.iata, { color: colors.text }]}>{flight.arrival.iata}</Text>
           <Text style={[styles.time, { color: colors.text }]}>
-            {formatTime(flight.arrival.actual ?? flight.arrival.estimated ?? flight.arrival.scheduled)}
+            {formatTime(
+              flight.arrival.actual ?? flight.arrival.estimated ?? flight.arrival.scheduled,
+              flight.arrival.timezone ?? 'UTC', // Fallback to UTC if timezone is missing
+              locale
+            )}
           </Text>
           {flight.arrival.terminal ? (
             <Text style={[styles.detail, { color: colors.secondaryText }]}>
-              {t('flight.terminal')} {flight.arrival.terminal}
+              {t('terminal')} {flight.arrival.terminal}
             </Text>
           ) : null}
           {flight.arrival.gate ? (
             <Text style={[styles.detail, { color: colors.secondaryText }]}>
-              {t('flight.gate')} {flight.arrival.gate}
+              {t('gate')} {flight.arrival.gate}
             </Text>
           ) : null}
         </View>
@@ -92,7 +109,7 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
         <View style={[styles.delayBar, { backgroundColor: '#F59E0B20' }]}>
           <MaterialCommunityIcons name="clock-alert-outline" size={14} color="#F59E0B" />
           <Text style={styles.delayText}>
-            {t('flight.delay', { minutes: String(flight.departure.delay) })}
+            {t('delay', { minutes: String(flight.departure.delay) })}
           </Text>
         </View>
       ) : null}
@@ -104,7 +121,7 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
           { backgroundColor: isTracked ? colors.trackActiveBg : colors.trackBg },
         ]}
         onPress={onToggleTrack}
-        accessibilityLabel={isTracked ? t('flight.untrack') : t('flight.track')}
+        accessibilityLabel={isTracked ? t('untrack') : t('track')}
       >
         <MaterialCommunityIcons
           name={isTracked ? 'bell-off-outline' : 'bell-plus-outline'}
@@ -117,7 +134,7 @@ export function FlightCard({ flight, isTracked, onToggleTrack }: FlightCardProps
             { color: isTracked ? colors.secondaryText : '#22D3EE' },
           ]}
         >
-          {isTracked ? t('flight.untrack') : t('flight.track')}
+          {isTracked ? t('untrack') : t('track')}
         </Text>
       </Pressable>
     </View>
@@ -254,5 +271,3 @@ function getColors(theme: ColorScheme): {
     trackActiveBg: '#F3F4F6',
   };
 }
-
-

@@ -55,10 +55,14 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
       } else {
         document.documentElement.classList.remove('dark');
       }
-      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
-      document.documentElement.setAttribute('lang', locale);
+      // The 'dir' and 'lang' attributes are now managed by next-intl's root layout,
+      // as per the spec's "RTL対応ルール" and "多言語翻訳の品質基準" which implies
+      // next-intl handling the HTML attributes.
+      // Removing direct manipulation here to avoid conflicts and ensure next-intl is the SSOT for these.
+      // document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      // document.documentElement.setAttribute('lang', locale);
     }
-  }, [theme, locale, isRTL]);
+  }, [theme]); // Removed locale, isRTL from dependencies as they are not used for direct DOM manipulation here.
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
@@ -82,12 +86,14 @@ export function InitialTheme(): JSX.Element | null {
             document.documentElement.classList.remove('dark');
           }
 
-          const pathParts = window.location.pathname.split('/');
-          const localeFromPath = pathParts[1];
-          const supportedLangs = ["ja", "en", "zh", "ko", "es", "fr", "de", "pt", "ar", "hi"];
-          const currentLang = supportedLangs.includes(localeFromPath) ? localeFromPath : 'ja';
-          document.documentElement.setAttribute('lang', currentLang);
-          document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+          // The 'dir' and 'lang' attributes are now managed by next-intl's root layout.
+          // Removing direct manipulation here to avoid conflicts.
+          // const pathParts = window.location.pathname.split('/');
+          // const localeFromPath = pathParts[1];
+          // const supportedLangs = ["ja", "en", "zh", "ko", "es", "fr", "de", "pt", "ar", "hi"];
+          // const currentLang = supportedLangs.includes(localeFromPath) ? localeFromPath : 'ja';
+          // document.documentElement.setAttribute('lang', currentLang);
+          // document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
 
         } catch (e) {
           console.error('Failed to set initial theme or language:', e);
@@ -98,8 +104,9 @@ export function InitialTheme(): JSX.Element | null {
           } else {
             document.documentElement.classList.remove('dark');
           }
-          document.documentElement.setAttribute('lang', 'ja');
-          document.documentElement.setAttribute('dir', 'ltr');
+          // Fallback for lang/dir also removed here, relying on next-intl's root layout.
+          // document.documentElement.setAttribute('lang', 'ja');
+          // document.documentElement.setAttribute('dir', 'ltr');
         }
       })();
     `;

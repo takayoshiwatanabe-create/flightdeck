@@ -33,19 +33,10 @@
     "next-env.d.ts",
     "**/*.js",
     "**/*.jsx",
-    "src/**/*.ts",
-    "src/**/*.tsx",
     "app/**/*.ts",
     "app/**/*.tsx",
-    "api/**/*.ts",
-    "i18n/**/*.ts",
-    "tailwind.config.ts",
-    "src/lib/**/*.ts",
-    "src/types/**/*.ts",
-    "lib/**/*.ts",
-    "hooks/**/*.ts",
-    "components/**/*.ts",
-    "components/**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ],
   "exclude": [
     "node_modules"

@@ -8,7 +8,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTranslations } from 'next-intl'; // Corrected import
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { FlightCard } from '@/components/FlightCard';
 import { AdBanner } from '@/components/ads/AdBanner';
@@ -25,7 +25,7 @@ export default function TabHomeScreen(): JSX.Element {
     removeFlight,
     refreshDetails,
   } = useTrackedFlights();
-  const t = useTranslations('home'); // Use useTranslations hook
+  const t = useTranslations('home');
 
   const [refreshing, setRefreshing] = React.useState(false);
 

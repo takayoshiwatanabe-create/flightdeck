@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTranslations } from 'next-intl'; // Corrected import
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
@@ -16,7 +16,7 @@ function TabIcon({ name, color }: TabIconProps): JSX.Element {
 export default function TabLayout(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('tabs'); // Use useTranslations hook
+  const t = useTranslations('tabs');
 
   return (
     <Tabs

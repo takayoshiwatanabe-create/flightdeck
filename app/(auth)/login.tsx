@@ -4,12 +4,12 @@ import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
 import { login } from '@/lib/actions/auth';
-import { useTranslations } from 'next-intl'; // Import useTranslations
+import { useTranslations } from 'next-intl';
 
 export default function LoginScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('auth.login'); // Use useTranslations hook
+  const t = useTranslations('auth.login');
 
   const handleLogin = async (email: string, password: string): Promise<void> => {
     const success: boolean = await login(email, password);

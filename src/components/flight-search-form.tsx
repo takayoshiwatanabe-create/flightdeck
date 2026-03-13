@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Pressable, Text, StyleSheet, Platform } from 'react-native';
+import { View, TextInput, Pressable, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
@@ -40,8 +40,8 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
             borderColor: colors.inputBorder,
             textAlign: direction === 'rtl' ? 'right' : 'left',
             flex: 1,
-            marginEnd: direction === 'rtl' ? 0 : 10,
-            marginStart: direction === 'rtl' ? 10 : 0,
+            marginEnd: isRTL ? 0 : 10,
+            marginStart: isRTL ? 10 : 0,
           },
         ]}
         placeholder={t('form.flightNumberPlaceholder')}
@@ -63,8 +63,8 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
             color: colors.inputText,
             borderColor: colors.inputBorder,
             textAlign: direction === 'rtl' ? 'right' : 'left',
-            marginEnd: direction === 'rtl' ? 10 : 0,
-            marginStart: direction === 'rtl' ? 0 : 10,
+            marginEnd: isRTL ? 10 : 0,
+            marginStart: isRTL ? 0 : 10,
           },
         ]}
         placeholder={t('form.datePlaceholder')}
@@ -81,8 +81,8 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
           {
             backgroundColor: colors.primary,
             opacity: pressed || isLoading ? 0.7 : 1,
-            marginStart: direction === 'rtl' ? 0 : 10,
-            marginEnd: direction === 'rtl' ? 10 : 0,
+            marginStart: isRTL ? 0 : 10,
+            marginEnd: isRTL ? 10 : 0,
           },
         ]}
         onPress={handleSearch}

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
-import { useTranslations } from 'next-intl'; // Corrected import
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
@@ -9,7 +9,7 @@ import { signup } from '@/lib/actions/auth';
 export default function SignUpScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('auth.signup'); // Use useTranslations hook
+  const t = useTranslations('auth.signup');
 
   const handleSignUp = async (email: string, password: string): Promise<void> => {
     // console.log('Sign up attempt:', { email, password }); // Removed for production readiness

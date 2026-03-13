@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
@@ -20,21 +20,22 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const t = useTranslations('auth.form'); // Use useTranslations hook
 
   const handleSubmit = async (): Promise<void> => {
     setError('');
     if (!email || !password) {
-      setError(t('auth.form.error.emptyFields'));
+      setError(t('error.emptyFields'));
       return;
     }
     // Basic email validation
     if (!/\S+@\S+\.\S+/.test(email)) {
-      setError(t('auth.form.error.invalidEmail'));
+      setError(t('error.invalidEmail'));
       return;
     }
     // Password strength for signup
     if (type === 'signup' && password.length < MIN_PASSWORD_LENGTH) {
-      setError(t('auth.form.error.passwordTooShort'));
+      setError(t('error.passwordTooShort'));
       return;
     }
 
@@ -43,7 +44,7 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
       await onSubmit(email, password);
     } catch (e: unknown) {
       console.error('AuthForm submission error:', e);
-      setError(t('auth.form.error.generic'));
+      setError(t('error.generic'));
     } finally {
       setIsLoading(false);
     }
@@ -55,30 +56,30 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
 
       <TextInput
         style={[styles.input, { backgroundColor: colors.inputBackground, color: colors.inputText, borderColor: colors.inputBorder }]}
-        placeholder={t('auth.form.emailPlaceholder')}
+        placeholder={t('emailPlaceholder')}
         placeholderTextColor={colors.inputPlaceholder}
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
-        accessibilityLabel={t('auth.form.emailPlaceholder')}
+        accessibilityLabel={t('emailPlaceholder')}
         editable={!isLoading}
       />
       <View style={[styles.passwordContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
         <TextInput
           style={[styles.passwordInput, { color: colors.inputText }]}
-          placeholder={t('auth.form.passwordPlaceholder')}
+          placeholder={t('passwordPlaceholder')}
           placeholderTextColor={colors.inputPlaceholder}
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
-          accessibilityLabel={t('auth.form.passwordPlaceholder')}
+          accessibilityLabel={t('passwordPlaceholder')}
           editable={!isLoading}
         />
         <Pressable
           onPress={() => setShowPassword(!showPassword)}
           style={styles.eyeIcon}
-          accessibilityLabel={showPassword ? t('auth.form.hidePassword') : t('auth.form.showPassword')}
+          accessibilityLabel={showPassword ? t('hidePassword') : t('showPassword')}
           disabled={isLoading}
         >
           <MaterialCommunityIcons
@@ -91,16 +92,16 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
 
       <Pressable style={[styles.button, { backgroundColor: colors.buttonBackground }]} onPress={handleSubmit} disabled={isLoading}>
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>
-          {isLoading ? t('auth.form.loading') : (type === 'login' ? t('auth.login.button') : t('auth.signup.button'))}
+          {isLoading ? t('loading') : (type === 'login' ? useTranslations('auth.login')('button') : useTranslations('auth.signup')('button'))}
         </Text>
       </Pressable>
 
       <View style={styles.socialLoginContainer}>
-        <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('auth.form.or')}</Text>
-        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => { console.log('Google Login'); }} accessibilityLabel={t('auth.form.googleLogin')} disabled={isLoading}>
+        <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('or')}</Text>
+        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => { console.log('Google Login'); }} accessibilityLabel={t('googleLogin')} disabled={isLoading}>
           <MaterialCommunityIcons name="google" size={24} color={colors.googleButtonText} style={styles.socialIcon} />
           <Text style={[styles.socialButtonText, { color: colors.googleButtonText }]}>
-            {t('auth.form.googleLogin')}
+            {t('googleLogin')}
           </Text>
         </Pressable>
         {/* Add other social login buttons if needed */}
@@ -223,5 +224,3 @@ function getColors(theme: ColorScheme): {
     secondaryText: '#6B7280',
   };
 }
-
-

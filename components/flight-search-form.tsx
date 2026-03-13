@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, Pressable, Text, View, ActivityIndicator } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
-import { format } from 'date-fns'; // Correct import for date-fns
+import { format } from 'date-fns';
 
 interface FlightSearchFormProps {
   onSearch: (flightNumber: string, flightDate: string) => Promise<void>;
@@ -16,19 +16,20 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
   const colors = getColors(theme);
   const [flightNumber, setFlightNumber] = useState<string>('');
   const [flightDate, setFlightDate] = useState<string>(
-    format(new Date(), 'yyyy-MM-dd') // Default to today's date YYYY-MM-DD using date-fns
+    format(new Date(), 'yyyy-MM-dd')
   );
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations('search.form'); // Use useTranslations hook
 
   const handleSearch = async (): Promise<void> => {
     setError(null);
     if (!flightNumber.trim()) {
-      setError(t('search.form.error.emptyFlightNumber'));
+      setError(t('error.emptyFlightNumber'));
       return;
     }
     // Basic date format validation (YYYY-MM-DD)
     if (!/^\d{4}-\d{2}-\d{2}$/.test(flightDate)) {
-      setError(t('search.form.error.invalidDate'));
+      setError(t('error.invalidDate'));
       return;
     }
 
@@ -39,30 +40,30 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <TextInput
         style={[styles.input, { backgroundColor: colors.inputBackground, color: colors.inputText, borderColor: colors.inputBorder }]}
-        placeholder={t('search.form.flightNumberPlaceholder')}
+        placeholder={t('flightNumberPlaceholder')}
         placeholderTextColor={colors.inputPlaceholder}
         value={flightNumber}
         onChangeText={setFlightNumber}
         autoCapitalize="characters"
         editable={!isLoading}
-        accessibilityLabel={t('search.form.flightNumberPlaceholder')}
+        accessibilityLabel={t('flightNumberPlaceholder')}
       />
       <TextInput
         style={[styles.input, { backgroundColor: colors.inputBackground, color: colors.inputText, borderColor: colors.inputBorder }]}
-        placeholder={t('search.form.datePlaceholder')}
+        placeholder={t('datePlaceholder')}
         placeholderTextColor={colors.inputPlaceholder}
         value={flightDate}
         onChangeText={setFlightDate}
         keyboardType="numeric"
         editable={!isLoading}
-        accessibilityLabel={t('search.form.datePlaceholder')}
+        accessibilityLabel={t('datePlaceholder')}
       />
       {error && <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>}
       <Pressable
         style={[styles.button, { backgroundColor: colors.buttonBackground }]}
         onPress={() => void handleSearch()}
         disabled={isLoading}
-        accessibilityLabel={t('search.form.searchButton')}
+        accessibilityLabel={t('searchButton')}
       >
         {isLoading ? (
           <ActivityIndicator color={colors.buttonText} />
@@ -70,7 +71,7 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
           <View style={styles.buttonContent}>
             <MaterialCommunityIcons name="magnify" size={20} color={colors.buttonText} style={styles.buttonIcon} />
             <Text style={[styles.buttonText, { color: colors.buttonText }]}>
-              {t('search.form.searchButton')}
+              {t('searchButton')}
             </Text>
           </View>
         )}
@@ -149,4 +150,3 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444', // Red
   };
 }
-

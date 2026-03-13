@@ -1,67 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "最快的航班信息",
-  "app.loginPrompt": "登录",
-  "app.signupPrompt": "注册",
-  "app.guestPrompt": "以访客身份继续",
-  "auth.login.title": "登录",
-  "auth.login.button": "登录",
-  "auth.login.noAccount": "没有账号？",
-  "auth.login.signUp": "注册",
-  "auth.signup.title": "注册",
-  "auth.signup.button": "注册",
-  "auth.signup.hasAccount": "已有账号？",
-  "auth.signup.login": "登录",
-  "auth.form.emailPlaceholder": "电子邮件",
-  "auth.form.passwordPlaceholder": "密码",
-  "auth.form.showPassword": "显示密码",
-  "auth.form.hidePassword": "隐藏密码",
-  "auth.form.loading": "加载中...",
-  "auth.form.or": "或",
-  "auth.form.googleLogin": "使用 Google 登录",
-  "auth.form.error.emptyFields": "请填写所有字段。",
-  "auth.form.error.invalidEmail": "请输入有效的电子邮件地址。",
-  "auth.form.error.passwordTooShort": "密码长度至少为6个字符。",
-  "auth.form.error.generic": "发生错误。请重试。",
-  "tabs.home": "首页",
-  "tabs.search": "搜索",
-  "tabs.settings": "设置",
-  "home.noTrackedFlights": "没有追踪的航班。",
-  "home.addFlightHint": "从航班搜索选项卡添加航班。",
-  "home.trackedFlights": "已追踪的航班",
-  "search.title": "航班搜索",
-  "search.description": "通过航班号和日期查找实时信息。",
-  "search.form.flightNumberPlaceholder": "航班号 (例如: NH123)",
-  "search.form.datePlaceholder": "日期 (YYYY-MM-DD)",
-  "search.form.searchButton": "搜索",
-  "search.form.error.emptyFlightNumber": "请输入航班号。",
-  "search.form.error.invalidDate": "请输入有效的日期格式 (YYYY-MM-DD)。",
-  "search.flightSelected.title": "航班已选择",
-  "search.flightSelected.message": "{airline} 的航班 {flightNumber} 已被选中。",
-  "flight.list.loading": "正在搜索航班...",
-  "flight.list.noResults": "未找到结果。",
-  "flight.list.error.generic": "搜索航班时发生错误。",
-  "flight.status.scheduled": "计划中",
-  "flight.status.active": "飞行中",
-  "flight.status.landed": "已降落",
-  "flight.status.delayed": "延误",
-  "flight.status.cancelled": "已取消",
-  "flight.terminal": "航站楼",
-  "flight.gate": "登机口",
-  "flight.delay": "延误 {minutes} 分钟",
-  "flight.track": "追踪",
-  "flight.untrack": "取消追踪",
-  "settings.title": "设置",
-  "settings.darkMode": "深色模式",
-  "settings.language": "语言",
-  "settings.currentLanguage": "简体中文",
-  "settings.selectLanguage": "选择语言",
-  "settings.languageRestart": "语言更改需要重启应用程序。",
-  "settings.subscription": "订阅",
-  "settings.manageSubscription": "管理订阅",
-  "common.ok": "确定",
-  "common.cancel": "取消",
-  "notFound.title": "页面未找到",
-  "notFound.heading": "此屏幕不存在。",
-  "notFound.goHome": "返回主屏幕"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "最快的航班信息",
+    "loginPrompt": "登录",
+    "signupPrompt": "注册",
+    "guestPrompt": "以访客身份继续"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "button": "登录",
+      "noAccount": "没有账户？",
+      "signUp": "注册"
+    },
+    "signup": {
+      "title": "注册",
+      "button": "注册",
+      "hasAccount": "已有账户？",
+      "login": "登录"
+    },
+    "form": {
+      "emailPlaceholder": "电子邮件",
+      "passwordPlaceholder": "密码",
+      "showPassword": "显示密码",
+      "hidePassword": "隐藏密码",
+      "loading": "加载中...",
+      "or": "或",
+      "googleLogin": "使用Google登录",
+      "error": {
+        "emptyFields": "请填写所有字段。",
+        "invalidEmail": "请输入有效的电子邮件地址。",
+        "passwordTooShort": "密码长度至少为6个字符。",
+        "generic": "发生错误。请重试。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "主页",
+    "search": "搜索",
+    "settings": "设置"
+  },
+  "home": {
+    "noTrackedFlights": "没有追踪的航班。",
+    "addFlightHint": "从航班搜索标签页添加航班。",
+    "trackedFlights": "已追踪航班"
+  },
+  "search": {
+    "title": "航班搜索",
+    "description": "按航班号和日期查找实时信息。",
+    "form": {
+      "flightNumberPlaceholder": "航班号 (例如: NH123)",
+      "datePlaceholder": "日期 (YYYY-MM-DD)",
+      "searchButton": "搜索",
+      "error": {
+        "emptyFlightNumber": "请输入航班号。",
+        "invalidDate": "请输入有效的日期格式 (YYYY-MM-DD)。"
+      }
+    },
+    "flightSelected": {
+      "title": "航班已选择",
+      "message": "{airline} 的航班 {flightNumber} 已选择。"
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "正在搜索航班...",
+      "noResults": "未找到结果。",
+      "error": {
+        "generic": "搜索航班时发生错误。"
+      }
+    },
+    "status": {
+      "scheduled": "计划",
+      "active": "正在飞行",
+      "landed": "已降落",
+      "delayed": "延误",
+      "cancelled": "已取消"
+    },
+    "terminal": "航站楼",
+    "gate": "登机口",
+    "delay": "延误 {minutes} 分钟",
+    "track": "追踪",
+    "untrack": "取消追踪"
+  },
+  "settings": {
+    "title": "设置",
+    "darkMode": "深色模式",
+    "language": "语言",
+    "currentLanguage": "中文 (简体)",
+    "selectLanguage": "选择语言",
+    "languageRestart": "更改语言需要重启应用。",
+    "subscription": "订阅",
+    "manageSubscription": "管理订阅"
+  },
+  "common": {
+    "ok": "确定",
+    "cancel": "取消"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "heading": "此屏幕不存在。",
+    "goHome": "返回主屏幕"
+  }
 }
+

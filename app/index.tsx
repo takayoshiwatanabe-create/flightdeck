@@ -1,13 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
-import { useTranslations } from "next-intl"; // Corrected import
+import { useTranslations } from "next-intl";
 import { useTheme } from "@/components/ThemeProvider";
 import { type ColorScheme } from "@/types/theme";
 
 export default function HomeScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('app'); // Use useTranslations hook
+  const t = useTranslations('app');
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>

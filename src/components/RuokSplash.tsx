@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet, View, Image } from "react-native";
-import { useLocale } from 'next-intl';
+import { Animated, StyleSheet, View } from "react-native";
+// Removed useLocale as it's not directly used for layout in this component
+// The root HTML element's dir attribute should handle global RTL.
 
 interface Props {
   onFinish: () => void;
@@ -8,9 +9,6 @@ interface Props {
 
 export function RuokSplash({ onFinish }: Props): JSX.Element {
   const opacity = useRef(new Animated.Value(0)).current;
-  const locale = useLocale();
-  const isRTL = locale === 'ar';
-  const direction = isRTL ? 'rtl' : 'ltr';
 
   useEffect(() => {
     Animated.sequence([
@@ -29,7 +27,7 @@ export function RuokSplash({ onFinish }: Props): JSX.Element {
   }, [opacity, onFinish]);
 
   return (
-    <View style={[styles.overlay, { direction }]}>
+    <View style={styles.overlay}>
       <Animated.Image
         source={require("@/assets/ruok-splash.png")}
         style={[styles.image, { opacity }]}

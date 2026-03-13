@@ -2,10 +2,10 @@ import { type PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { InitialTheme, ThemeProvider } from '@/components/ThemeProvider';
-import { useLocale } from 'next-intl'; // Corrected import
+import { useLocale } from 'next-intl';
 
 export default function Root({ children }: PropsWithChildren): JSX.Element {
-  const currentLocale = useLocale(); // Get current locale from next-intl
+  const currentLocale = useLocale();
   const isRTL = currentLocale === 'ar';
 
   return (

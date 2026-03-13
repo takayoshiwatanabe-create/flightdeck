@@ -1,68 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "항공편 정보를 가장 빠르게",
-  "app.loginPrompt": "로그인",
-  "app.signupPrompt": "회원가입",
-  "app.guestPrompt": "게스트로 계속하기",
-  "auth.login.title": "로그인",
-  "auth.login.button": "로그인",
-  "auth.login.noAccount": "계정이 없으신가요?",
-  "auth.login.signUp": "회원가입",
-  "auth.signup.title": "회원가입",
-  "auth.signup.button": "회원가입",
-  "auth.signup.hasAccount": "이미 계정이 있으신가요?",
-  "auth.signup.login": "로그인",
-  "auth.form.emailPlaceholder": "이메일",
-  "auth.form.passwordPlaceholder": "비밀번호",
-  "auth.form.showPassword": "비밀번호 표시",
-  "auth.form.hidePassword": "비밀번호 숨기기",
-  "auth.form.loading": "로딩 중...",
-  "auth.form.or": "또는",
-  "auth.form.googleLogin": "Google로 로그인",
-  "auth.form.error.emptyFields": "모든 필드를 채워주세요.",
-  "auth.form.error.invalidEmail": "유효한 이메일 주소를 입력해주세요.",
-  "auth.form.error.passwordTooShort": "비밀번호는 최소 6자 이상이어야 합니다.",
-  "auth.form.error.generic": "오류가 발생했습니다. 다시 시도해주세요.",
-  "tabs.home": "홈",
-  "tabs.search": "검색",
-  "tabs.settings": "설정",
-  "home.noTrackedFlights": "추적 중인 항공편이 없습니다.",
-  "home.addFlightHint": "항공편 검색 탭에서 항공편을 추가하세요.",
-  "home.trackedFlights": "추적 중인 항공편",
-  "search.title": "항공편 검색",
-  "search.description": "항공편 번호와 날짜로 실시간 정보를 확인하세요.",
-  "search.form.flightNumberPlaceholder": "항공편 번호 (예: NH123)",
-  "search.form.datePlaceholder": "날짜 (YYYY-MM-DD)",
-  "search.form.searchButton": "검색",
-  "search.form.error.emptyFlightNumber": "항공편 번호를 입력해주세요.",
-  "search.form.error.invalidDate": "유효한 날짜 형식 (YYYY-MM-DD)을 입력해주세요.",
-  "search.flightSelected.title": "항공편 선택됨",
-  "search.flightSelected.message": "{airline} 항공사의 {flightNumber}편이 선택되었습니다.",
-  "flight.list.loading": "항공편을 검색 중입니다...",
-  "flight.list.noResults": "검색 결과가 없습니다.",
-  "flight.list.error.generic": "항공편을 검색하는 중 오류가 발생했습니다.",
-  "flight.status.scheduled": "예정됨",
-  "flight.status.active": "운항 중",
-  "flight.status.landed": "도착 완료",
-  "flight.status.delayed": "지연",
-  "flight.status.cancelled": "결항",
-  "flight.terminal": "터미널",
-  "flight.gate": "게이트",
-  "flight.delay": "{minutes}분 지연",
-  "flight.track": "추적",
-  "flight.untrack": "추적 해제",
-  "settings.title": "설정",
-  "settings.darkMode": "다크 모드",
-  "settings.language": "언어",
-  "settings.currentLanguage": "한국어",
-  "settings.selectLanguage": "언어 선택",
-  "settings.languageRestart": "언어 변경을 적용하려면 앱을 다시 시작해야 합니다.",
-  "settings.subscription": "구독",
-  "settings.manageSubscription": "구독 관리",
-  "common.ok": "확인",
-  "common.cancel": "취소",
-  "notFound.title": "페이지를 찾을 수 없음",
-  "notFound.heading": "이 화면은 존재하지 않습니다.",
-  "notFound.goHome": "홈으로 이동"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "가장 빠른 항공편 정보",
+    "loginPrompt": "로그인",
+    "signupPrompt": "회원가입",
+    "guestPrompt": "게스트로 계속"
+  },
+  "auth": {
+    "login": {
+      "title": "로그인",
+      "button": "로그인",
+      "noAccount": "계정이 없으신가요?",
+      "signUp": "회원가입"
+    },
+    "signup": {
+      "title": "회원가입",
+      "button": "회원가입",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "login": "로그인"
+    },
+    "form": {
+      "emailPlaceholder": "이메일",
+      "passwordPlaceholder": "비밀번호",
+      "showPassword": "비밀번호 표시",
+      "hidePassword": "비밀번호 숨기기",
+      "loading": "로딩 중...",
+      "or": "또는",
+      "googleLogin": "Google로 로그인",
+      "error": {
+        "emptyFields": "모든 필드를 채워주세요.",
+        "invalidEmail": "유효한 이메일 주소를 입력해주세요.",
+        "passwordTooShort": "비밀번호는 최소 6자 이상이어야 합니다.",
+        "generic": "오류가 발생했습니다. 다시 시도해주세요."
+      }
+    }
+  },
+  "tabs": {
+    "home": "홈",
+    "search": "검색",
+    "settings": "설정"
+  },
+  "home": {
+    "noTrackedFlights": "추적 중인 항공편이 없습니다.",
+    "addFlightHint": "항공편 검색 탭에서 항공편을 추가하세요.",
+    "trackedFlights": "추적 중인 항공편"
+  },
+  "search": {
+    "title": "항공편 검색",
+    "description": "항공편 번호와 날짜로 실시간 정보를 찾아보세요.",
+    "form": {
+      "flightNumberPlaceholder": "항공편 번호 (예: NH123)",
+      "datePlaceholder": "날짜 (YYYY-MM-DD)",
+      "searchButton": "검색",
+      "error": {
+        "emptyFlightNumber": "항공편 번호를 입력해주세요.",
+        "invalidDate": "유효한 날짜 형식 (YYYY-MM-DD)을 입력해주세요."
+      }
+    },
+    "flightSelected": {
+      "title": "항공편 선택됨",
+      "message": "{airline}의 항공편 {flightNumber}이(가) 선택되었습니다."
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "항공편 검색 중...",
+      "noResults": "결과를 찾을 수 없습니다.",
+      "error": {
+        "generic": "항공편 검색 중 오류가 발생했습니다."
+      }
+    },
+    "status": {
+      "scheduled": "예정됨",
+      "active": "운항 중",
+      "landed": "착륙함",
+      "delayed": "지연됨",
+      "cancelled": "취소됨"
+    },
+    "terminal": "터미널",
+    "gate": "게이트",
+    "delay": "{minutes}분 지연",
+    "track": "추적",
+    "untrack": "추적 해제"
+  },
+  "settings": {
+    "title": "설정",
+    "darkMode": "다크 모드",
+    "language": "언어",
+    "currentLanguage": "한국어",
+    "selectLanguage": "언어 선택",
+    "languageRestart": "언어 변경은 앱 재시작이 필요합니다.",
+    "subscription": "구독",
+    "manageSubscription": "구독 관리"
+  },
+  "common": {
+    "ok": "확인",
+    "cancel": "취소"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없음",
+    "heading": "이 화면은 존재하지 않습니다.",
+    "goHome": "홈 화면으로 이동"
+  }
 }
 

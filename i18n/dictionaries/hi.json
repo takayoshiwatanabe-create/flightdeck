@@ -1,67 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "सबसे तेज़ उड़ान जानकारी",
-  "app.loginPrompt": "लॉग इन करें",
-  "app.signupPrompt": "साइन अप करें",
-  "app.guestPrompt": "अतिथि के रूप में जारी रखें",
-  "auth.login.title": "लॉग इन करें",
-  "auth.login.button": "लॉग इन करें",
-  "auth.login.noAccount": "खाता नहीं है?",
-  "auth.login.signUp": "साइन अप करें",
-  "auth.signup.title": "साइन अप करें",
-  "auth.signup.button": "साइन अप करें",
-  "auth.signup.hasAccount": "पहले से ही एक खाता है?",
-  "auth.signup.login": "लॉग इन करें",
-  "auth.form.emailPlaceholder": "ईमेल",
-  "auth.form.passwordPlaceholder": "पासवर्ड",
-  "auth.form.showPassword": "पासवर्ड दिखाएँ",
-  "auth.form.hidePassword": "पासवर्ड छुपाएँ",
-  "auth.form.loading": "लोड हो रहा है...",
-  "auth.form.or": "या",
-  "auth.form.googleLogin": "Google से लॉग इन करें",
-  "auth.form.error.emptyFields": "कृपया सभी फ़ील्ड भरें।",
-  "auth.form.error.invalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।",
-  "auth.form.error.passwordTooShort": "पासवर्ड कम से कम 6 वर्णों का होना चाहिए।",
-  "auth.form.error.generic": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।",
-  "tabs.home": "होम",
-  "tabs.search": "खोज",
-  "tabs.settings": "सेटिंग्स",
-  "home.noTrackedFlights": "कोई ट्रैक की गई उड़ानें नहीं हैं।",
-  "home.addFlightHint": "उड़ान खोज टैब से उड़ानें जोड़ें।",
-  "home.trackedFlights": "ट्रैक की गई उड़ानें",
-  "search.title": "उड़ान खोज",
-  "search.description": "उड़ान संख्या और तिथि के अनुसार वास्तविक समय की जानकारी प्राप्त करें।",
-  "search.form.flightNumberPlaceholder": "उड़ान संख्या (उदा. NH123)",
-  "search.form.datePlaceholder": "दिनांक (YYYY-MM-DD)",
-  "search.form.searchButton": "खोजें",
-  "search.form.error.emptyFlightNumber": "कृपया एक उड़ान संख्या दर्ज करें।",
-  "search.form.error.invalidDate": "कृपया एक वैध दिनांक प्रारूप (YYYY-MM-DD) दर्ज करें।",
-  "search.flightSelected.title": "उड़ान चयनित",
-  "search.flightSelected.message": "{airline} द्वारा उड़ान {flightNumber} का चयन किया गया है।",
-  "flight.list.loading": "उड़ानों की खोज हो रही है...",
-  "flight.list.noResults": "कोई परिणाम नहीं मिला।",
-  "flight.list.error.generic": "उड़ानों की खोज करते समय एक त्रुटि हुई।",
-  "flight.status.scheduled": "निर्धारित",
-  "flight.status.active": "सक्रिय",
-  "flight.status.landed": "उतरा",
-  "flight.status.delayed": "विलंबित",
-  "flight.status.cancelled": "रद्द",
-  "flight.terminal": "टर्मिनल",
-  "flight.gate": "गेट",
-  "flight.delay": "{minutes} मिनट की देरी",
-  "flight.track": "ट्रैक करें",
-  "flight.untrack": "ट्रैक करना बंद करें",
-  "settings.title": "सेटिंग्स",
-  "settings.darkMode": "डार्क मोड",
-  "settings.language": "भाषा",
-  "settings.currentLanguage": "हिंदी",
-  "settings.selectLanguage": "भाषा चुनें",
-  "settings.languageRestart": "भाषा बदलने के लिए ऐप को पुनः आरंभ करना होगा।",
-  "settings.subscription": "सदस्यता",
-  "settings.manageSubscription": "सदस्यता प्रबंधित करें",
-  "common.ok": "ठीक है",
-  "common.cancel": "रद्द करें",
-  "notFound.title": "पेज नहीं मिला",
-  "notFound.heading": "यह स्क्रीन मौजूद नहीं है।",
-  "notFound.goHome": "होम स्क्रीन पर जाएँ"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "सबसे तेज़ उड़ान जानकारी",
+    "loginPrompt": "लॉग इन करें",
+    "signupPrompt": "साइन अप करें",
+    "guestPrompt": "अतिथि के रूप में जारी रखें"
+  },
+  "auth": {
+    "login": {
+      "title": "लॉग इन करें",
+      "button": "लॉग इन करें",
+      "noAccount": "खाता नहीं है?",
+      "signUp": "साइन अप करें"
+    },
+    "signup": {
+      "title": "साइन अप करें",
+      "button": "साइन अप करें",
+      "hasAccount": "पहले से ही एक खाता है?",
+      "login": "लॉग इन करें"
+    },
+    "form": {
+      "emailPlaceholder": "ईमेल",
+      "passwordPlaceholder": "पासवर्ड",
+      "showPassword": "पासवर्ड दिखाएँ",
+      "hidePassword": "पासवर्ड छुपाएँ",
+      "loading": "लोड हो रहा है...",
+      "or": "या",
+      "googleLogin": "Google से लॉग इन करें",
+      "error": {
+        "emptyFields": "कृपया सभी फ़ील्ड भरें।",
+        "invalidEmail": "कृपया एक वैध ईमेल पता दर्ज करें।",
+        "passwordTooShort": "पासवर्ड कम से कम 6 वर्णों का होना चाहिए।",
+        "generic": "एक त्रुटि हुई। कृपया पुनः प्रयास करें।"
+      }
+    }
+  },
+  "tabs": {
+    "home": "होम",
+    "search": "खोज",
+    "settings": "सेटिंग्स"
+  },
+  "home": {
+    "noTrackedFlights": "कोई ट्रैक की गई उड़ानें नहीं हैं।",
+    "addFlightHint": "उड़ान खोज टैब से उड़ानें जोड़ें।",
+    "trackedFlights": "ट्रैक की गई उड़ानें"
+  },
+  "search": {
+    "title": "उड़ान खोज",
+    "description": "उड़ान संख्या और तिथि के अनुसार वास्तविक समय की जानकारी प्राप्त करें।",
+    "form": {
+      "flightNumberPlaceholder": "उड़ान संख्या (उदा. NH123)",
+      "datePlaceholder": "दिनांक (YYYY-MM-DD)",
+      "searchButton": "खोजें",
+      "error": {
+        "emptyFlightNumber": "कृपया एक उड़ान संख्या दर्ज करें।",
+        "invalidDate": "कृपया एक वैध दिनांक प्रारूप (YYYY-MM-DD) दर्ज करें।"
+      }
+    },
+    "flightSelected": {
+      "title": "उड़ान चयनित",
+      "message": "{airline} द्वारा उड़ान {flightNumber} का चयन किया गया है।"
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "उड़ानों की खोज हो रही है...",
+      "noResults": "कोई परिणाम नहीं मिला।",
+      "error": {
+        "generic": "उड़ानों की खोज करते समय एक त्रुटि हुई।"
+      }
+    },
+    "status": {
+      "scheduled": "निर्धारित",
+      "active": "सक्रिय",
+      "landed": "उतरा",
+      "delayed": "विलंबित",
+      "cancelled": "रद्द"
+    },
+    "terminal": "टर्मिनल",
+    "gate": "गेट",
+    "delay": "{minutes} मिनट की देरी",
+    "track": "ट्रैक करें",
+    "untrack": "ट्रैक करना बंद करें"
+  },
+  "settings": {
+    "title": "सेटिंग्स",
+    "darkMode": "डार्क मोड",
+    "language": "भाषा",
+    "currentLanguage": "हिंदी",
+    "selectLanguage": "भाषा चुनें",
+    "languageRestart": "भाषा बदलने के लिए ऐप को पुनः आरंभ करना होगा।",
+    "subscription": "सदस्यता",
+    "manageSubscription": "सदस्यता प्रबंधित करें"
+  },
+  "common": {
+    "ok": "ठीक है",
+    "cancel": "रद्द करें"
+  },
+  "notFound": {
+    "title": "पेज नहीं मिला",
+    "heading": "यह स्क्रीन मौजूद नहीं है।",
+    "goHome": "होम स्क्रीन पर जाएँ"
+  }
 }
+

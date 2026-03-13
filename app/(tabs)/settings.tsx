@@ -10,8 +10,8 @@ import {
   Alert,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTranslations, useLocale } from 'next-intl'; // Corrected imports
-import { useRouter } from 'expo-router'; // Import useRouter for navigation
+import { useTranslations, useLocale } from 'next-intl';
+import { useRouter } from 'expo-router';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
@@ -33,9 +33,9 @@ export default function TabSettingsScreen(): JSX.Element {
   const { theme, toggleTheme } = useTheme();
   const colors = getColors(theme);
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
-  const t = useTranslations('settings'); // Use useTranslations hook
-  const tCommon = useTranslations('common'); // Use useTranslations hook for common translations
-  const locale = useLocale(); // Get current locale from next-intl
+  const t = useTranslations('settings');
+  const tCommon = useTranslations('common');
+  const locale = useLocale();
   const router = useRouter();
 
   const handleLanguageSelect = (newLocale: string): void => {
@@ -48,7 +48,7 @@ export default function TabSettingsScreen(): JSX.Element {
   // Function to get the display name for the current language
   const getCurrentLanguageLabel = (currentLocale: string): string => {
     const lang = supportedLanguages.find(l => l.code === currentLocale);
-    return lang ? lang.label : 'Unknown'; // Fallback for unknown locale
+    return lang ? lang.label : 'Unknown';
   };
 
   return (

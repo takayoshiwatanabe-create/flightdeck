@@ -1,11 +1,11 @@
 import React from 'react';
-import { Platform, StyleSheet, View } from 'react-native'; // Import View
+import { Platform, StyleSheet, View } from 'react-native';
 import {
   BannerAd,
   BannerAdSize,
   TestIds,
 } from 'react-native-google-mobile-ads';
-import { isRTL } from '@/i18n'; // Import isRTL from i18n
+import { useLocale } from 'next-intl'; // Import useLocale from next-intl
 
 const BANNER_ID: string = __DEV__
   ? TestIds.ADAPTIVE_BANNER
@@ -15,9 +15,12 @@ const BANNER_ID: string = __DEV__
     }) ?? TestIds.ADAPTIVE_BANNER;
 
 export function AdBanner(): JSX.Element {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+
   // BannerAd does not directly support a 'style' prop for RTL.
   // Instead, we wrap it in a View and apply the style to the View.
-  const rtlStyle = isRTL() ? { direction: 'rtl' as const } : {};
+  const rtlStyle = isRTL ? { direction: 'rtl' as const } : {};
 
   return (
     <View style={[styles.adContainer, rtlStyle]}>
@@ -37,4 +40,3 @@ const styles = StyleSheet.create({
     // Add any other styling needed for the ad container
   },
 });
-

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+import { useTranslations } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import { FlightCard } from './FlightCard';
 import { type FlightInfo } from '@/types/flight';
@@ -19,6 +19,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
   const { theme } = useTheme();
   const colors = getColors(theme);
   const { addFlight, removeFlight, isTracked } = useTrackedFlights();
+  const t = useTranslations('flight.list'); // Use useTranslations hook
 
   const handleToggleTrack = async (flight: FlightInfo): Promise<void> => {
     if (isTracked(flight.flightIata)) {
@@ -32,7 +33,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
     return (
       <View style={[styles.centered, { backgroundColor: colors.background }]}>
         <ActivityIndicator size="large" color="#22D3EE" />
-        <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('flight.list.loading')}</Text>
+        <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('loading')}</Text>
       </View>
     );
   }
@@ -50,7 +51,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
     return (
       <View style={[styles.centered, { backgroundColor: colors.background }]}>
         <MaterialCommunityIcons name="magnify-remove-outline" size={64} color={colors.secondaryText} />
-        <Text style={[styles.emptyText, { color: colors.secondaryText }]}>{t('flight.list.noResults')}</Text>
+        <Text style={[styles.emptyText, { color: colors.secondaryText }]}>{t('noResults')}</Text>
       </View>
     );
   }
@@ -120,5 +121,3 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
-
-

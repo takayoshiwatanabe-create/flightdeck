@@ -1,67 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "最速のフライト情報",
-  "app.loginPrompt": "ログイン",
-  "app.signupPrompt": "新規登録",
-  "app.guestPrompt": "ゲストとして続行",
-  "auth.login.title": "ログイン",
-  "auth.login.button": "ログイン",
-  "auth.login.noAccount": "アカウントをお持ちでないですか？",
-  "auth.login.signUp": "新規登録",
-  "auth.signup.title": "新規登録",
-  "auth.signup.button": "新規登録",
-  "auth.signup.hasAccount": "すでにアカウントをお持ちですか？",
-  "auth.signup.login": "ログイン",
-  "auth.form.emailPlaceholder": "メールアドレス",
-  "auth.form.passwordPlaceholder": "パスワード",
-  "auth.form.showPassword": "パスワードを表示",
-  "auth.form.hidePassword": "パスワードを隠す",
-  "auth.form.loading": "読み込み中...",
-  "auth.form.or": "または",
-  "auth.form.googleLogin": "Googleでログイン",
-  "auth.form.error.emptyFields": "すべての項目を入力してください。",
-  "auth.form.error.invalidEmail": "有効なメールアドレスを入力してください。",
-  "auth.form.error.passwordTooShort": "パスワードは6文字以上である必要があります。",
-  "auth.form.error.generic": "エラーが発生しました。もう一度お試しください。",
-  "tabs.home": "ホーム",
-  "tabs.search": "検索",
-  "tabs.settings": "設定",
-  "home.noTrackedFlights": "追跡中のフライトはありません。",
-  "home.addFlightHint": "フライト検索タブからフライトを追加してください。",
-  "home.trackedFlights": "追跡中のフライト",
-  "search.title": "フライト検索",
-  "search.description": "フライト番号と日付でリアルタイム情報を検索します。",
-  "search.form.flightNumberPlaceholder": "フライト番号 (例: NH123)",
-  "search.form.datePlaceholder": "日付 (YYYY-MM-DD)",
-  "search.form.searchButton": "検索",
-  "search.form.error.emptyFlightNumber": "フライト番号を入力してください。",
-  "search.form.error.invalidDate": "有効な日付形式 (YYYY-MM-DD) を入力してください。",
-  "search.flightSelected.title": "フライトが選択されました",
-  "search.flightSelected.message": "{airline}のフライト {flightNumber} が選択されました。",
-  "flight.list.loading": "フライトを検索中...",
-  "flight.list.noResults": "結果が見つかりませんでした。",
-  "flight.list.error.generic": "フライトの検索中にエラーが発生しました。",
-  "flight.status.scheduled": "定刻",
-  "flight.status.active": "運航中",
-  "flight.status.landed": "到着済み",
-  "flight.status.delayed": "遅延",
-  "flight.status.cancelled": "欠航",
-  "flight.terminal": "ターミナル",
-  "flight.gate": "ゲート",
-  "flight.delay": "{minutes}分遅延",
-  "flight.track": "追跡",
-  "flight.untrack": "追跡解除",
-  "settings.title": "設定",
-  "settings.darkMode": "ダークモード",
-  "settings.language": "言語",
-  "settings.currentLanguage": "日本語",
-  "settings.selectLanguage": "言語を選択",
-  "settings.languageRestart": "言語の変更にはアプリの再起動が必要です。",
-  "settings.subscription": "サブスクリプション",
-  "settings.manageSubscription": "サブスクリプションを管理",
-  "common.ok": "OK",
-  "common.cancel": "キャンセル",
-  "notFound.title": "ページが見つかりません",
-  "notFound.heading": "この画面は存在しません。",
-  "notFound.goHome": "ホーム画面へ戻る"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "最速のフライト情報",
+    "loginPrompt": "ログイン",
+    "signupPrompt": "新規登録",
+    "guestPrompt": "ゲストとして続行"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "button": "ログイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "新規登録"
+    },
+    "signup": {
+      "title": "新規登録",
+      "button": "新規登録",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "login": "ログイン"
+    },
+    "form": {
+      "emailPlaceholder": "メールアドレス",
+      "passwordPlaceholder": "パスワード",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを隠す",
+      "loading": "読み込み中...",
+      "or": "または",
+      "googleLogin": "Googleでログイン",
+      "error": {
+        "emptyFields": "すべてのフィールドを入力してください。",
+        "invalidEmail": "有効なメールアドレスを入力してください。",
+        "passwordTooShort": "パスワードは6文字以上である必要があります。",
+        "generic": "エラーが発生しました。もう一度お試しください。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "ホーム",
+    "search": "検索",
+    "settings": "設定"
+  },
+  "home": {
+    "noTrackedFlights": "追跡中のフライトはありません。",
+    "addFlightHint": "フライト検索タブからフライトを追加してください。",
+    "trackedFlights": "追跡中のフライト"
+  },
+  "search": {
+    "title": "フライト検索",
+    "description": "フライト番号と日付でリアルタイム情報を検索します。",
+    "form": {
+      "flightNumberPlaceholder": "フライト番号 (例: NH123)",
+      "datePlaceholder": "日付 (YYYY-MM-DD)",
+      "searchButton": "検索",
+      "error": {
+        "emptyFlightNumber": "フライト番号を入力してください。",
+        "invalidDate": "有効な日付形式 (YYYY-MM-DD) を入力してください。"
+      }
+    },
+    "flightSelected": {
+      "title": "フライトが選択されました",
+      "message": "{airline} のフライト {flightNumber} が選択されました。"
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "フライトを検索中...",
+      "noResults": "結果が見つかりませんでした。",
+      "error": {
+        "generic": "フライトの検索中にエラーが発生しました。"
+      }
+    },
+    "status": {
+      "scheduled": "定刻",
+      "active": "運航中",
+      "landed": "着陸済み",
+      "delayed": "遅延",
+      "cancelled": "欠航"
+    },
+    "terminal": "ターミナル",
+    "gate": "ゲート",
+    "delay": "{minutes}分遅延",
+    "track": "追跡",
+    "untrack": "追跡解除"
+  },
+  "settings": {
+    "title": "設定",
+    "darkMode": "ダークモード",
+    "language": "言語",
+    "currentLanguage": "日本語",
+    "selectLanguage": "言語を選択",
+    "languageRestart": "言語の変更にはアプリの再起動が必要です。",
+    "subscription": "サブスクリプション",
+    "manageSubscription": "サブスクリプションを管理"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "キャンセル"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "heading": "この画面は存在しません。",
+    "goHome": "ホーム画面へ"
+  }
 }
+

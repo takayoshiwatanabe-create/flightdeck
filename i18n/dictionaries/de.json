@@ -1,67 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "Die schnellsten Fluginformationen",
-  "app.loginPrompt": "Anmelden",
-  "app.signupPrompt": "Registrieren",
-  "app.guestPrompt": "Als Gast fortfahren",
-  "auth.login.title": "Anmelden",
-  "auth.login.button": "Anmelden",
-  "auth.login.noAccount": "Sie haben noch kein Konto?",
-  "auth.login.signUp": "Registrieren",
-  "auth.signup.title": "Registrieren",
-  "auth.signup.button": "Registrieren",
-  "auth.signup.hasAccount": "Sie haben bereits ein Konto?",
-  "auth.signup.login": "Anmelden",
-  "auth.form.emailPlaceholder": "E-Mail-Adresse",
-  "auth.form.passwordPlaceholder": "Passwort",
-  "auth.form.showPassword": "Passwort anzeigen",
-  "auth.form.hidePassword": "Passwort verbergen",
-  "auth.form.loading": "Wird geladen...",
-  "auth.form.or": "Oder",
-  "auth.form.googleLogin": "Mit Google anmelden",
-  "auth.form.error.emptyFields": "Bitte füllen Sie alle Felder aus.",
-  "auth.form.error.invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-  "auth.form.error.passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein.",
-  "auth.form.error.generic": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-  "tabs.home": "Startseite",
-  "tabs.search": "Suchen",
-  "tabs.settings": "Einstellungen",
-  "home.noTrackedFlights": "Keine verfolgten Flüge.",
-  "home.addFlightHint": "Fügen Sie Flüge über den Flugsuch-Tab hinzu.",
-  "home.trackedFlights": "Verfolgte Flüge",
-  "search.title": "Flug suchen",
-  "search.description": "Finden Sie Echtzeitinformationen nach Flugnummer und Datum.",
-  "search.form.flightNumberPlaceholder": "Flugnummer (z.B. NH123)",
-  "search.form.datePlaceholder": "Datum (JJJJ-MM-TT)",
-  "search.form.searchButton": "Suchen",
-  "search.form.error.emptyFlightNumber": "Bitte geben Sie eine Flugnummer ein.",
-  "search.form.error.invalidDate": "Bitte geben Sie ein gültiges Datumsformat (JJJJ-MM-TT) ein.",
-  "search.flightSelected.title": "Flug ausgewählt",
-  "search.flightSelected.message": "Flug {flightNumber} von {airline} wurde ausgewählt.",
-  "flight.list.loading": "Flüge werden gesucht...",
-  "flight.list.noResults": "Keine Ergebnisse gefunden.",
-  "flight.list.error.generic": "Beim Suchen nach Flügen ist ein Fehler aufgetreten.",
-  "flight.status.scheduled": "Geplant",
-  "flight.status.active": "Unterwegs",
-  "flight.status.landed": "Gelande",
-  "flight.status.delayed": "Verspätet",
-  "flight.status.cancelled": "Annulliert",
-  "flight.terminal": "Terminal",
-  "flight.gate": "Gate",
-  "flight.delay": "{minutes} Minuten Verspätung",
-  "flight.track": "Verfolgen",
-  "flight.untrack": "Nicht mehr verfolgen",
-  "settings.title": "Einstellungen",
-  "settings.darkMode": "Dunkelmodus",
-  "settings.language": "Sprache",
-  "settings.currentLanguage": "Deutsch",
-  "settings.selectLanguage": "Sprache auswählen",
-  "settings.languageRestart": "Der Sprachwechsel erfordert einen Neustart der App.",
-  "settings.subscription": "Abonnement",
-  "settings.manageSubscription": "Abonnement verwalten",
-  "common.ok": "OK",
-  "common.cancel": "Abbrechen",
-  "notFound.title": "Seite nicht gefunden",
-  "notFound.heading": "Dieser Bildschirm existiert nicht.",
-  "notFound.goHome": "Zur Startseite"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "Die schnellsten Fluginformationen",
+    "loginPrompt": "Anmelden",
+    "signupPrompt": "Registrieren",
+    "guestPrompt": "Als Gast fortfahren"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "button": "Anmelden",
+      "noAccount": "Sie haben noch kein Konto?",
+      "signUp": "Registrieren"
+    },
+    "signup": {
+      "title": "Registrieren",
+      "button": "Registrieren",
+      "hasAccount": "Sie haben bereits ein Konto?",
+      "login": "Anmelden"
+    },
+    "form": {
+      "emailPlaceholder": "E-Mail-Adresse",
+      "passwordPlaceholder": "Passwort",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen",
+      "loading": "Wird geladen...",
+      "or": "Oder",
+      "googleLogin": "Mit Google anmelden",
+      "error": {
+        "emptyFields": "Bitte füllen Sie alle Felder aus.",
+        "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+        "passwordTooShort": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "generic": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Startseite",
+    "search": "Suchen",
+    "settings": "Einstellungen"
+  },
+  "home": {
+    "noTrackedFlights": "Keine verfolgten Flüge.",
+    "addFlightHint": "Fügen Sie Flüge über den Flugsuch-Tab hinzu.",
+    "trackedFlights": "Verfolgte Flüge"
+  },
+  "search": {
+    "title": "Flug suchen",
+    "description": "Finden Sie Echtzeitinformationen nach Flugnummer und Datum.",
+    "form": {
+      "flightNumberPlaceholder": "Flugnummer (z.B. NH123)",
+      "datePlaceholder": "Datum (JJJJ-MM-TT)",
+      "searchButton": "Suchen",
+      "error": {
+        "emptyFlightNumber": "Bitte geben Sie eine Flugnummer ein.",
+        "invalidDate": "Bitte geben Sie ein gültiges Datumsformat (JJJJ-MM-TT) ein."
+      }
+    },
+    "flightSelected": {
+      "title": "Flug ausgewählt",
+      "message": "Flug {flightNumber} von {airline} wurde ausgewählt."
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "Flüge werden gesucht...",
+      "noResults": "Keine Ergebnisse gefunden.",
+      "error": {
+        "generic": "Beim Suchen nach Flügen ist ein Fehler aufgetreten."
+      }
+    },
+    "status": {
+      "scheduled": "Geplant",
+      "active": "Unterwegs",
+      "landed": "Gelande",
+      "delayed": "Verspätet",
+      "cancelled": "Annulliert"
+    },
+    "terminal": "Terminal",
+    "gate": "Gate",
+    "delay": "{minutes} Minuten Verspätung",
+    "track": "Verfolgen",
+    "untrack": "Nicht mehr verfolgen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "darkMode": "Dunkelmodus",
+    "language": "Sprache",
+    "currentLanguage": "Deutsch",
+    "selectLanguage": "Sprache auswählen",
+    "languageRestart": "Der Sprachwechsel erfordert einen Neustart der App.",
+    "subscription": "Abonnement",
+    "manageSubscription": "Abonnement verwalten"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Abbrechen"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "heading": "Dieser Bildschirm existiert nicht.",
+    "goHome": "Zur Startseite"
+  }
 }
+

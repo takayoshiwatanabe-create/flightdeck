@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { type FlightInfo, type FlightStatusType } from '@/types/flight';
 
 // This file would contain the logic to interact with the Aviationstack API.
@@ -137,6 +136,7 @@ export async function fetchFlightFromAviationstack(
         scheduled: departureScheduledUTC,
         estimated: departureEstimatedUTC,
         actual: departureActualUTC,
+        timezone: flightData.departure.timezone, // Add timezone
       },
       arrival: {
         airport: flightData.arrival.airport,
@@ -147,6 +147,7 @@ export async function fetchFlightFromAviationstack(
         scheduled: arrivalScheduledUTC,
         estimated: arrivalEstimatedUTC,
         actual: arrivalActualUTC,
+        timezone: flightData.arrival.timezone, // Add timezone
       },
     };
 
@@ -156,3 +157,4 @@ export async function fetchFlightFromAviationstack(
     throw error; // Re-throw to be handled by the caller
   }
 }
+

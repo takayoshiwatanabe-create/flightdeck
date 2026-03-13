@@ -1,13 +1,13 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import { useTranslations } from 'next-intl'; // Corrected import
+import { useTranslations } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 
 export default function NotFoundScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const t = useTranslations('notFound'); // Use useTranslations hook
+  const t = useTranslations('notFound');
 
   return (
     <>

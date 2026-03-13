@@ -1,5 +1,5 @@
 import type { FlightInfo, FlightStatusType } from '@/types/flight';
-import { format } from 'date-fns'; // Ensure date-fns is imported
+import { format } from 'date-fns';
 
 /**
  * Mock flight data for development.
@@ -24,6 +24,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T09:00:00Z',
       estimated: '2026-03-13T09:00:00Z',
       actual: null,
+      timezone: 'Asia/Tokyo',
     },
     arrival: {
       airport: 'Osaka Itami',
@@ -34,6 +35,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T10:15:00Z',
       estimated: '2026-03-13T10:15:00Z',
       actual: null,
+      timezone: 'Asia/Tokyo',
     },
   },
   {
@@ -52,6 +54,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T11:30:00Z',
       estimated: '2026-03-13T11:55:00Z',
       actual: null,
+      timezone: 'Asia/Tokyo',
     },
     arrival: {
       airport: 'Los Angeles International',
@@ -62,6 +65,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T05:30:00Z',
       estimated: '2026-03-13T05:55:00Z',
       actual: null,
+      timezone: 'America/Los_Angeles',
     },
   },
   {
@@ -80,6 +84,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T01:00:00Z',
       estimated: '2026-03-13T01:00:00Z',
       actual: '2026-03-13T01:03:00Z',
+      timezone: 'America/Los_Angeles',
     },
     arrival: {
       airport: 'Tokyo Narita',
@@ -90,6 +95,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-14T05:00:00Z',
       estimated: '2026-03-14T04:50:00Z',
       actual: null,
+      timezone: 'Asia/Tokyo',
     },
   },
   {
@@ -108,6 +114,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-12T23:55:00Z',
       estimated: '2026-03-12T23:55:00Z',
       actual: '2026-03-12T23:58:00Z',
+      timezone: 'Asia/Singapore',
     },
     arrival: {
       airport: 'Tokyo Narita',
@@ -118,6 +125,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T08:00:00Z',
       estimated: '2026-03-13T07:50:00Z',
       actual: '2026-03-13T07:48:00Z',
+      timezone: 'Asia/Tokyo',
     },
   },
   {
@@ -136,6 +144,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T14:00:00Z',
       estimated: null,
       actual: null,
+      timezone: 'Asia/Hong_Kong',
     },
     arrival: {
       airport: 'Tokyo Haneda',
@@ -146,6 +155,7 @@ const MOCK_FLIGHTS: FlightInfo[] = [
       scheduled: '2026-03-13T19:30:00Z',
       estimated: null,
       actual: null,
+      timezone: 'Asia/Tokyo',
     },
   },
 ];
@@ -188,5 +198,5 @@ export async function getFlightByIata(
 
 /** Get status label translation key */
 export function getStatusKey(status: FlightStatusType): string {
-  return `flight.status.${status}`;
+  return `status.${status}`;
 }

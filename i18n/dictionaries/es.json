@@ -1,68 +1,106 @@
 {
-  "app.title": "FlightDeck",
-  "app.tagline": "La información de vuelos más rápida",
-  "app.loginPrompt": "Iniciar sesión",
-  "app.signupPrompt": "Registrarse",
-  "app.guestPrompt": "Continuar como invitado",
-  "auth.login.title": "Iniciar sesión",
-  "auth.login.button": "Iniciar sesión",
-  "auth.login.noAccount": "¿No tienes una cuenta?",
-  "auth.login.signUp": "Registrarse",
-  "auth.signup.title": "Registrarse",
-  "auth.signup.button": "Registrarse",
-  "auth.signup.hasAccount": "¿Ya tienes una cuenta?",
-  "auth.signup.login": "Iniciar sesión",
-  "auth.form.emailPlaceholder": "Correo electrónico",
-  "auth.form.passwordPlaceholder": "Contraseña",
-  "auth.form.showPassword": "Mostrar contraseña",
-  "auth.form.hidePassword": "Ocultar contraseña",
-  "auth.form.loading": "Cargando...",
-  "auth.form.or": "O",
-  "auth.form.googleLogin": "Iniciar sesión con Google",
-  "auth.form.error.emptyFields": "Por favor, rellena todos los campos.",
-  "auth.form.error.invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
-  "auth.form.error.passwordTooShort": "La contraseña debe tener al menos 6 caracteres.",
-  "auth.form.error.generic": "Ha ocurrido un error. Por favor, inténtalo de nuevo.",
-  "tabs.home": "Inicio",
-  "tabs.search": "Buscar",
-  "tabs.settings": "Ajustes",
-  "home.noTrackedFlights": "No hay vuelos rastreados.",
-  "home.addFlightHint": "Añade vuelos desde la pestaña de búsqueda de vuelos.",
-  "home.trackedFlights": "Vuelos rastreados",
-  "search.title": "Buscar vuelos",
-  "search.description": "Encuentra información en tiempo real por número de vuelo y fecha.",
-  "search.form.flightNumberPlaceholder": "Número de vuelo (ej: NH123)",
-  "search.form.datePlaceholder": "Fecha (AAAA-MM-DD)",
-  "search.form.searchButton": "Buscar",
-  "search.form.error.emptyFlightNumber": "Por favor, introduce un número de vuelo.",
-  "search.form.error.invalidDate": "Por favor, introduce un formato de fecha válido (AAAA-MM-DD).",
-  "search.flightSelected.title": "Vuelo seleccionado",
-  "search.flightSelected.message": "El vuelo {flightNumber} de {airline} ha sido seleccionado.",
-  "flight.list.loading": "Buscando vuelos...",
-  "flight.list.noResults": "No se encontraron resultados.",
-  "flight.list.error.generic": "Ha ocurrido un error al buscar vuelos.",
-  "flight.status.scheduled": "Programado",
-  "flight.status.active": "En vuelo",
-  "flight.status.landed": "Aterrizado",
-  "flight.status.delayed": "Retrasado",
-  "flight.status.cancelled": "Cancelado",
-  "flight.terminal": "Terminal",
-  "flight.gate": "Puerta",
-  "flight.delay": "{minutes} minutos de retraso",
-  "flight.track": "Rastrear",
-  "flight.untrack": "Dejar de rastrear",
-  "settings.title": "Ajustes",
-  "settings.darkMode": "Modo oscuro",
-  "settings.language": "Idioma",
-  "settings.currentLanguage": "Español",
-  "settings.selectLanguage": "Seleccionar idioma",
-  "settings.languageRestart": "El cambio de idioma requiere reiniciar la aplicación.",
-  "settings.subscription": "Suscripción",
-  "settings.manageSubscription": "Gestionar suscripción",
-  "common.ok": "Aceptar",
-  "common.cancel": "Cancelar",
-  "notFound.title": "Página no encontrada",
-  "notFound.heading": "Esta pantalla no existe.",
-  "notFound.goHome": "Ir a la página de inicio"
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "La información de vuelos más rápida",
+    "loginPrompt": "Iniciar sesión",
+    "signupPrompt": "Registrarse",
+    "guestPrompt": "Continuar como invitado"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "button": "Iniciar sesión",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Registrarse"
+    },
+    "signup": {
+      "title": "Registrarse",
+      "button": "Registrarse",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión"
+    },
+    "form": {
+      "emailPlaceholder": "Correo electrónico",
+      "passwordPlaceholder": "Contraseña",
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
+      "loading": "Cargando...",
+      "or": "O",
+      "googleLogin": "Iniciar sesión con Google",
+      "error": {
+        "emptyFields": "Por favor, rellena todos los campos.",
+        "invalidEmail": "Por favor, introduce una dirección de correo electrónico válida.",
+        "passwordTooShort": "La contraseña debe tener al menos 6 caracteres.",
+        "generic": "Ha ocurrido un error. Por favor, inténtalo de nuevo."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Inicio",
+    "search": "Buscar",
+    "settings": "Ajustes"
+  },
+  "home": {
+    "noTrackedFlights": "No hay vuelos rastreados.",
+    "addFlightHint": "Añade vuelos desde la pestaña de búsqueda de vuelos.",
+    "trackedFlights": "Vuelos rastreados"
+  },
+  "search": {
+    "title": "Buscar vuelos",
+    "description": "Encuentra información en tiempo real por número de vuelo y fecha.",
+    "form": {
+      "flightNumberPlaceholder": "Número de vuelo (ej: NH123)",
+      "datePlaceholder": "Fecha (AAAA-MM-DD)",
+      "searchButton": "Buscar",
+      "error": {
+        "emptyFlightNumber": "Por favor, introduce un número de vuelo.",
+        "invalidDate": "Por favor, introduce un formato de fecha válido (AAAA-MM-DD)."
+      }
+    },
+    "flightSelected": {
+      "title": "Vuelo seleccionado",
+      "message": "El vuelo {flightNumber} de {airline} ha sido seleccionado."
+    }
+  },
+  "flight": {
+    "list": {
+      "loading": "Buscando vuelos...",
+      "noResults": "No se encontraron resultados.",
+      "error": {
+        "generic": "Ha ocurrido un error al buscar vuelos."
+      }
+    },
+    "status": {
+      "scheduled": "Programado",
+      "active": "En vuelo",
+      "landed": "Aterrizado",
+      "delayed": "Retrasado",
+      "cancelled": "Cancelado"
+    },
+    "terminal": "Terminal",
+    "gate": "Puerta",
+    "delay": "{minutes} minutos de retraso",
+    "track": "Rastrear",
+    "untrack": "Dejar de rastrear"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "darkMode": "Modo oscuro",
+    "language": "Idioma",
+    "currentLanguage": "Español",
+    "selectLanguage": "Seleccionar idioma",
+    "languageRestart": "El cambio de idioma requiere reiniciar la aplicación.",
+    "subscription": "Suscripción",
+    "manageSubscription": "Gestionar suscripción"
+  },
+  "common": {
+    "ok": "Aceptar",
+    "cancel": "Cancelar"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "heading": "Esta pantalla no existe.",
+    "goHome": "Ir a la página de inicio"
+  }
 }
 
