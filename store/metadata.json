@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-03-13T00:37:30.202Z",
+  "description": {
+    "ja": "",
+    "en": ""
+  },
+  "keywords": {
+    "ja": "",
+    "en": ""
+  },
+  "categories": {
+    "primary": null,
+    "secondary": null
+  },
+  "pricing": {
+    "tier": "FREE"
+  },
+  "ageRating": {
+    "kidsAgeBand": null,
+    "rating": "4+"
+  },
+  "supportUrl": "https://ruok.jp/support/flightdeck",
+  "marketingUrl": "https://ruok.jp/support/flightdeck",
+  "copyright": "2026 RUOK LLC",
+  "privacy": {
+    "dataCollected": false
+  },
+  "screenshots": {
+    "captions": [],
+    "sizes": [
+      "iphone67",
+      "ipad129",
+      "ipad11"
+    ]
+  }
+}
