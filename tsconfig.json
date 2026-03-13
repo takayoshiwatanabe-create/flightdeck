@@ -51,9 +51,12 @@
     "components/**/*.ts",
     "components/**/*.tsx",
     "hooks/**/*.ts",
-    "hooks/**/*.tsx"
+    "hooks/**/*.tsx",
+    "jest.setup.js",
+    "vitest.setup.ts"
   ],
   "exclude": [
     "node_modules"
   ]
 }
+

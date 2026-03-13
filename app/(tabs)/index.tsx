@@ -38,7 +38,7 @@ export default function TabHomeScreen(): JSX.Element {
   if (isLoading) {
     return (
       <View style={[styles.centered, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color="#22D3EE" />
+        <ActivityIndicator size="large" color="#22D3EE" accessibilityLabel="Loading" />
       </View>
     );
   }
@@ -80,7 +80,7 @@ export default function TabHomeScreen(): JSX.Element {
                   <Text style={[styles.loadingText, { color: colors.secondaryText }]}>
                     {item.flightIata}
                   </Text>
-                  <ActivityIndicator size="small" color="#22D3EE" />
+                  <ActivityIndicator size="small" color="#22D3EE" accessibilityLabel="Loading" />
                 </View>
               );
             }
@@ -93,6 +93,7 @@ export default function TabHomeScreen(): JSX.Element {
             );
           }}
           showsVerticalScrollIndicator={false}
+          testID="tracked-flights-list" // Added testID for easier testing of RefreshControl
         />
       )}
       <View style={styles.adContainer}>
@@ -179,3 +180,4 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
+

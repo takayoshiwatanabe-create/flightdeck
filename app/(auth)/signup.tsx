@@ -82,3 +82,4 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
+

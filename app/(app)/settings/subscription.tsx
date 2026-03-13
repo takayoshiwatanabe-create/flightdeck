@@ -5,46 +5,22 @@ import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking'; // Import Linking for opening URLs
+import {
+  fetchSubscriptionStatus,
+  createStripeCheckoutSession,
+  createStripeCustomerPortalSession,
+} from '@/src/lib/actions/stripe'; // Import actual actions
 
-// Mock API calls for subscription status and Stripe portal/checkout
 interface SubscriptionStatus {
   isPremium: boolean;
   currentPeriodEnd: string | null;
-}
-
-async function fetchSubscriptionStatus(): Promise<SubscriptionStatus> {
-  // Simulate API call
-  await new Promise<void>(resolve => { setTimeout(resolve, 500); });
-  // Mock data: randomly return premium or free status
-  const isPremium = Math.random() > 0.5;
-  const currentPeriodEnd = isPremium ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() : null;
-  return { isPremium, currentPeriodEnd };
-}
-
-async function createStripeCheckoutSession(priceId: string): Promise<{ url: string } | null> {
-  // Simulate API call to your backend
-  await new Promise<void>(resolve => { setTimeout(resolve, 1000); });
-  console.log(`Creating checkout session for price ID: ${priceId}`);
-  // In a real app, this would call your Next.js API route: /api/stripe/checkout-session
-  // and return the Stripe Checkout URL.
-  // For mock, return a dummy URL.
-  return { url: 'https://checkout.stripe.com/pay/cs_test_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0' };
-}
-
-async function createStStripeCustomerPortalSession(): Promise<{ url: string } | null> {
-  // Simulate API call to your backend
-  await new Promise<void>(resolve => { setTimeout(resolve, 1000); });
-  console.log('Creating customer portal session');
-  // In a real app, this would call your Next.js API route: /api/stripe/customer-portal
-  // and return the Stripe Customer Portal URL.
-  // For mock, return a dummy URL.
-  return { url: 'https://billing.stripe.com/p/login/test_aNodkE2d3e4f5g6h7i8j9k0l' };
 }
 
 export default function SubscriptionScreen(): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
   const t = useTranslations('settings.subscription');
+  const tCommon = useTranslations('common');
   const locale = useLocale();
   const isRTL = locale === 'ar';
   const direction = isRTL ? 'rtl' : 'ltr';
@@ -73,22 +49,22 @@ export default function SubscriptionScreen(): JSX.Element {
   const handleManageSubscription = async (): Promise<void> => {
     setIsRedirecting(true);
     try {
-      const session = await createStStripeCustomerPortalSession();
+      const session = await createStripeCustomerPortalSession();
       if (session?.url) {
         if (Platform.OS === 'web') {
           window.location.href = session.url;
         } else {
           // For native, use Linking to open the URL
           Alert.alert(t('manageSubscription'), t('redirectingToStripe'), [
-            { text: t('common.ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } },
+            { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } }
           ]);
         }
       } else {
-        Alert.alert(t('error.generic'), t('error.noPortalUrl')); // Assuming error translation keys
+        Alert.alert(tCommon('error'), t('error.noPortalUrl')); // Assuming error translation keys
       }
     } catch (e: unknown) {
       console.error('Failed to create customer portal session:', e);
-      Alert.alert(t('error.generic'), t('error.portalFailed'));
+      Alert.alert(tCommon('error'), t('error.portalFailed'));
     } finally {
       setIsRedirecting(false);
     }
@@ -103,15 +79,15 @@ export default function SubscriptionScreen(): JSX.Element {
           window.location.href = session.url;
         } else {
           Alert.alert(t('subscribe'), t('redirectingToStripe'), [
-            { text: t('common.ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } },
+            { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } }
           ]);
         }
       } else {
-        Alert.alert(t('error.generic'), t('error.noCheckoutUrl')); // Assuming error translation keys
+        Alert.alert(tCommon('error'), t('error.noCheckoutUrl')); // Assuming error translation keys
       }
     } catch (e: unknown) {
       console.error('Failed to create checkout session:', e);
-      Alert.alert(t('error.generic'), t('error.checkoutFailed'));
+      Alert.alert(tCommon('error'), t('error.checkoutFailed'));
     } finally {
       setIsRedirecting(false);
     }
@@ -120,7 +96,7 @@ export default function SubscriptionScreen(): JSX.Element {
   if (isLoading) {
     return (
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color="#22D3EE" />
+        <ActivityIndicator size="large" color="#22D3EE" accessibilityLabel="Loading" />
         <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('loading')}</Text>
       </View>
     );
@@ -356,3 +332,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
     };
 }
+

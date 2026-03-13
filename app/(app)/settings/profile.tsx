@@ -75,7 +75,7 @@ export default function ProfileScreen(): JSX.Element {
   if (isLoading) {
     return (
       <View style={[styles.centered, { backgroundColor: colors.background }]}>
-        <ActivityIndicator size="large" color="#22D3EE" />
+        <ActivityIndicator size="large" color="#22D3EE" accessibilityLabel="Loading" />
         <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('loading')}</Text>
       </View>
     );
@@ -99,7 +99,7 @@ export default function ProfileScreen(): JSX.Element {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Pressable style={styles.backButton} onPress={() => router.back()}>
+      <Pressable style={styles.backButton} onPress={() => router.back()} accessibilityLabel={tCommon('back')}>
         <MaterialCommunityIcons name="chevron-left" size={24} color={colors.text} />
         <Text style={[styles.backButtonText, { color: colors.text }]}>{tCommon('back')}</Text>
       </Pressable>
@@ -172,3 +172,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
     };
 }
+
