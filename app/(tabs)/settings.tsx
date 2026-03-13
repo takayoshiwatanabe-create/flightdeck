@@ -84,9 +84,7 @@ export default function TabSettingsScreen(): JSX.Element {
       {/* Subscription */}
       <Pressable
         style={[styles.settingItem, { borderBottomColor: colors.border }]}
-        onPress={() => {
-          /* TODO: Implement subscription management */
-        }}
+        onPress={() => router.push('/(tabs)/settings/subscription')}
       >
         <Text style={[styles.settingLabel, { color: colors.text }]}>{t('subscription')}</Text>
         <View style={styles.settingRight}>
@@ -236,4 +234,6 @@ function getColors(theme: ColorScheme): {
     modalBg: '#FFFFFF',
   };
 }
+
+
 

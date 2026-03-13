@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router'; // Keep expo-router for navigation within the Expo app
+import { useRouter } from 'expo-router';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';

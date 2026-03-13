@@ -1,9 +1,8 @@
 import { Tabs } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
-import { useLocale } from 'next-intl'; // Import useLocale
 
 interface TabIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap;
@@ -63,8 +62,7 @@ export default function TabLayout(): JSX.Element {
           tabBarIcon: ({ color }: { color: string }) => <TabIcon name="cog" color={color} />,
         }}
       />
-    </Tabs>
-  );
+    </Tabs>  );
 }
 
 function getColors(theme: ColorScheme): {
@@ -94,3 +92,6 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB', // Light Gray
   };
 }
+
+
+

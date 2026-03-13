@@ -95,12 +95,38 @@
   },
   "common": {
     "ok": "OK",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "error": "Fehler"
   },
   "notFound": {
     "title": "Seite nicht gefunden",
     "heading": "Dieser Bildschirm existiert nicht.",
     "goHome": "Zur Startseite"
+  },
+  "subscription": {
+    "title": "Premium-Abonnement",
+    "description": "Erhalten Sie schnellere Fluginformationen, keine Werbung und exklusive Funktionen.",
+    "monthlyPlan": {
+      "title": "Monatlich",
+      "price": "¥480",
+      "unit": "/Monat",
+      "feature1": "Schnellere Flug-Updates",
+      "feature2": "Keine Werbung",
+      "button": "Monatlich abonnieren"
+    },
+    "yearlyPlan": {
+      "title": "Jährlich",
+      "price": "¥3,800",
+      "unit": "/Jahr",
+      "feature1": "Schnellere Flug-Updates",
+      "feature2": "Keine Werbung",
+      "feature3": "20% Rabatt (Sparen Sie ¥1,960)",
+      "button": "Jährlich abonnieren"
+    },
+    "checkout": {
+      "error": "Fehler beim Starten des Bezahlvorgangs. Bitte versuchen Sie es erneut."
+    }
   }
 }
 

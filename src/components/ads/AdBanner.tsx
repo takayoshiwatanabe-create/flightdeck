@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Platform, Text } from 'react-native'; // Import Text
+import { View, StyleSheet, Platform, Text } from 'react-native';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';

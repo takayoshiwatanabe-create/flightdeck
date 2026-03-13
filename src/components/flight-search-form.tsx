@@ -4,8 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { format } from 'date-fns';
-import { useTranslations, useLocale } from 'next-intl'; // Ensure useLocale is imported
-// Removed useLocale from here as it's already imported above.
+import { useTranslations, useLocale } from 'next-intl';
 
 interface FlightSearchFormProps {
   onSearch: (flightNumber: string, flightDate: string) => void;
@@ -164,4 +163,3 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
-

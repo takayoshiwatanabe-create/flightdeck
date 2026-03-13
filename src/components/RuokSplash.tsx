@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View } from "react-native";
-// Removed useLocale as it's not directly used for layout in this component
-// The root HTML element's dir attribute should handle global RTL.
 
 interface Props {
   onFinish: () => void;
@@ -50,4 +48,3 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-

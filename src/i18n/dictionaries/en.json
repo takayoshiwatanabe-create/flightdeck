@@ -93,7 +93,16 @@
     "selectLanguage": "Select Language",
     "subscription": "Subscription",
     "manageSubscription": "Manage Subscription",
-    "languageRestart": "App restart is required for language changes to take full effect."
+    "languageRestart": "App restart is required for language changes to take full effect.",
+    "subscription.title": "Subscription Status",
+    "subscription.status.premium": "Premium User",
+    "subscription.status.free": "Free User",
+    "subscription.manage": "Manage Subscription",
+    "subscription.monthlyPlan": "Monthly Plan",
+    "subscription.yearlyPlan": "Yearly Plan",
+    "subscription.price.monthly": "¥480/month",
+    "subscription.price.yearly": "¥3,800/year",
+    "subscription.subscribe": "Subscribe"
   },
   "common": {
     "ok": "OK",

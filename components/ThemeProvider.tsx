@@ -79,7 +79,7 @@ export function InitialTheme(): JSX.Element | null {
     return (
       <script
         id="initial-theme-script"
-        nonce="your-nonce-here" // Consider adding a nonce for CSP
+        // nonce="your-nonce-here" // Consider adding a nonce for CSP
         dangerouslySetInnerHTML={{
           __html: `
             (function() {

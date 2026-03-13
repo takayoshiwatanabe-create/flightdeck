@@ -10,13 +10,13 @@
     "login": {
       "title": "登录",
       "button": "登录",
-      "noAccount": "没有账号？",
+      "noAccount": "没有账户？",
       "signUp": "注册"
     },
     "signup": {
       "title": "注册",
       "button": "注册",
-      "hasAccount": "已有账号？",
+      "hasAccount": "已有账户？",
       "login": "登录"
     },
     "form": {
@@ -59,7 +59,7 @@
     },
     "flightSelected": {
       "title": "航班已选择",
-      "message": "{airline} 的航班 {flightNumber} 已选择。"
+      "message": "{airline} 的航班 {flightNumber} 已被选择。"
     }
   },
   "flight": {
@@ -71,8 +71,8 @@
       }
     },
     "status": {
-      "scheduled": "计划",
-      "active": "飞行中",
+      "scheduled": "计划中",
+      "active": "正在飞行",
       "landed": "已降落",
       "delayed": "延误",
       "cancelled": "已取消"
@@ -87,20 +87,47 @@
     "title": "设置",
     "darkMode": "深色模式",
     "language": "语言",
-    "currentLanguage": "中文",
+    "currentLanguage": "简体中文",
     "selectLanguage": "选择语言",
     "languageRestart": "更改语言需要重启应用程序。",
     "subscription": "订阅",
     "manageSubscription": "管理订阅"
   },
+  "subscription": {
+    "title": "订阅",
+    "description": "升级到 FlightDeck 高级版，享受无广告体验和额外功能。",
+    "monthlyPlan": {
+      "title": "月度计划",
+      "price": "¥480",
+      "unit": "/月",
+      "feature1": "无广告",
+      "feature2": "无限航班追踪",
+      "button": "订阅月度计划"
+    },
+    "yearlyPlan": {
+      "title": "年度计划",
+      "price": "¥3,800",
+      "unit": "/年",
+      "feature1": "无广告",
+      "feature2": "无限航班追踪",
+      "feature3": "优先支持",
+      "button": "订阅年度计划"
+    },
+    "checkout": {
+      "title": "Stripe 结账",
+      "message": "Stripe 结账页面将打开。请完成支付。\nURL: {url}",
+      "error": "创建 Stripe 结账会话失败。请重试。"
+    }
+  },
   "common": {
     "ok": "确定",
-    "cancel": "取消"
+    "cancel": "取消",
+    "back": "返回",
+    "error": "错误"
   },
   "notFound": {
     "title": "页面未找到",
     "heading": "此屏幕不存在。",
-    "goHome": "返回主页"
+    "goHome": "返回主屏幕"
   }
 }
-

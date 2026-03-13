@@ -1,12 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useTranslations, useLocale } from 'next-intl'; // Ensure useLocale is imported
+import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { type FlightInfo, STATUS_COLORS } from '@/types/flight';
 import { format, parseISO } from 'date-fns';
-// Removed useLocale from here as it's already imported above.
 import { utcToZonedTime } from 'date-fns-tz';
 
 interface FlightCardProps {
@@ -186,4 +185,3 @@ function getColors(theme: ColorScheme): {
     buttonText: '#FFFFFF',
   };
 }
-

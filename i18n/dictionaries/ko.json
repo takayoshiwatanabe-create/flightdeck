@@ -71,11 +71,11 @@
       }
     },
     "status": {
-      "scheduled": "예정",
+      "scheduled": "예정됨",
       "active": "운항 중",
-      "landed": "착륙",
-      "delayed": "지연",
-      "cancelled": "취소"
+      "landed": "착륙함",
+      "delayed": "지연됨",
+      "cancelled": "취소됨"
     },
     "terminal": "터미널",
     "gate": "게이트",
@@ -93,14 +93,41 @@
     "subscription": "구독",
     "manageSubscription": "구독 관리"
   },
+  "subscription": {
+    "title": "구독",
+    "description": "FlightDeck 프리미엄으로 업그레이드하여 광고 없는 경험과 추가 기능을 즐기세요.",
+    "monthlyPlan": {
+      "title": "월간 플랜",
+      "price": "₩480",
+      "unit": "/월",
+      "feature1": "광고 없음",
+      "feature2": "무제한 항공편 추적",
+      "button": "월간 플랜 구독"
+    },
+    "yearlyPlan": {
+      "title": "연간 플랜",
+      "price": "₩3,800",
+      "unit": "/년",
+      "feature1": "광고 없음",
+      "feature2": "무제한 항공편 추적",
+      "feature3": "우선 지원",
+      "button": "연간 플랜 구독"
+    },
+    "checkout": {
+      "title": "Stripe Checkout",
+      "message": "Stripe Checkout 페이지가 열립니다. 결제를 완료해주세요.\nURL: {url}",
+      "error": "Stripe Checkout 세션 생성에 실패했습니다. 다시 시도해주세요."
+    }
+  },
   "common": {
     "ok": "확인",
-    "cancel": "취소"
+    "cancel": "취소",
+    "back": "뒤로",
+    "error": "오류"
   },
   "notFound": {
-    "title": "페이지를 찾을 수 없습니다",
+    "title": "페이지를 찾을 수 없음",
     "heading": "이 화면은 존재하지 않습니다.",
     "goHome": "홈 화면으로 이동"
   }
 }
-

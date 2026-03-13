@@ -93,7 +93,16 @@
     "selectLanguage": "भाषा चुनें",
     "languageRestart": "भाषा बदलने के लिए ऐप को पुनः आरंभ करना होगा।",
     "subscription": "सदस्यता",
-    "manageSubscription": "सदस्यता प्रबंधित करें"
+    "manageSubscription": "सदस्यता प्रबंधित करें",
+    "subscription.title": "सदस्यता स्थिति",
+    "subscription.status.premium": "प्रीमियम उपयोगकर्ता",
+    "subscription.status.free": "मुफ्त उपयोगकर्ता",
+    "subscription.manage": "सदस्यता प्रबंधित करें",
+    "subscription.monthlyPlan": "मासिक योजना",
+    "subscription.yearlyPlan": "वार्षिक योजना",
+    "subscription.price.monthly": "₹480/माह",
+    "subscription.price.yearly": "₹3,800/वर्ष",
+    "subscription.subscribe": "सदस्यता लें"
   },
   "common": {
     "ok": "ठीक है",
@@ -105,4 +114,3 @@
     "goHome": "होम स्क्रीन पर जाएँ"
   }
 }
-

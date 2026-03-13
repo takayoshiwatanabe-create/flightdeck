@@ -93,7 +93,16 @@
     "selectLanguage": "言語を選択",
     "subscription": "サブスクリプション",
     "manageSubscription": "サブスクリプションを管理",
-    "languageRestart": "言語設定を適用するにはアプリの再起動が必要です。"
+    "languageRestart": "言語設定を適用するにはアプリの再起動が必要です。",
+    "subscription.title": "サブスクリプション状況",
+    "subscription.status.premium": "プレミアムユーザー",
+    "subscription.status.free": "無料ユーザー",
+    "subscription.manage": "サブスクリプションを管理",
+    "subscription.monthlyPlan": "月額プラン",
+    "subscription.yearlyPlan": "年額プラン",
+    "subscription.price.monthly": "¥480/月",
+    "subscription.price.yearly": "¥3,800/年",
+    "subscription.subscribe": "サブスクライブ"
   },
   "common": {
     "ok": "OK",

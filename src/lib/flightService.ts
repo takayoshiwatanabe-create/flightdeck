@@ -1,4 +1,4 @@
-import type { FlightInfo, FlightStatusType } from '@/types/flight'; // Corrected import path for FlightInfo
+import type { FlightInfo, FlightStatusType } from '@/types/flight';
 
 /**
  * Mock flight data for development.

@@ -4,7 +4,7 @@
     "tagline": "最速のフライト情報",
     "loginPrompt": "ログイン",
     "signupPrompt": "新規登録",
-    "guestPrompt": "ゲストとして続行"
+    "guestPrompt": "ゲストとして続ける"
   },
   "auth": {
     "login": {
@@ -28,7 +28,7 @@
       "or": "または",
       "googleLogin": "Googleでログイン",
       "error": {
-        "emptyFields": "全ての項目を入力してください。",
+        "emptyFields": "すべてのフィールドを入力してください。",
         "invalidEmail": "有効なメールアドレスを入力してください。",
         "passwordTooShort": "パスワードは6文字以上である必要があります。",
         "generic": "エラーが発生しました。もう一度お試しください。"
@@ -58,7 +58,7 @@
       }
     },
     "flightSelected": {
-      "title": "フライト選択済み",
+      "title": "フライトが選択されました",
       "message": "{airline}のフライト {flightNumber} が選択されました。"
     }
   },
@@ -79,7 +79,7 @@
     },
     "terminal": "ターミナル",
     "gate": "ゲート",
-    "delay": "{minutes}分遅延",
+    "delay": "{minutes}分の遅延",
     "track": "追跡",
     "untrack": "追跡解除"
   },
@@ -93,14 +93,41 @@
     "subscription": "サブスクリプション",
     "manageSubscription": "サブスクリプションを管理"
   },
+  "subscription": {
+    "title": "サブスクリプション",
+    "description": "FlightDeckプレミアムにアップグレードして、広告なしの体験と追加機能をお楽しみください。",
+    "monthlyPlan": {
+      "title": "月額プラン",
+      "price": "¥480",
+      "unit": "/月",
+      "feature1": "広告なし",
+      "feature2": "無制限のフライト追跡",
+      "button": "月額プランに登録"
+    },
+    "yearlyPlan": {
+      "title": "年額プラン",
+      "price": "¥3,800",
+      "unit": "/年",
+      "feature1": "広告なし",
+      "feature2": "無制限のフライト追跡",
+      "feature3": "優先サポート",
+      "button": "年額プランに登録"
+    },
+    "checkout": {
+      "title": "Stripe Checkout",
+      "message": "Stripe Checkoutページが開きます。決済を完了してください。\nURL: {url}",
+      "error": "Stripe Checkoutセッションの作成に失敗しました。もう一度お試しください。"
+    }
+  },
   "common": {
     "ok": "OK",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "back": "戻る",
+    "error": "エラー"
   },
   "notFound": {
     "title": "ページが見つかりません",
     "heading": "この画面は存在しません。",
-    "goHome": "ホーム画面へ戻る"
+    "goHome": "ホーム画面へ"
   }
 }
-

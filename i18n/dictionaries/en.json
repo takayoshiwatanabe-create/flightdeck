@@ -95,12 +95,38 @@
   },
   "common": {
     "ok": "OK",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "back": "Back",
+    "error": "Error"
   },
   "notFound": {
     "title": "Page Not Found",
     "heading": "This screen doesn't exist.",
     "goHome": "Go to home screen"
+  },
+  "subscription": {
+    "title": "Premium Subscription",
+    "description": "Get faster flight information, no ads, and exclusive features.",
+    "monthlyPlan": {
+      "title": "Monthly",
+      "price": "¥480",
+      "unit": "/month",
+      "feature1": "Faster flight updates",
+      "feature2": "No ads",
+      "button": "Subscribe Monthly"
+    },
+    "yearlyPlan": {
+      "title": "Yearly",
+      "price": "¥3,800",
+      "unit": "/year",
+      "feature1": "Faster flight updates",
+      "feature2": "No ads",
+      "feature3": "20% Discount (Save ¥1,960)",
+      "button": "Subscribe Yearly"
+    },
+    "checkout": {
+      "error": "Failed to initiate checkout. Please try again."
+    }
   }
 }
 

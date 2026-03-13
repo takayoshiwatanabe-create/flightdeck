@@ -46,8 +46,8 @@
     "trackedFlights": "Voos Rastreados"
   },
   "search": {
-    "title": "Busca de Voos",
-    "description": "Encontre informações em tempo real por número do voo e data.",
+    "title": "Buscar Voo",
+    "description": "Encontre informações em tempo real por número de voo e data.",
     "form": {
       "flightNumberPlaceholder": "Número do Voo (ex: NH123)",
       "datePlaceholder": "Data (AAAA-MM-DD)",
@@ -93,9 +93,37 @@
     "subscription": "Assinatura",
     "manageSubscription": "Gerenciar Assinatura"
   },
+  "subscription": {
+    "title": "Assinatura",
+    "description": "Atualize para o FlightDeck Premium para uma experiência sem anúncios e recursos adicionais.",
+    "monthlyPlan": {
+      "title": "Plano Mensal",
+      "price": "R$4,80",
+      "unit": "/mês",
+      "feature1": "Sem anúncios",
+      "feature2": "Rastreamento ilimitado de voos",
+      "button": "Assinar Plano Mensal"
+    },
+    "yearlyPlan": {
+      "title": "Plano Anual",
+      "price": "R$38,00",
+      "unit": "/ano",
+      "feature1": "Sem anúncios",
+      "feature2": "Rastreamento ilimitado de voos",
+      "feature3": "Suporte prioritário",
+      "button": "Assinar Plano Anual"
+    },
+    "checkout": {
+      "title": "Stripe Checkout",
+      "message": "A página do Stripe Checkout será aberta. Por favor, complete o pagamento.\nURL: {url}",
+      "error": "Falha ao criar a sessão do Stripe Checkout. Por favor, tente novamente."
+    }
+  },
   "common": {
     "ok": "OK",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "back": "Voltar",
+    "error": "Erro"
   },
   "notFound": {
     "title": "Página Não Encontrada",
@@ -103,4 +131,3 @@
     "goHome": "Ir para a tela inicial"
   }
 }
-

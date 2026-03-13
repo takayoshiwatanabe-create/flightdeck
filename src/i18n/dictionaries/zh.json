@@ -93,7 +93,16 @@
     "selectLanguage": "选择语言",
     "subscription": "订阅",
     "manageSubscription": "管理订阅",
-    "languageRestart": "语言更改需要重启应用程序才能完全生效。"
+    "languageRestart": "语言更改需要重启应用程序才能完全生效。",
+    "subscription.title": "订阅状态",
+    "subscription.status.premium": "高级用户",
+    "subscription.status.free": "免费用户",
+    "subscription.manage": "管理订阅",
+    "subscription.monthlyPlan": "月度计划",
+    "subscription.yearlyPlan": "年度计划",
+    "subscription.price.monthly": "¥480/月",
+    "subscription.price.yearly": "¥3,800/年",
+    "subscription.subscribe": "订阅"
   },
   "common": {
     "ok": "确定",
