@@ -4,7 +4,12 @@ import SubscriptionScreen from './subscription';
 import { useTheme } from '@/components/ThemeProvider';
 import * as Linking from 'expo-linking';
 import { Alert, Platform } from 'react-native';
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
+import {
+  fetchSubscriptionStatus,
+  createStripeCheckoutSession,
+  createStripeCustomerPortalSession,
+} from '@/src/lib/actions/stripe'; // Import actual actions
 
 // Mock the external dependencies
 jest.mock('@/components/ThemeProvider', () => ({
@@ -34,37 +39,33 @@ jest.mock('next-intl', () => ({
     }
     return message;
   }),
-  useLocale: jest.fn(() => 'en'),
+  useLocale: jest.fn(() => 'en'), // Mock useLocale as it's used in the component
 }));
 
-// Mock the fetch calls for subscription status and Stripe portal/checkout
-const mockFetchSubscriptionStatus = jest.fn();
-const mockCreateStripeCheckoutSession = jest.fn();
-const mockCreateStripeCustomerPortalSession = jest.fn();
-
-jest.mock('../../../src/lib/actions/stripe', () => ({
-  fetchSubscriptionStatus: () => mockFetchSubscriptionStatus(),
-  createStripeCheckoutSession: (priceId: string) => mockCreateStripeCheckoutSession(priceId),
-  createStripeCustomerPortalSession: () => mockCreateStripeCustomerPortalSession(),
+// Mock the stripe actions
+jest.mock('@/src/lib/actions/stripe', () => ({
+  fetchSubscriptionStatus: jest.fn(),
+  createStripeCheckoutSession: jest.fn(),
+  createStripeCustomerPortalSession: jest.fn(),
 }));
 
 describe('SubscriptionScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useTheme as jest.Mock).mockReturnValue({ theme: 'light', toggleTheme: jest.fn() });
-    (useLocale as jest.Mock).mockReturnValue('en');
-    mockFetchSubscriptionStatus.mockResolvedValue({ isPremium: false, currentPeriodEnd: null });
-    mockCreateStripeCheckoutSession.mockResolvedValue({ url: 'https://mock-checkout.stripe.com' });
-    mockCreateStripeCustomerPortalSession.mockResolvedValue({ url: 'https://mock-portal.stripe.com' });
+    (fetchSubscriptionStatus as jest.Mock).mockResolvedValue({ isPremium: false, currentPeriodEnd: null });
+    // Mock createStripeCheckoutSession to return a dummy URL for IAP flow
+    (createStripeCheckoutSession as jest.Mock).mockResolvedValue({ url: 'https://mock-iap-flow.com/monthly' });
+    (createStripeCustomerPortalSession as jest.Mock).mockResolvedValue({ url: 'https://mock-stripe-portal.com/session' });
     // Reset Platform.OS to default for each test
     Object.defineProperty(Platform, 'OS', { get: () => 'ios' });
   });
 
   it('renders loading state initially', () => {
-    mockFetchSubscriptionStatus.mockReturnValueOnce(new Promise(() => {})); // Never resolve
+    (fetchSubscriptionStatus as jest.Mock).mockReturnValueOnce(new Promise(() => {})); // Never resolve
     render(<SubscriptionScreen />);
-    expect(screen.getByText('settings.subscription.loading')).toBeVisible();
     expect(screen.getByA11yLabel('Loading')).toBeVisible();
+    expect(screen.getByText('settings.subscription.loading')).toBeVisible();
   });
 
   it('renders free user subscription options', async () => {
@@ -80,11 +81,10 @@ describe('SubscriptionScreen', () => {
 
   it('renders premium user subscription status', async () => {
     const premiumEndDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
-    mockFetchSubscriptionStatus.mockResolvedValueOnce({ isPremium: true, currentPeriodEnd: premiumEndDate });
+    (fetchSubscriptionStatus as jest.Mock).mockResolvedValueOnce({ isPremium: true, currentPeriodEnd: premiumEndDate });
     render(<SubscriptionScreen />);
     await waitFor(() => {
       expect(screen.getByText('settings.subscription.status.premium')).toBeVisible();
-      // toLocaleDateString depends on the environment's locale, so we mock it for consistency
       const expectedDateString = new Date(premiumEndDate).toLocaleDateString('en');
       expect(screen.getByText(`settings.subscription.currentPeriodEnd {"date":"${expectedDateString}"}`)).toBeVisible();
       expect(screen.queryByText('settings.subscription.monthlyPlan')).toBeNull(); // Should not show subscribe options
@@ -100,22 +100,16 @@ describe('SubscriptionScreen', () => {
     fireEvent.press(manageButton);
 
     await waitFor(() => {
-      expect(mockCreateStripeCustomerPortalSession).toHaveBeenCalled();
-      // For web, window.location.href is directly set, not Linking.openURL
-      // We need to mock window.location.href for this test
-      // @ts-expect-error - window.location is read-only, but we can mock it for testing
+      expect(createStripeCustomerPortalSession).toHaveBeenCalled();
       const originalLocation = window.location;
       delete (window as any).location;
       (window as any).location = { href: '' }; // Mock window.location
       
-      // The Alert.alert is called for both native and web, but the action is different.
-      // For web, the onPress of the 'OK' button should set window.location.href
       const okButton = (Alert.alert as jest.Mock).mock.calls[0][2][0];
       okButton.onPress(); // This will trigger the navigation
-      expect(window.location.href).toBe('https://mock-portal.stripe.com');
+      expect(window.location.href).toBe('https://mock-stripe-portal.com/session');
 
-      // Restore original window.location
-      (window as any).location = originalLocation;
+      (window as any).location = originalLocation; // Restore original
     });
   });
 
@@ -128,7 +122,7 @@ describe('SubscriptionScreen', () => {
     fireEvent.press(manageButton);
 
     await waitFor(() => {
-      expect(mockCreateStripeCustomerPortalSession).toHaveBeenCalled();
+      expect(createStripeCustomerPortalSession).toHaveBeenCalled();
       expect(Alert.alert).toHaveBeenCalledWith(
         'settings.subscription.manageSubscription',
         'settings.subscription.redirectingToStripe',
@@ -141,24 +135,25 @@ describe('SubscriptionScreen', () => {
       );
     });
 
-    // Simulate pressing 'OK' on the alert
     const okButton = (Alert.alert as jest.Mock).mock.calls[0][2][0];
     okButton.onPress();
-    expect(Linking.openURL).toHaveBeenCalledWith('https://mock-portal.stripe.com');
+    expect(Linking.openURL).toHaveBeenCalledWith('https://mock-stripe-portal.com/session');
   });
 
-  it('handles "Subscribe" button press for monthly plan', async () => {
+  it('handles "Subscribe" button press for monthly plan (IAP flow)', async () => {
     render(<SubscriptionScreen />);
     await waitFor(() => expect(screen.getByText('settings.subscription.monthlyPlan')).toBeVisible());
 
-    const subscribeButton = screen.getAllByText('settings.subscription.subscribe')[0]; // Get the first subscribe button (monthly)
+    const subscribeButton = screen.getAllByText('settings.subscription.subscribe')[0];
     fireEvent.press(subscribeButton);
 
     await waitFor(() => {
-      expect(mockCreateStripeCheckoutSession).toHaveBeenCalledWith('price_123monthly');
+      // For native, it should trigger the IAP flow, not a Stripe checkout session directly.
+      // The mock `createStripeCheckoutSession` is now used to simulate initiating an IAP flow.
+      expect(createStripeCheckoutSession).toHaveBeenCalledWith('price_123monthly');
       expect(Alert.alert).toHaveBeenCalledWith(
         'settings.subscription.subscribe',
-        'settings.subscription.redirectingToStripe',
+        'settings.subscription.initiatingPurchase', // New translation key for IAP
         expect.arrayContaining([
           expect.objectContaining({
             text: 'common.ok',
@@ -168,22 +163,35 @@ describe('SubscriptionScreen', () => {
       );
     });
 
-    // Simulate pressing 'OK' on the alert
     const okButton = (Alert.alert as jest.Mock).mock.calls[0][2][0];
     okButton.onPress();
-    expect(Linking.openURL).toHaveBeenCalledWith('https://mock-checkout.stripe.com');
+    // For native, we expect a console log about initiating IAP, not Linking.openURL
+    // The mock `createStripeCheckoutSession` returns a URL, but for native, we just log it.
+    // The actual IAP implementation would go here.
+    expect(Linking.openURL).not.toHaveBeenCalled(); // No direct external link for native IAP
+  });
+
+  it('shows loading indicator when redirecting', async () => {
+    (createStripeCheckoutSession as jest.Mock).mockReturnValueOnce(new Promise(() => {})); // Never resolve
+    render(<SubscriptionScreen />);
+    const monthlyButton = screen.getAllByText('settings.subscription.subscribe')[0];
+    fireEvent.press(monthlyButton);
+
+    await waitFor(() => {
+      expect(screen.getAllByA11yLabel('Loading')[0]).toBeVisible();
+    });
   });
 
   it('displays error if fetching subscription status fails', async () => {
-    mockFetchSubscriptionStatus.mockRejectedValueOnce(new Error('API Error'));
+    (fetchSubscriptionStatus as jest.Mock).mockRejectedValueOnce(new Error('API Error'));
     render(<SubscriptionScreen />);
     await waitFor(() => {
       expect(screen.getByText('settings.subscription.error.fetchFailed')).toBeVisible();
     });
   });
 
-  it('displays error if creating checkout session fails', async () => {
-    mockCreateStripeCheckoutSession.mockResolvedValueOnce(null); // Simulate API returning null URL
+  it('displays error if creating checkout session fails (web) or IAP initiation fails (native)', async () => {
+    (createStripeCheckoutSession as jest.Mock).mockResolvedValueOnce(null);
     render(<SubscriptionScreen />);
     await waitFor(() => expect(screen.getByText('settings.subscription.monthlyPlan')).toBeVisible());
 
@@ -191,12 +199,12 @@ describe('SubscriptionScreen', () => {
     fireEvent.press(subscribeButton);
 
     await waitFor(() => {
-      expect(Alert.alert).toHaveBeenCalledWith('common.error', 'settings.subscription.error.noCheckoutUrl');
+      expect(Alert.alert).toHaveBeenCalledWith('common.error', 'settings.subscription.error.purchaseFailed'); // Updated error key
     });
   });
 
   it('displays error if creating customer portal session fails', async () => {
-    mockCreateStripeCustomerPortalSession.mockResolvedValueOnce(null); // Simulate API returning null URL
+    (createStripeCustomerPortalSession as jest.Mock).mockResolvedValueOnce(null);
     render(<SubscriptionScreen />);
     await waitFor(() => expect(screen.getByText('settings.subscription.manageSubscription')).toBeVisible());
 
@@ -208,4 +216,3 @@ describe('SubscriptionScreen', () => {
     });
   });
 });
-

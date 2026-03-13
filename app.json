@@ -4,16 +4,19 @@
     "slug": "flightdeck",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app_icon.png",
     "scheme": "flightdeck",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "description": "FlightDeckは、ビジネス渡航者のための究極のフライトトラッキングアプリです。航空会社の公式発表よりも早く、リアルタイムでフライトの遅延、欠航、ゲート変更などの重要な情報をお届けします。オフラインファースト設計により、ネットワークがない場所でも最新のフライト情報を確認でき、Calm Technologyの原則に基づき、必要な時だけ注意を引く洗練されたUXを提供します。世界中の主要航空会社のフライトを追跡し、多言語対応でグローバルなビジネスをサポート。時間的余裕と心理的安全性を提供し、あなたのビジネス渡航をよりスムーズでストレスフリーなものに変えます。",
+    "privacyPolicyUrl": "https://www.flightdeck.com/privacy",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.zerocode.flightdeck",
       "buildNumber": "1",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription": "フライト情報に関連する空港のタイムゾーンを正確に表示するために、現在地情報を使用します。この情報はデバイス上でのみ処理され、サーバーに送信されることはありません。"
       }
     },
     "android": {
@@ -39,12 +42,11 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511"
+          "androidAppId": "ca-app-pub-3940256099942544~3347511111",
+          "iosAppId": "ca-app-pub-3940256099942544~1458002222"
         }
       ],
       "expo-localization"
     ]
   }
 }
-

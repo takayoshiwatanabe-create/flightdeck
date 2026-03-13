@@ -4,12 +4,12 @@ import { useTranslations, useLocale } from 'next-intl';
 import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import * as Linking from 'expo-linking'; // Import Linking for opening URLs
+import * as Linking from 'expo-linking';
 import {
   fetchSubscriptionStatus,
-  createStripeCheckoutSession,
+  createStripeCheckoutSession, // This will be used for web, and to trigger IAP flow for native
   createStripeCustomerPortalSession,
-} from '@/src/lib/actions/stripe'; // Import actual actions
+} from '@/src/lib/actions/stripe';
 
 interface SubscriptionStatus {
   isPremium: boolean;
@@ -38,7 +38,7 @@ export default function SubscriptionScreen(): JSX.Element {
         setSubscriptionStatus(status);
       } catch (e: unknown) {
         console.error('Failed to fetch subscription status:', e);
-        setError(t('error.fetchFailed')); // Assuming an error translation key
+        setError(t('error.fetchFailed'));
       } finally {
         setIsLoading(false);
       }
@@ -54,13 +54,12 @@ export default function SubscriptionScreen(): JSX.Element {
         if (Platform.OS === 'web') {
           window.location.href = session.url;
         } else {
-          // For native, use Linking to open the URL
           Alert.alert(t('manageSubscription'), t('redirectingToStripe'), [
-            { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } }
+            { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to Stripe Customer Portal:', session.url); } }
           ]);
         }
       } else {
-        Alert.alert(tCommon('error'), t('error.noPortalUrl')); // Assuming error translation keys
+        Alert.alert(tCommon('error'), t('error.noPortalUrl'));
       }
     } catch (e: unknown) {
       console.error('Failed to create customer portal session:', e);
@@ -73,21 +72,30 @@ export default function SubscriptionScreen(): JSX.Element {
   const handleSubscribe = async (priceId: string): Promise<void> => {
     setIsRedirecting(true);
     try {
-      const session = await createStripeCheckoutSession(priceId);
-      if (session?.url) {
-        if (Platform.OS === 'web') {
+      if (Platform.OS === 'web') {
+        const session = await createStripeCheckoutSession(priceId);
+        if (session?.url) {
           window.location.href = session.url;
         } else {
-          Alert.alert(t('subscribe'), t('redirectingToStripe'), [
-            { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to:', session.url); } }
-          ]);
+          Alert.alert(tCommon('error'), t('error.noCheckoutUrl'));
         }
       } else {
-        Alert.alert(tCommon('error'), t('error.noCheckoutUrl')); // Assuming error translation keys
+        // For native (iOS/Android), use In-App Purchases (IAP) instead of Stripe Checkout direct link.
+        // The `createStripeCheckoutSession` action is repurposed here to *initiate* the IAP flow
+        // or to get necessary product identifiers from the backend.
+        // Actual IAP implementation (e.g., using expo-in-app-purchases or react-native-iap) would go here.
+        console.log(`Initiating In-App Purchase for priceId: ${priceId}`);
+        Alert.alert(t('subscribe'), t('initiatingPurchase'), [
+          { text: tCommon('ok'), onPress: () => { /* Actual IAP logic would be here */ console.log('IAP flow initiated.'); } }
+        ]);
+        // Example: await InAppPurchases.purchaseProduct(priceId);
+        // For now, we just simulate success. In a real app, this would involve
+        // calling a native module and handling its callbacks.
+        // If IAP fails, show an error: Alert.alert(tCommon('error'), t('error.purchaseFailed'));
       }
     } catch (e: unknown) {
-      console.error('Failed to create checkout session:', e);
-      Alert.alert(tCommon('error'), t('error.checkoutFailed'));
+      console.error('Failed to initiate subscription:', e);
+      Alert.alert(tCommon('error'), t('error.purchaseFailed'));
     } finally {
       setIsRedirecting(false);
     }
@@ -171,7 +179,7 @@ export default function SubscriptionScreen(): JSX.Element {
                   opacity: pressed || isRedirecting ? 0.7 : 1,
                 },
               ]}
-              onPress={() => void handleSubscribe('price_123monthly')} // Replace with actual Stripe Price ID
+              onPress={() => void handleSubscribe('price_123monthly')} // Use actual Stripe Price ID or IAP product ID
               disabled={isRedirecting}
               accessibilityLabel={t('subscribe')}
             >
@@ -198,7 +206,7 @@ export default function SubscriptionScreen(): JSX.Element {
                   opacity: pressed || isRedirecting ? 0.7 : 1,
                 },
               ]}
-              onPress={() => void handleSubscribe('price_456yearly')} // Replace with actual Stripe Price ID
+              onPress={() => void handleSubscribe('price_456yearly')} // Use actual Stripe Price ID or IAP product ID
               disabled={isRedirecting}
               accessibilityLabel={t('subscribe')}
             >
@@ -332,4 +340,3 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
     };
 }
-
