@@ -223,3 +223,4 @@ function getColors(theme: ColorScheme): {
     secondaryText: '#6B7280',
   };
 }
+

@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, Pressable } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { t } from '@/i18n';
 import { useTheme } from './ThemeProvider';
 import { FlightCard } from './FlightCard';
-import { type FlightInfo } from '@/types/flight';
+import { type FlightInfo } from '@/types/flight'; // Corrected import path
 import { type ColorScheme } from '@/types/theme';
-import { useTrackedFlights } from '@/hooks/useTrackedFlights'; // Import the hook
+import { useTrackedFlights } from '@/hooks/useTrackedFlights';
 
 interface FlightListProps {
   flights: FlightInfo[];
@@ -18,7 +18,7 @@ interface FlightListProps {
 export function FlightList({ flights, isLoading, error, onSelectFlight }: FlightListProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const { addFlight, removeFlight, isTracked } = useTrackedFlights(); // Use the hook
+  const { addFlight, removeFlight, isTracked } = useTrackedFlights();
 
   const handleToggleTrack = async (flight: FlightInfo): Promise<void> => {
     if (isTracked(flight.flightIata)) {

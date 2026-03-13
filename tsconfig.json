@@ -4,7 +4,7 @@
     "strict": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     },
     "jsx": "react-jsx",
@@ -41,10 +41,11 @@
     "i18n/**/*.ts",
     "tailwind.config.ts",
     "src/lib/**/*.ts",
-    "src/types/**/*.ts"
+    "src/types/**/*.ts",
+    "lib/**/*.ts",
+    "hooks/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ]
 }
-

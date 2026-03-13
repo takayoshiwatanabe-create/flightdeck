@@ -1,7 +1,14 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { TrackedFlight, FlightInfo } from '@/types/flight';
-import { getFlightByIata } from '@/lib/flightService'; // Corrected import path
+import { getFlightByIata } from '@/lib/flightService';
+import { type FlightInfo } from '@/types/flight';
+import { format } from 'date-fns'; // Import format from date-fns
+
+interface TrackedFlight {
+  flightIata: string;
+  flightDate: string; // YYYY-MM-DD format
+  trackedAt: string; // ISO string
+}
 
 const TRACKED_FLIGHTS_KEY = 'tracked_flights';
 
@@ -16,79 +23,80 @@ export function useTrackedFlights(): {
 } {
   const [trackedFlights, setTrackedFlights] = useState<TrackedFlight[]>([]);
   const [flightDetails, setFlightDetails] = useState<Map<string, FlightInfo>>(new Map());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Load tracked flights from storage
-  useEffect(() => {
-    async function load(): Promise<void> {
-      try {
-        const stored = await AsyncStorage.getItem(TRACKED_FLIGHTS_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored) as TrackedFlight[];
-          setTrackedFlights(parsed);
-        }
-      } catch {
-        // ignore parse errors
-      } finally {
-        setIsLoading(false);
+  const loadTrackedFlights = useCallback(async (): Promise<void> => {
+    try {
+      const storedFlights = await AsyncStorage.getItem(TRACKED_FLIGHTS_KEY);
+      if (storedFlights) {
+        const parsedFlights: TrackedFlight[] = JSON.parse(storedFlights);
+        setTrackedFlights(parsedFlights);
       }
+    } catch (error: unknown) {
+      console.error('Failed to load tracked flights:', error);
     }
-    void load();
   }, []);
 
-  // Fetch flight details when tracked flights change
-  const refreshDetails = useCallback(async (): Promise<void> => {
-    if (trackedFlights.length === 0) {
-      setFlightDetails(new Map());
-      return;
+  const saveTrackedFlights = useCallback(async (flights: TrackedFlight[]): Promise<void> => {
+    try {
+      await AsyncStorage.setItem(TRACKED_FLIGHTS_KEY, JSON.stringify(flights));
+    } catch (error: unknown) {
+      console.error('Failed to save tracked flights:', error);
     }
+  }, []);
 
-    const newDetails = new Map<string, FlightInfo>();
-    const results = await Promise.allSettled(
-      trackedFlights.map((tf) => getFlightByIata(tf.flightIata, tf.flightDate))
-    );
-
-    results.forEach((result, index) => {
-      if (result.status === 'fulfilled' && result.value) {
-        newDetails.set(trackedFlights[index].flightIata, result.value);
+  const fetchFlightDetails = useCallback(async (flightsToFetch: TrackedFlight[]): Promise<void> => {
+    setIsLoading(true);
+    const newFlightDetails = new Map<string, FlightInfo>();
+    const fetchPromises = flightsToFetch.map(async (tf) => {
+      try {
+        const detail = await getFlightByIata(tf.flightIata, tf.flightDate);
+        if (detail) {
+          newFlightDetails.set(tf.flightIata, detail);
+        }
+      } catch (error: unknown) {
+        console.error(`Failed to fetch details for ${tf.flightIata}:`, error);
       }
     });
-
-    setFlightDetails(newDetails);
-  }, [trackedFlights]);
+    await Promise.all(fetchPromises);
+    setFlightDetails(newFlightDetails);
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
-    if (!isLoading) {
-      void refreshDetails();
-    }
-  }, [trackedFlights, isLoading, refreshDetails]);
+    void loadTrackedFlights();
+  }, [loadTrackedFlights]);
 
-  const persist = useCallback(async (flights: TrackedFlight[]): Promise<void> => {
-    await AsyncStorage.setItem(TRACKED_FLIGHTS_KEY, JSON.stringify(flights));
-  }, []);
+  useEffect(() => {
+    if (trackedFlights.length > 0) {
+      void fetchFlightDetails(trackedFlights);
+    } else {
+      setFlightDetails(new Map());
+      setIsLoading(false);
+    }
+  }, [trackedFlights, fetchFlightDetails]);
 
   const addFlight = useCallback(
     async (flightIata: string, flightDate: string): Promise<void> => {
-      const exists = trackedFlights.some((f) => f.flightIata === flightIata);
-      if (exists) return;
-
-      const updated = [
-        ...trackedFlights,
-        { flightIata, flightDate, addedAt: new Date().toISOString() },
-      ];
-      setTrackedFlights(updated);
-      await persist(updated);
+      const newFlight: TrackedFlight = {
+        flightIata,
+        flightDate,
+        trackedAt: new Date().toISOString(),
+      };
+      const updatedFlights = [...trackedFlights, newFlight];
+      setTrackedFlights(updatedFlights);
+      await saveTrackedFlights(updatedFlights);
     },
-    [trackedFlights, persist]
+    [trackedFlights, saveTrackedFlights]
   );
 
   const removeFlight = useCallback(
     async (flightIata: string): Promise<void> => {
-      const updated = trackedFlights.filter((f) => f.flightIata !== flightIata);
-      setTrackedFlights(updated);
-      await persist(updated);
+      const updatedFlights = trackedFlights.filter((f) => f.flightIata !== flightIata);
+      setTrackedFlights(updatedFlights);
+      await saveTrackedFlights(updatedFlights);
     },
-    [trackedFlights, persist]
+    [trackedFlights, saveTrackedFlights]
   );
 
   const isTracked = useCallback(
@@ -97,6 +105,10 @@ export function useTrackedFlights(): {
     },
     [trackedFlights]
   );
+
+  const refreshDetails = useCallback(async (): Promise<void> => {
+    await fetchFlightDetails(trackedFlights);
+  }, [fetchFlightDetails, trackedFlights]);
 
   return {
     trackedFlights,
@@ -108,4 +120,3 @@ export function useTrackedFlights(): {
     refreshDetails,
   };
 }
-

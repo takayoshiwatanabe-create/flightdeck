@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, Pressable, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t } from '@/i18n';
+// import { t, isRTL } from '@/i18n'; // Replaced by next-intl
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
+import { useTranslations } from 'next-intl'; // Import useTranslations
+import { useLocale } from 'next-intl'; // Import useLocale for RTL
 
 interface AuthFormProps {
   type: 'login' | 'signup';
@@ -21,20 +23,26 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // Use next-intl hooks for translations and locale
+  const t = useTranslations('auth');
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const direction = isRTL ? 'rtl' : 'ltr'; // Determine text direction
+
   const handleSubmit = async (): Promise<void> => {
     setError('');
     if (!email || !password) {
-      setError(t('auth.form.error.emptyFields'));
+      setError(t('form.error.emptyFields'));
       return;
     }
     // Basic email validation
     if (!/\S+@\S+\.\S+/.test(email)) {
-      setError(t('auth.form.error.invalidEmail'));
+      setError(t('form.error.invalidEmail'));
       return;
     }
     // Password strength for signup
     if (type === 'signup' && password.length < MIN_PASSWORD_LENGTH) {
-      setError(t('auth.form.error.passwordTooShort'));
+      setError(t('form.error.passwordTooShort'));
       return;
     }
 
@@ -43,7 +51,7 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
       await onSubmit(email, password);
     } catch (e: unknown) {
       console.error('AuthForm submission error:', e);
-      setError(t('auth.form.error.generic'));
+      setError(t('form.error.generic'));
     } finally {
       setIsLoading(false);
     }
@@ -54,31 +62,45 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
       {error ? <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text> : null}
 
       <TextInput
-        style={[styles.input, { backgroundColor: colors.inputBackground, color: colors.inputText, borderColor: colors.inputBorder }]}
-        placeholder={t('auth.form.emailPlaceholder')}
+        style={[
+          styles.input,
+          {
+            backgroundColor: colors.inputBackground,
+            color: colors.inputText,
+            borderColor: colors.inputBorder,
+            textAlign: direction === 'rtl' ? 'right' : 'left', // Apply RTL
+          },
+        ]}
+        placeholder={t('form.emailPlaceholder')}
         placeholderTextColor={colors.inputPlaceholder}
         keyboardType="email-address"
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
-        accessibilityLabel={t('auth.form.emailPlaceholder')}
+        accessibilityLabel={t('form.emailPlaceholder')}
         editable={!isLoading}
       />
-      <View style={[styles.passwordContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
+      <View style={[styles.passwordContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder, flexDirection: direction === 'rtl' ? 'row-reverse' : 'row' }]}>
         <TextInput
-          style={[styles.passwordInput, { color: colors.inputText }]}
-          placeholder={t('auth.form.passwordPlaceholder')}
+          style={[
+            styles.passwordInput,
+            {
+              color: colors.inputText,
+              textAlign: direction === 'rtl' ? 'right' : 'left', // Apply RTL
+            },
+          ]}
+          placeholder={t('form.passwordPlaceholder')}
           placeholderTextColor={colors.inputPlaceholder}
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
-          accessibilityLabel={t('auth.form.passwordPlaceholder')}
+          accessibilityLabel={t('form.passwordPlaceholder')}
           editable={!isLoading}
         />
         <Pressable
           onPress={() => setShowPassword(!showPassword)}
           style={styles.eyeIcon}
-          accessibilityLabel={showPassword ? t('auth.form.hidePassword') : t('auth.form.showPassword')}
+          accessibilityLabel={showPassword ? t('form.hidePassword') : t('form.showPassword')}
           disabled={isLoading}
         >
           <MaterialCommunityIcons
@@ -91,16 +113,16 @@ export function AuthForm({ type, onSubmit }: AuthFormProps): JSX.Element {
 
       <Pressable style={[styles.button, { backgroundColor: colors.buttonBackground }]} onPress={handleSubmit} disabled={isLoading}>
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>
-          {isLoading ? t('auth.form.loading') : (type === 'login' ? t('auth.login.button') : t('auth.signup.button'))}
+          {isLoading ? t('form.loading') : (type === 'login' ? t('login.button') : t('signup.button'))}
         </Text>
       </Pressable>
 
       <View style={styles.socialLoginContainer}>
-        <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('auth.form.or')}</Text>
-        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => { console.log('Google Login'); }} accessibilityLabel={t('auth.form.googleLogin')} disabled={isLoading}>
+        <Text style={[styles.orText, { color: colors.secondaryText }]}>{t('form.or')}</Text>
+        <Pressable style={[styles.socialButton, { backgroundColor: colors.googleButtonBackground }]} onPress={() => { console.log('Google Login'); }} accessibilityLabel={t('form.googleLogin')} disabled={isLoading}>
           <MaterialCommunityIcons name="google" size={24} color={colors.googleButtonText} style={styles.socialIcon} />
           <Text style={[styles.socialButtonText, { color: colors.googleButtonText }]}>
-            {t('auth.form.googleLogin')}
+            {t('form.googleLogin')}
           </Text>
         </Pressable>
         {/* Add other social login buttons if needed */}
@@ -132,7 +154,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   passwordContainer: {
-    flexDirection: 'row',
+    flexDirection: 'row', // Default LTR, adjusted by style prop for RTL
     alignItems: 'center',
     height: 50,
     borderWidth: 1,
@@ -176,7 +198,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   socialIcon: {
-    marginRight: 10,
+    marginRight: 10, // Default LTR, adjust for RTL
   },
   socialButtonText: {
     fontSize: 16,
@@ -226,4 +248,3 @@ function getColors(theme: ColorScheme): {
     secondaryText: '#6B7280',
   };
 }
-

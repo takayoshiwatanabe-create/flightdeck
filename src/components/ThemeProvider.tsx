@@ -3,6 +3,8 @@ import { useColorScheme } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { type ColorScheme } from '@/types/theme';
+// import { isRTL, getLang } from '@/i18n'; // Replaced by next-intl
+import { useLocale } from 'next-intl'; // Import useLocale
 
 const THEME_KEY = 'app_theme';
 
@@ -17,6 +19,8 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
   const systemColorScheme = useColorScheme();
   const [theme, setThemeState] = useState<ColorScheme>(systemColorScheme ?? 'light');
+  const locale = useLocale(); // Get current locale from next-intl
+  const isRTL = locale === 'ar';
 
   useEffect(() => {
     async function loadTheme(): Promise<void> {
@@ -44,7 +48,7 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
     void setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  // Apply theme to HTML for web
+  // Apply theme and RTL to HTML for web
   useEffect(() => {
     if (Platform.OS === 'web') {
       document.documentElement.setAttribute('data-theme', theme);
@@ -54,8 +58,11 @@ export function ThemeProvider({ children }: PropsWithChildren): JSX.Element {
       } else {
         document.documentElement.classList.remove('dark');
       }
+      // Apply RTL direction and language from next-intl's locale
+      document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', locale);
     }
-  }, [theme]);
+  }, [theme, locale, isRTL]); // Depend on theme and locale
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
@@ -86,9 +93,26 @@ export function InitialTheme(): JSX.Element | null {
           } else {
             document.documentElement.classList.remove('dark');
           }
+
+          // Apply RTL direction and language from next-intl's locale (derived from URL or headers)
+          // This script runs before next-intl's client-side hydration, so it needs to infer locale.
+          // For next-intl, the locale is typically part of the URL path (e.g., /en/dashboard).
+          // We can try to extract it, or rely on next-intl's hydration to set it correctly.
+          // For FOUC prevention, a simple approach is to use the browser's language or a default.
+          // However, next-intl manages this more robustly.
+          // For strict next-intl compliance, this part might be removed or simplified,
+          // as next-intl's middleware and root layout handle the <html> attributes.
+          // For now, we'll keep a basic inference to prevent FOUC for direction.
+          const pathParts = window.location.pathname.split('/');
+          const localeFromPath = pathParts[1]; // e.g., /ar/dashboard -> 'ar'
+          const supportedLangs = ["ja", "en", "zh", "ko", "es", "fr", "de", "pt", "ar", "hi"];
+          const currentLang = supportedLangs.includes(localeFromPath) ? localeFromPath : 'ja'; // Default to 'ja' if not found or unsupported
+          document.documentElement.setAttribute('lang', currentLang);
+          document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
         } catch (e) {
-          console.error('Failed to set initial theme:', e);
-          // Fallback to system theme if localStorage fails
+          console.error('Failed to set initial theme or language:', e);
+          // Fallback to system theme and default language if localStorage fails
           const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', systemTheme);
           if (systemTheme === 'dark') {
@@ -96,6 +120,8 @@ export function InitialTheme(): JSX.Element | null {
           } else {
             document.documentElement.classList.remove('dark');
           }
+          document.documentElement.setAttribute('lang', 'ja'); // Default language
+          document.documentElement.setAttribute('dir', 'ltr');
         }
       })();
     `;
@@ -119,4 +145,3 @@ export function useTheme(): ThemeContextType {
   }
   return context;
 }
-

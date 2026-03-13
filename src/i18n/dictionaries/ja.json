@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "航空会社の公式発表より早く情報を届ける",
+    "loginPrompt": "ログイン",
+    "signupPrompt": "新規登録",
+    "guestPrompt": "ゲストとして続ける"
+  },
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUp": "新規登録",
+      "button": "ログイン"
+    },
+    "signup": {
+      "title": "新規登録",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "login": "ログイン",
+      "button": "新規登録"
+    },
+    "form": {
+      "emailPlaceholder": "メールアドレス",
+      "passwordPlaceholder": "パスワード",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを隠す",
+      "loading": "処理中...",
+      "or": "または",
+      "googleLogin": "Googleでログイン",
+      "error": {
+        "emptyFields": "メールアドレスとパスワードを入力してください。",
+        "invalidEmail": "有効なメールアドレスを入力してください。",
+        "passwordTooShort": "パスワードは6文字以上である必要があります。",
+        "generic": "認証中にエラーが発生しました。もう一度お試しください。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "ホーム",
+    "search": "検索",
+    "settings": "設定"
+  },
+  "home": {
+    "noTrackedFlights": "追跡中のフライトはありません",
+    "addFlightHint": "検索タブからフライトを追加してください",
+    "trackedFlights": "追跡中のフライト"
+  },
+  "flight": {
+    "terminal": "ターミナル",
+    "gate": "ゲート",
+    "delay": "{minutes}分遅延",
+    "track": "追跡する",
+    "untrack": "追跡解除",
+    "status": {
+      "scheduled": "定刻",
+      "active": "飛行中",
+      "landed": "到着済み",
+      "delayed": "遅延",
+      "cancelled": "欠航",
+      "unknown": "不明"
+    }
+  },
+  "search": {
+    "title": "フライトを検索",
+    "description": "フライト番号と日付でフライトを検索します。",
+    "form": {
+      "flightNumberPlaceholder": "フライト番号 (例: NH123)",
+      "datePlaceholder": "日付 (YYYY-MM-DD)",
+      "searchButton": "検索",
+      "error": {
+        "emptyFlightNumber": "フライト番号を入力してください。",
+        "invalidDate": "有効な日付 (YYYY-MM-DD) を入力してください。"
+      }
+    },
+    "flightSelected": {
+      "title": "フライトが選択されました",
+      "message": "{airline}のフライト {flightNumber} が選択されました。"
+    }
+  },
+  "flight.list": {
+    "loading": "フライト情報を読み込み中...",
+    "error": {
+      "generic": "フライト情報の取得中にエラーが発生しました。"
+    },
+    "noResults": "フライトが見つかりませんでした。"
+  },
+  "settings": {
+    "title": "設定",
+    "darkMode": "ダークモード",
+    "language": "言語",
+    "currentLanguage": "日本語",
+    "selectLanguage": "言語を選択",
+    "subscription": "サブスクリプション",
+    "manageSubscription": "サブスクリプションを管理",
+    "languageRestart": "言語設定を適用するにはアプリの再起動が必要です。"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "キャンセル"
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "heading": "この画面は存在しません。",
+    "goHome": "ホーム画面へ戻る"
+  }
+}

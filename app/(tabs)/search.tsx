@@ -5,9 +5,9 @@ import { useTheme } from '@/components/ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { FlightSearchForm } from '@/components/flight-search-form';
 import { FlightList } from '@/components/flight-list';
-import { searchFlights } from '@/src/lib/flightService';
-import { type FlightInfo } from '@/src/types/flight';
-import { useRouter } from 'expo-router'; // Import useRouter
+import { searchFlights } from '@/lib/flightService';
+import { type FlightInfo } from '@/types/flight'; // Corrected import path for FlightInfo
+import { useRouter } from 'expo-router';
 
 export default function TabSearchScreen(): JSX.Element {
   const { theme } = useTheme();
@@ -102,3 +102,5 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     secondaryText: '#6B7280',
   };
 }
+
+

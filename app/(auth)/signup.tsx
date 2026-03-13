@@ -4,7 +4,7 @@ import { t } from '@/i18n';
 import { useTheme } from '@/components/ThemeProvider';
 import { AuthForm } from '@/components/AuthForm';
 import { type ColorScheme } from '@/types/theme';
-import { signup } from '@/src/lib/actions/auth'; // Corrected import path to src/lib/actions/auth
+import { signup } from '@/lib/actions/auth'; // Corrected import path to src/lib/actions/auth
 
 export default function SignUpScreen(): JSX.Element {
   const { theme } = useTheme();
@@ -81,3 +81,4 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     link: '#007AFF',
   };
 }
+

@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { t } from '@/i18n';
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
+import { format } from 'date-fns'; // Import format from date-fns
 
 interface FlightSearchFormProps {
   onSearch: (flightNumber: string, flightDate: string) => Promise<void>;
@@ -15,7 +16,7 @@ export function FlightSearchForm({ onSearch, isLoading }: FlightSearchFormProps)
   const colors = getColors(theme);
   const [flightNumber, setFlightNumber] = useState<string>('');
   const [flightDate, setFlightDate] = useState<string>(
-    new Date().toISOString().split('T')[0] // Default to today's date YYYY-MM-DD
+    format(new Date(), 'yyyy-MM-dd') // Default to today's date YYYY-MM-DD using date-fns
   );
   const [error, setError] = useState<string | null>(null);
 

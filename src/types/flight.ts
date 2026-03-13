@@ -1,49 +1,42 @@
 // src/types/flight.ts
-export type FlightStatus =
+export type FlightStatusType =
   | 'scheduled'
   | 'active'
   | 'landed'
   | 'cancelled'
-  | 'incident'
+  | 'delayed'
   | 'diverted'
-  | 'delayed';
+  | 'unknown';
+
+export interface AirportInfo {
+  airport: string;
+  iata: string;
+  terminal: string | null;
+  gate: string | null;
+  delay: number | null; // Delay in minutes
+  scheduled: string; // ISO 8601 UTC string
+  estimated: string; // ISO 8601 UTC string
+  actual: string | null; // ISO 8601 UTC string
+}
 
 export interface FlightInfo {
   flightIata: string;
   flightNumber: string;
-  flightDate: string; // YYYY-MM-DD
   airlineName: string;
-  status: FlightStatus;
-  departure: {
-    airport: string;
-    iata: string;
-    scheduled: string; // UTC ISO string
-    estimated: string; // UTC ISO string
-    actual: string | null; // UTC ISO string
-    delay: number | null; // minutes
-    terminal: string | null;
-    gate: string | null;
-  };
-  arrival: {
-    airport: string;
-    iata: string;
-    scheduled: string; // UTC ISO string
-    estimated: string; // UTC ISO string
-    actual: string | null; // UTC ISO string
-    delay: number | null; // minutes
-    terminal: string | null;
-    gate: string | null;
-    baggage: string | null;
-  };
+  airlineIata: string;
+  flightDate: string; // YYYY-MM-DD
+  status: FlightStatusType;
+  departure: AirportInfo;
+  arrival: AirportInfo;
 }
 
-// Constitution (Project Rules) 第8条2項 カラーシステムに準拠
-export const STATUS_COLORS: Record<FlightStatus, string> = {
-  scheduled: '#22D3EE', // シアン
-  active: '#34D399',    // エメラルド
-  landed: '#6B7280',    // グレー
-  cancelled: '#6B7280', // グレー
-  incident: '#EF4444',  // 赤 (緊急事態のため例外的に赤を許可)
-  diverted: '#F59E0B',  // アンバー
-  delayed: '#F59E0B',   // アンバー
+export const STATUS_COLORS: Record<FlightStatusType, string> = {
+  scheduled: '#22D3EE', // Cyan
+  active: '#34D399', // Emerald
+  landed: '#6B7280', // Gray
+  cancelled: '#6B7280', // Gray (not red as per spec)
+  delayed: '#F59E0B', // Amber
+  diverted: '#F59E0B', // Amber
+  unknown: '#6B7280', // Gray
 };
+

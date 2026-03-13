@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { t, isRTL } from '@/i18n';
+// import { t, isRTL } from '@/i18n'; // Replaced by next-intl
 import { useTheme } from './ThemeProvider';
 import { type ColorScheme } from '@/types/theme';
 import { type FlightInfo, STATUS_COLORS } from '@/types/flight';
 import { formatInTimeZone } from 'date-fns-tz';
 import { parseISO } from 'date-fns';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { useTranslations } from 'next-intl'; // Import useTranslations
+import { useLocale } from 'next-intl'; // Import useLocale for RTL
 
 interface FlightListProps {
   flights: FlightInfo[];
@@ -19,13 +21,18 @@ interface FlightListProps {
 export function FlightList({ flights, isLoading, error, onSelectFlight }: FlightListProps): JSX.Element {
   const { theme } = useTheme();
   const colors = getColors(theme);
-  const direction = isRTL() ? 'rtl' : 'ltr';
+
+  // Use next-intl hooks for translations and locale
+  const t = useTranslations(['flight', 'home']); // Specify namespaces
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const direction = isRTL ? 'rtl' : 'ltr';
 
   if (isLoading) {
     return (
       <View style={[styles.centeredContainer, { backgroundColor: colors.background }]}>
         <ActivityIndicator size="large" color={colors.primary} />
-        <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('flight.list.loading')}</Text>
+        <Text style={[styles.loadingText, { color: colors.secondaryText }]}>{t('list.loading')}</Text>
       </View>
     );
   }
@@ -35,7 +42,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
       <View style={[styles.centeredContainer, { backgroundColor: colors.background }]}>
         <MaterialCommunityIcons name="alert-circle-outline" size={48} color={colors.error} />
         <Text style={[styles.errorText, { color: colors.error }]}>{error}</Text>
-        <Text style={[styles.errorDetailText, { color: colors.secondaryText }]}>{t('flight.list.error.generic')}</Text>
+        <Text style={[styles.errorDetailText, { color: colors.secondaryText }]}>{t('list.error.generic')}</Text>
       </View>
     );
   }
@@ -44,7 +51,7 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
     return (
       <View style={[styles.centeredContainer, { backgroundColor: colors.background }]}>
         <MaterialCommunityIcons name="airplane-off" size={48} color={colors.secondaryText} />
-        <Text style={[styles.noResultsText, { color: colors.secondaryText }]}>{t('flight.list.noResults')}</Text>
+        <Text style={[styles.noResultsText, { color: colors.secondaryText }]}>{t('list.noResults')}</Text>
       </View>
     );
   }
@@ -80,9 +87,9 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
           </View>
 
           <View style={[styles.statusRow, { flexDirection: direction === 'rtl' ? 'row-reverse' : 'row' }]}>
-            <View style={[styles.statusIndicator, { backgroundColor: statusColor }]} />
+            <View style={[styles.statusIndicator, { backgroundColor: statusColor, marginRight: direction === 'rtl' ? 0 : 8, marginLeft: direction === 'rtl' ? 8 : 0 }]} />
             <Text style={[styles.statusText, { color: statusColor, textAlign: direction === 'rtl' ? 'right' : 'left' }]}>
-              {t(`flight.status.${item.status}`)}
+              {t(`status.${item.status}`)}
             </Text>
           </View>
 
@@ -112,9 +119,9 @@ export function FlightList({ flights, isLoading, error, onSelectFlight }: Flight
           </View>
           {item.departure.delay && item.departure.delay > 0 && (
             <View style={[styles.delayRow, { flexDirection: direction === 'rtl' ? 'row-reverse' : 'row' }]}>
-              <MaterialCommunityIcons name="clock-alert-outline" size={16} color={STATUS_COLORS.delayed} />
+              <MaterialCommunityIcons name="clock-alert-outline" size={16} color={STATUS_COLORS.delayed} style={{ marginRight: direction === 'rtl' ? 0 : 5, marginLeft: direction === 'rtl' ? 5 : 0 }} />
               <Text style={[styles.delayText, { color: STATUS_COLORS.delayed, textAlign: direction === 'rtl' ? 'right' : 'left' }]}>
-                {t('flight.status.delayedBy', { minutes: item.departure.delay.toString() })}
+                {t('delay', { minutes: item.departure.delay.toString() })}
               </Text>
             </View>
           )}
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    marginRight: 8,
+    // marginRight: 8, // Adjusted inline for RTL
   },
   statusText: {
     fontSize: 14,
@@ -239,7 +246,7 @@ const styles = StyleSheet.create({
   delayText: {
     fontSize: 14,
     fontWeight: '500',
-    marginLeft: 5,
+    // marginLeft: 5, // Adjusted inline for RTL
   },
 });
 
@@ -276,4 +283,3 @@ function getColors(theme: ColorScheme): {
     error: '#EF4444',
   };
 }
-

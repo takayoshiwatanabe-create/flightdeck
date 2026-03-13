@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "Get flight info faster than official announcements",
+    "loginPrompt": "Login",
+    "signupPrompt": "Sign Up",
+    "guestPrompt": "Continue as Guest"
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "button": "Login"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "hasAccount": "Already have an account?",
+      "login": "Login",
+      "button": "Sign Up"
+    },
+    "form": {
+      "emailPlaceholder": "Email",
+      "passwordPlaceholder": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "loading": "Processing...",
+      "or": "OR",
+      "googleLogin": "Login with Google",
+      "error": {
+        "emptyFields": "Please enter both email and password.",
+        "invalidEmail": "Please enter a valid email address.",
+        "passwordTooShort": "Password must be at least 6 characters long.",
+        "generic": "An error occurred during authentication. Please try again."
+      }
+    }
+  },
+  "tabs": {
+    "home": "Home",
+    "search": "Search",
+    "settings": "Settings"
+  },
+  "home": {
+    "noTrackedFlights": "No tracked flights",
+    "addFlightHint": "Add flights from the search tab",
+    "trackedFlights": "Tracked Flights"
+  },
+  "flight": {
+    "terminal": "Terminal",
+    "gate": "Gate",
+    "delay": "Delayed by {minutes} min",
+    "track": "Track",
+    "untrack": "Untrack",
+    "status": {
+      "scheduled": "Scheduled",
+      "active": "Boarding",
+      "landed": "Landed",
+      "delayed": "Delayed",
+      "cancelled": "Cancelled",
+      "unknown": "Unknown"
+    }
+  },
+  "search": {
+    "title": "Search Flights",
+    "description": "Search for flights by flight number and date.",
+    "form": {
+      "flightNumberPlaceholder": "Flight Number (e.g., NH123)",
+      "datePlaceholder": "Date (YYYY-MM-DD)",
+      "searchButton": "Search",
+      "error": {
+        "emptyFlightNumber": "Please enter a flight number.",
+        "invalidDate": "Please enter a valid date (YYYY-MM-DD)."
+      }
+    },
+    "flightSelected": {
+      "title": "Flight Selected",
+      "message": "Flight {flightNumber} by {airline} has been selected."
+    }
+  },
+  "flight.list": {
+    "loading": "Loading flight information...",
+    "error": {
+      "generic": "An error occurred while fetching flight information."
+    },
+    "noResults": "No flights found."
+  },
+  "settings": {
+    "title": "Settings",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "currentLanguage": "English",
+    "selectLanguage": "Select Language",
+    "subscription": "Subscription",
+    "manageSubscription": "Manage Subscription",
+    "languageRestart": "App restart is required for language changes to take full effect."
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "heading": "This screen doesn't exist.",
+    "goHome": "Go to home screen"
+  }
+}

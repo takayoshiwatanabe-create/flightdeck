@@ -1,0 +1,106 @@
+{
+  "app": {
+    "title": "FlightDeck",
+    "tagline": "比航空公司官方公告更快获取航班信息",
+    "loginPrompt": "登录",
+    "signupPrompt": "注册",
+    "guestPrompt": "以访客身份继续"
+  },
+  "auth": {
+    "login": {
+      "title": "登录",
+      "noAccount": "没有账号？",
+      "signUp": "注册",
+      "button": "登录"
+    },
+    "signup": {
+      "title": "注册",
+      "hasAccount": "已有账号？",
+      "login": "登录",
+      "button": "注册"
+    },
+    "form": {
+      "emailPlaceholder": "电子邮件",
+      "passwordPlaceholder": "密码",
+      "showPassword": "显示密码",
+      "hidePassword": "隐藏密码",
+      "loading": "处理中...",
+      "or": "或",
+      "googleLogin": "使用 Google 登录",
+      "error": {
+        "emptyFields": "请输入电子邮件和密码。",
+        "invalidEmail": "请输入有效的电子邮件地址。",
+        "passwordTooShort": "密码长度至少为6个字符。",
+        "generic": "身份验证过程中发生错误。请重试。"
+      }
+    }
+  },
+  "tabs": {
+    "home": "主页",
+    "search": "搜索",
+    "settings": "设置"
+  },
+  "home": {
+    "noTrackedFlights": "没有追踪的航班",
+    "addFlightHint": "从搜索选项卡添加航班",
+    "trackedFlights": "已追踪航班"
+  },
+  "flight": {
+    "terminal": "航站楼",
+    "gate": "登机口",
+    "delay": "延误 {minutes} 分钟",
+    "track": "追踪",
+    "untrack": "取消追踪",
+    "status": {
+      "scheduled": "计划",
+      "active": "飞行中",
+      "landed": "已降落",
+      "delayed": "延误",
+      "cancelled": "取消",
+      "unknown": "未知"
+    }
+  },
+  "search": {
+    "title": "搜索航班",
+    "description": "按航班号和日期搜索航班。",
+    "form": {
+      "flightNumberPlaceholder": "航班号 (例如: NH123)",
+      "datePlaceholder": "日期 (YYYY-MM-DD)",
+      "searchButton": "搜索",
+      "error": {
+        "emptyFlightNumber": "请输入航班号。",
+        "invalidDate": "请输入有效的日期 (YYYY-MM-DD)。"
+      }
+    },
+    "flightSelected": {
+      "title": "航班已选择",
+      "message": "{airline} 的航班 {flightNumber} 已选择。"
+    }
+  },
+  "flight.list": {
+    "loading": "正在加载航班信息...",
+    "error": {
+      "generic": "获取航班信息时发生错误。"
+    },
+    "noResults": "未找到航班。"
+  },
+  "settings": {
+    "title": "设置",
+    "darkMode": "深色模式",
+    "language": "语言",
+    "currentLanguage": "简体中文",
+    "selectLanguage": "选择语言",
+    "subscription": "订阅",
+    "manageSubscription": "管理订阅",
+    "languageRestart": "语言更改需要重启应用程序才能完全生效。"
+  },
+  "common": {
+    "ok": "确定",
+    "cancel": "取消"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "heading": "此屏幕不存在。",
+    "goHome": "返回主屏幕"
+  }
+}

@@ -1,5 +1,4 @@
-import type { FlightInfo, FlightStatusType } from '../types/flight';
-import { getFlightStatus, type FlightData } from './aviationstack';
+import type { FlightInfo, FlightStatusType } from '@/src/types/flight'; // Corrected import path for FlightInfo
 
 /**
  * Mock flight data for development.
@@ -155,119 +154,35 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-/**
- * Maps Aviationstack FlightData to our internal FlightInfo type.
- * @param data Aviationstack FlightData object.
- * @returns Mapped FlightInfo object.
- */
-function mapAviationstackToFlightInfo(data: FlightData): FlightInfo {
-  // Map Aviationstack status to our FlightStatusType, handling potential mismatches
-  let status: FlightStatusType;
-  switch (data.flight_status) {
-    case 'scheduled':
-    case 'active':
-    case 'landed':
-    case 'cancelled':
-    case 'incident':
-    case 'diverted':
-    case 'delayed':
-      status = data.flight_status as FlightStatusType;
-      break;
-    case 'departed': // Aviationstack specific status, map to 'active'
-      status = 'active';
-      break;
-    default:
-      status = 'scheduled'; // Default to scheduled if unknown
-      console.warn(`Unknown flight status from Aviationstack: ${data.flight_status}. Defaulting to 'scheduled'.`);
-  }
-
-  return {
-    flightIata: data.flight.iata,
-    flightNumber: data.flight.number,
-    airlineName: data.airline.name,
-    airlineIata: data.airline.iata,
-    flightDate: data.flight_date,
-    status: status,
-    departure: {
-      airport: data.departure.airport,
-      iata: data.departure.iata,
-      terminal: data.departure.terminal,
-      gate: data.departure.gate,
-      delay: data.departure.delay,
-      scheduled: data.departure.scheduled,
-      estimated: data.departure.estimated,
-      actual: data.departure.actual,
-    },
-    arrival: {
-      airport: data.arrival.airport,
-      iata: data.arrival.iata,
-      terminal: data.arrival.terminal,
-      gate: data.arrival.gate,
-      delay: data.arrival.delay,
-      scheduled: data.arrival.scheduled,
-      estimated: data.arrival.estimated,
-      actual: data.arrival.actual,
-    },
-  };
-}
-
 /** Search flights by number (mock implementation) */
 export async function searchFlights(
   flightNumber: string,
-  flightDate: string
+  _flightDate: string
 ): Promise<FlightInfo[]> {
-  // In a real application, this would call a Next.js API route
-  // which then calls getFlightStatus from src/lib/aviationstack.ts
-  // For now, we'll use the mock data.
   await delay(800);
 
   const query = flightNumber.toUpperCase().trim();
   if (query.length === 0) return [];
 
-  // Simulate filtering mock data
-  const filteredFlights = MOCK_FLIGHTS.filter(
+  return MOCK_FLIGHTS.filter(
     (f) =>
-      (f.flightIata.toUpperCase().includes(query) ||
-      f.flightNumber.toUpperCase().includes(query) ||
-      f.airlineIata.toUpperCase() === query) &&
-      f.flightDate === flightDate // Filter by date as well
+      f.flightIata.toUpperCase().includes(query) ||
+      f.airlineIata.toUpperCase() === query
   );
-
-  // If no mock flights match, try fetching from Aviationstack (simulated)
-  if (filteredFlights.length === 0) {
-    console.log(`No mock flights found for ${flightNumber} on ${flightDate}. Simulating Aviationstack API call.`);
-    const aviationstackResponse = await getFlightStatus(flightNumber, flightDate);
-    if (aviationstackResponse?.data && aviationstackResponse.data.length > 0) {
-      return aviationstackResponse.data.map(mapAviationstackToFlightInfo);
-    }
-  }
-
-  return filteredFlights;
 }
 
 /** Get flight details by IATA code (mock implementation) */
 export async function getFlightByIata(
   flightIata: string,
-  flightDate: string
+  _flightDate: string
 ): Promise<FlightInfo | null> {
   await delay(400);
 
-  const foundMockFlight = MOCK_FLIGHTS.find(
-    (f) => f.flightIata.toUpperCase() === flightIata.toUpperCase() && f.flightDate === flightDate
+  return (
+    MOCK_FLIGHTS.find(
+      (f) => f.flightIata.toUpperCase() === flightIata.toUpperCase()
+    ) ?? null
   );
-
-  if (foundMockFlight) {
-    return foundMockFlight;
-  }
-
-  // If not found in mock, simulate Aviationstack API call
-  console.log(`No mock flight found for IATA ${flightIata} on ${flightDate}. Simulating Aviationstack API call.`);
-  const aviationstackResponse = await getFlightStatus(flightIata, flightDate); // Assuming flightIata can be used as flight_number for simplicity here
-  if (aviationstackResponse?.data && aviationstackResponse.data.length > 0) {
-    return mapAviationstackToFlightInfo(aviationstackResponse.data[0]);
-  }
-
-  return null;
 }
 
 /** Get status label translation key */

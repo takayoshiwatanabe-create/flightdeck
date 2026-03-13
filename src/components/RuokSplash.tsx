@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, View, Image } from "react-native";
+// import { isRTL } from '@/i18n'; // Replaced by next-intl
+import { useLocale } from 'next-intl'; // Import useLocale
 
 interface Props {
   onFinish: () => void;
@@ -7,6 +9,9 @@ interface Props {
 
 export function RuokSplash({ onFinish }: Props): JSX.Element {
   const opacity = useRef(new Animated.Value(0)).current;
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const direction = isRTL ? 'rtl' : 'ltr'; // Determine text direction
 
   useEffect(() => {
     Animated.sequence([
@@ -25,7 +30,7 @@ export function RuokSplash({ onFinish }: Props): JSX.Element {
   }, [opacity, onFinish]);
 
   return (
-    <View style={styles.overlay}>
+    <View style={[styles.overlay, { direction }]}> {/* Apply direction to overlay */}
       <Animated.Image
         source={require("@/assets/ruok-splash.png")}
         style={[styles.image, { opacity }]}
@@ -48,4 +53,3 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-

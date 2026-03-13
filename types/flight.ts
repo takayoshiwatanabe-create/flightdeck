@@ -1,49 +1,66 @@
-/** Flight status values per spec color system */
+/**
+ * Defines the possible statuses for a flight.
+ * These are based on Aviationstack API documentation.
+ */
 export type FlightStatusType =
-  | 'scheduled'   // 定刻: Cyan #22D3EE
-  | 'active'      // 搭乗中: Emerald #34D399
-  | 'landed'      // 到着済み: Gray #6B7280
-  | 'cancelled'   // 欠航: Gray #6B7280 (NOT red per spec)
+  | 'scheduled'
+  | 'active'
+  | 'landed'
+  | 'cancelled'
+  | 'delayed'
   | 'incident'
   | 'diverted'
-  | 'delayed';    // 遅延: Amber #F59E0B
+  | 'unknown'; // Added 'unknown' to cover all possible API responses
 
-/** Status color mapping per spec section 8.2 */
+/**
+ * Defines the color mapping for different flight statuses.
+ * Colors are based on the project's UX/Design principles (e.g., amber for delay, gray for cancelled).
+ */
 export const STATUS_COLORS: Record<FlightStatusType, string> = {
-  scheduled: '#22D3EE',  // Cyan
-  active: '#34D399',     // Emerald
-  landed: '#6B7280',     // Gray
-  cancelled: '#6B7280',  // Gray (red prohibited)
-  incident: '#F59E0B',   // Amber
-  diverted: '#F59E0B',   // Amber
-  delayed: '#F59E0B',    // Amber
+  scheduled: '#22D3EE', // Cyan
+  active: '#34D399', // Emerald
+  landed: '#6B7280', // Gray
+  cancelled: '#6B7280', // Gray (not red, per spec)
+  delayed: '#F59E0B', // Amber
+  incident: '#EF4444', // Red (for critical incidents)
+  diverted: '#F59E0B', // Amber (similar to delayed)
+  unknown: '#6B7280', // Gray for unknown status
 };
 
+/**
+ * Represents airport information for departure or arrival.
+ */
 export interface AirportInfo {
   airport: string;
   iata: string;
   terminal: string | null;
   gate: string | null;
-  delay: number | null;
-  scheduled: string;
-  estimated: string | null;
-  actual: string | null;
+  delay: number | null; // Delay in minutes
+  scheduled: string; // UTC ISO string
+  estimated: string | null; // UTC ISO string
+  actual: string | null; // UTC ISO string
 }
 
+/**
+ * Represents a single flight's information.
+ */
 export interface FlightInfo {
-  flightIata: string;
-  flightNumber: string;
+  flightIata: string; // e.g., "NH123"
+  flightNumber: string; // e.g., "123"
   airlineName: string;
   airlineIata: string;
-  flightDate: string;
+  flightDate: string; // YYYY-MM-DD format
   status: FlightStatusType;
   departure: AirportInfo;
   arrival: AirportInfo;
 }
 
-/** A flight saved by the user to track */
+/**
+ * Represents a tracked flight stored locally.
+ */
 export interface TrackedFlight {
   flightIata: string;
-  flightDate: string;
-  addedAt: string;
+  flightDate: string; // YYYY-MM-DD
+  trackedAt: string; // ISO string
 }
+

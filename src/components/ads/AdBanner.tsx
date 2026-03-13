@@ -5,6 +5,8 @@ import {
   BannerAdSize,
   TestIds,
 } from 'react-native-google-mobile-ads';
+// import { isRTL } from '@/i18n'; // Replaced by next-intl
+import { useLocale } from 'next-intl'; // Import useLocale
 
 const BANNER_ID: string = __DEV__
   ? TestIds.ADAPTIVE_BANNER
@@ -14,12 +16,16 @@ const BANNER_ID: string = __DEV__
     }) ?? TestIds.ADAPTIVE_BANNER;
 
 export function AdBanner(): JSX.Element {
+  const locale = useLocale();
+  const isRTL = locale === 'ar';
+  const direction = isRTL ? 'rtl' : 'ltr'; // Determine text direction
+
   return (
     <BannerAd
       unitId={BANNER_ID}
       size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
       requestOptions={{ requestNonPersonalizedAdsOnly: false }}
+      style={{ direction }} // Apply direction to the banner ad container
     />
   );
 }
-

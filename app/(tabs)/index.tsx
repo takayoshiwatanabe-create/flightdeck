@@ -178,3 +178,4 @@ function getColors(theme: ColorScheme): {
     border: '#E5E7EB',
   };
 }
+
