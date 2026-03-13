@@ -52,8 +52,10 @@ export default function SubscriptionScreen(): JSX.Element {
       const session = await createStripeCustomerPortalSession();
       if (session?.url) {
         if (Platform.OS === 'web') {
+          // For web, redirect directly to Stripe Customer Portal
           window.location.href = session.url;
         } else {
+          // For native, open in-app browser or external browser
           Alert.alert(t('manageSubscription'), t('redirectingToStripe'), [
             { text: tCommon('ok'), onPress: () => { void Linking.openURL(session.url); console.log('Redirecting to Stripe Customer Portal:', session.url); } }
           ]);
@@ -83,7 +85,8 @@ export default function SubscriptionScreen(): JSX.Element {
         // For native (iOS/Android), use In-App Purchases (IAP) instead of Stripe Checkout direct link.
         // The `createStripeCheckoutSession` action is repurposed here to *initiate* the IAP flow
         // or to get necessary product identifiers from the backend.
-        // Actual IAP implementation (e.g., using expo-in-app-purchases or react-native-iap) would go here.
+        // IMPORTANT: Direct links to external payment systems like Stripe Checkout are NOT allowed by Apple/Google for digital goods.
+        // You MUST use In-App Purchases (IAP) for native apps.
         console.log(`Initiating In-App Purchase for priceId: ${priceId}`);
         Alert.alert(t('subscribe'), t('initiatingPurchase'), [
           { text: tCommon('ok'), onPress: () => { /* Actual IAP logic would be here */ console.log('IAP flow initiated.'); } }
@@ -340,3 +343,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
     };
 }
+

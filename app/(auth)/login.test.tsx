@@ -91,3 +91,4 @@ describe('LoginScreen', () => {
   // This test would be more appropriate for AuthForm.test.tsx.
   // For LoginScreen, we assume AuthForm handles its own loading UI.
 });
+

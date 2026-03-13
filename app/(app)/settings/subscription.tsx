@@ -85,7 +85,6 @@ export default function SubscriptionScreen(): JSX.Element {
         // For native (iOS/Android), use In-App Purchases (IAP) instead of Stripe Checkout direct link.
         // The `createStripeCheckoutSession` action is repurposed here to *initiate* the IAP flow
         // or to get necessary product identifiers from the backend.
-        // Actual IAP implementation (e.g., using expo-in-app-purchases or react-native-iap) would go here.
         // IMPORTANT: Direct links to external payment systems like Stripe Checkout are NOT allowed by Apple/Google for digital goods.
         // You MUST use In-App Purchases (IAP) for native apps.
         console.log(`Initiating In-App Purchase for priceId: ${priceId}`);
@@ -344,3 +343,4 @@ function getColors(theme: ColorScheme): {
     errorText: '#EF4444',
     };
 }
+

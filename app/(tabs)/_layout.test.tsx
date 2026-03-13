@@ -87,3 +87,4 @@ describe('TabLayout', () => {
     expect(tabsContainer.props.screenOptions.tabBarLabelStyle.writingDirection).toBe('ltr');
   });
 });
+

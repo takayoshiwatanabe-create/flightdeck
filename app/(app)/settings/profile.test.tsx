@@ -163,3 +163,4 @@ describe('ProfileScreen', () => {
     expect(mockRouter.back).toHaveBeenCalled();
   });
 });
+

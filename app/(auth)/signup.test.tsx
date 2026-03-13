@@ -84,3 +84,4 @@ describe('SignUpScreen', () => {
 
   // Loading state is assumed to be handled by AuthForm.
 });
+

@@ -66,10 +66,12 @@ export default function TabSearchScreen(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // padding: 20, // Removed padding from container to allow FlightSearchForm to manage its own padding
   },
   resultsContainer: {
     flex: 1,
     width: '100%',
+    // paddingHorizontal: 20, // Added horizontal padding here for consistent layout
   },
   initialMessageContainer: {
     flex: 1,
@@ -104,4 +106,5 @@ function getColors(theme: ColorScheme): { background: string; text: string; seco
     secondaryText: '#6B7280',
   };
 }
+
 
